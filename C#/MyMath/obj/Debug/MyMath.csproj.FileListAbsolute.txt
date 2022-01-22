@@ -1,0 +1,6 @@
+C:\Users\Alexander Berg\Documents\GitHub\MyMath\obj\Debug\MyMath.csproj.AssemblyReference.cache
+C:\Users\Alexander Berg\Documents\GitHub\MyMath\obj\Debug\MyMath.csproj.CoreCompileInputs.cache
+C:\Users\Alexander Berg\Documents\GitHub\MyMath\bin\Debug\MyMath.dll
+C:\Users\Alexander Berg\Documents\GitHub\MyMath\bin\Debug\MyMath.pdb
+C:\Users\Alexander Berg\Documents\GitHub\MyMath\obj\Debug\MyMath.dll
+C:\Users\Alexander Berg\Documents\GitHub\MyMath\obj\Debug\MyMath.pdb

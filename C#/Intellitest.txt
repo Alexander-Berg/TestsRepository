@@ -1,0 +1,82 @@
+***Pex Assume***
+[PexMethod]
+public void Test1(object o) {
+// precondition: o should not be null
+PexAssume.IsNotNull(o);
+...
+}
+
+***non-nullness assumption***
+[PexMethod]
+public void Test2([PexAssumeNotNull] object o)
+// precondition: o should not be null
+{
+...
+}
+
+***Testing Internal Types***
+
+[assembly: InternalsVisibleTo("Microsoft.Pex,
+PublicKey=002400000480000094000000060200000024000052534131000400000100010007d1fa57c4aed9f0a32e84aa0faefd0de9
+e8fd6aec8f87fb03766c834c99921eb23be79ad9d5dcc1dd9ad236132102900b723cf980957fc4e177108fc607774f29e8320e92ea05
+ece4e821c0a5efe8f1645c4c0c93c1ab99285d622caa652c1dfad63d745d6f2de5f17e5eaf0fc4963d261c8a12436518206dc093344d
+5ad293")]
+
+***General Test Structure***
+[Test]
+void MyTest() {
+// data
+ArrayList a = new ArrayList();
+// method sequence
+a.Add(5);
+// assertions
+Assert.IsTrue(a.Count==1);
+Assert.AreEqual(a[0], 5);
+}
+
+***Data Driven Test***
+
+[DataSource(
+@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Projects\MyBank\TestData\AccountsTest.accdb",
+"AddIntegerHelperData"
+)]
+[TestMethod()]
+public void AddIntegerHelper_DataDrivenValues_AllShouldPass()
+{
+var target = new CheckingAccount();
+int x = Convert.ToInt32(TestContext.DataRow["FirstNumber"]);
+int y = Convert.ToInt32(TestContext.DataRow["SecondNumber"]);
+int expected = Convert.ToInt32(TestContext.DataRow["Sum"]);
+int actual = target.AddIntegerHelper(x, y);
+Assert.AreEqual(expected, actual);
+}
+
+***Generated Intellitest***
+
+[TestMethod]
+[PexGeneratedBy(typeof(global::HelloWorldTest))]
+[PexRaisedException(typeof(Exception))]
+public void HelloWorldThrowsException167()
+{
+this.HelloWorld("Hello World!");
+}
+
+***Intellitest HelloWorld***
+
+using System;
+using Microsoft.Pex.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+[TestClass]
+public partial class HelloWorldTest {
+[PexMethod]
+public void HelloWorld([PexAssumeNotNull]string value) {
+if (value.StartsWith("Hello")
+&& value.EndsWith("World!")
+&& value.Contains(" "))
+throw new Exception("found it!");
+}
+}
+
+
+
+
