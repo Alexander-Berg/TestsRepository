@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "1b70deb6-747a-456c-9bde-6cd6494111a1": {
+      "ProjectGuid": "1b70deb6-747a-456c-9bde-6cd6494111a1",
+      "DisplayName": "NativeRooterTest",
+      "ColorIndex": 0
+    },
+    "3944c338-7342-4aa3-acc9-0083f4338c51": {
+      "ProjectGuid": "3944c338-7342-4aa3-acc9-0083f4338c51",
+      "DisplayName": "Project1RootFinder",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
