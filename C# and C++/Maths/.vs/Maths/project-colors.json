@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "9265d043-fa09-4040-b113-e540b06a64ed": {
+      "ProjectGuid": "9265d043-fa09-4040-b113-e540b06a64ed",
+      "DisplayName": "Maths",
+      "ColorIndex": 0
+    },
+    "13267dcf-03d7-4f76-964a-84ab40c9a320": {
+      "ProjectGuid": "13267dcf-03d7-4f76-964a-84ab40c9a320",
+      "DisplayName": "RooterTests",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

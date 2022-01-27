@@ -1,0 +1,9 @@
+﻿  RooterLib.cpp
+C:\Users\Alexander Berg\Documents\GitHub\TestsRepository\C# and C++\RooterLib\RooterLib\RooterLib.cpp(6,13): warning C4273: 'CRooterLib::CRooterLib': inconsistent dll linkage
+C:\Users\Alexander Berg\Documents\GitHub\TestsRepository\C# and C++\RooterLib\RooterLib\RooterLib.h(15,2): message : see previous definition of '{ctor}'
+C:\Users\Alexander Berg\Documents\GitHub\TestsRepository\C# and C++\RooterLib\RooterLib\RooterLib.cpp(10,20): warning C4273: 'CRooterLib::SquareRoot': inconsistent dll linkage
+C:\Users\Alexander Berg\Documents\GitHub\TestsRepository\C# and C++\RooterLib\RooterLib\RooterLib.h(16,9): message : see previous definition of 'SquareRoot'
+C:\Users\Alexander Berg\Documents\GitHub\TestsRepository\C# and C++\RooterLib\RooterLib\RooterLib.cpp(18,1): error C2084: function 'double CRooterLib::SquareRoot(double)' already has a body
+C:\Users\Alexander Berg\Documents\GitHub\TestsRepository\C# and C++\RooterLib\RooterLib\RooterLib.cpp(10): message : see previous definition of 'SquareRoot'
+C:\Users\Alexander Berg\Documents\GitHub\TestsRepository\C# and C++\RooterLib\RooterLib\RooterLib.cpp(25,32): error C4578: 'abs': conversion from 'double' to 'int', possible loss of data (Did you mean to call 'fabs' or to #include <cmath>?)
+C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.Windows.UI.Xaml.Common.targets(486,5): error MSB4181: The "CompileXaml" task returned false but did not log an error.

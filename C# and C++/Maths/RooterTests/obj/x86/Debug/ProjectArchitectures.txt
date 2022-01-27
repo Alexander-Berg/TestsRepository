@@ -1,0 +1,2 @@
+C:\Users\Alexander Berg\Documents\GitHub\TestsRepository\C# and C++\Maths\Maths\Maths.csproj;x86
+C:\Users\Alexander Berg\Documents\GitHub\TestsRepository\C# and C++\Maths\RooterTests\RooterTests.csproj;x86
