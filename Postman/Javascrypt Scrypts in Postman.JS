@@ -272,6 +272,7 @@ postman.setNextRequest(pm.environment.get('next'));
 //Use pm.visualizer.set to specify a template to display response data in the visualizer.
 
 pm.visualizer.set(layout:String, data:Object, options:Object):Function
+
 //layout required
 //Handlebars HTML template string
 //data optional
@@ -290,11 +291,11 @@ pm.visualizer.set(template, {
 pm.getData(callback):Function
 //The callback function accepts two parameters:
 
-error
-Any error detail
-data
-Data passed to the template by pm.visualizer.set
-Example usage:
+//error
+//Any error detail
+//data
+//Data passed to the template by pm.visualizer.set
+//Example usage:
 
 pm.getData(function (error, data) {
   var value = data.res.info;
@@ -328,7 +329,7 @@ pm.expect(assertion:*):Function → Assertion
 
 //Using external libraries
 require(moduleName:String):function → *
-//The require method allows you to use the sandbox built-in library modules. The list of available libraries is listed below with links to the corresponding documentation.
+/*The require method allows you to use the sandbox built-in library modules. The list of available libraries is listed below with links to the corresponding documentation.
 
 ajv
 atob
@@ -337,13 +338,13 @@ chai
 cheerio
 crypto-js
 csv-parse/lib/sync
-//lodash (The built-in _ object v3.10.1 exists in the sandbox by default. Use require to load the latest version.)
+lodash (The built-in _ object v3.10.1 exists in the sandbox by default. Use require to load the latest version.)
 moment
 postman-collection
 tv4
 uuid
 xml2js
-//A number of NodeJS modules are also available to use in the sandbox:
+A number of NodeJS modules are also available to use in the sandbox:
 
 path
 assert
@@ -356,4 +357,4 @@ string-decoder
 stream
 timers
 events
-//In order to use a library, call the require method, pass the module name as a parameter, and assign the return object from the method to a variable.
+In order to use a library, call the require method, pass the module name as a parameter, and assign the return object from the method to a variable/*
