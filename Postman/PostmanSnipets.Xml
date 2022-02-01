@@ -1,0 +1,643 @@
+//Use pm.globals to define a global variable:
+pm.globals.set("variable_key", "variable_value");
+
+//Use pm.collectionVariables to define a collection variable:
+pm.collectionVariables.set("variable_key", "variable_value");
+
+//Use pm.environment to define an environment variable (in the currently selected environment):
+pm.environment.set("variable_key", "variable_value");
+
+//You can use unset to remove a variable:
+pm.environment.unset("variable_key");
+
+//Defining local variables:
+pm.variables.set("variable_key", "variable_value");
+
+//Accessing variables:
+{{username}}
+http://pricey-trilby.glitch.me/customer?id={{cust_id}}
+{ "customer_id" : "{{cust_id}}" }
+
+//Using variables in scripts:
+
+//access a variable at any scope including local
+pm.variables.get("variable_key");
+//access a global variable
+pm.globals.get("variable_key");
+//access a collection variable
+pm.collectionVariables.get("variable_key");
+//access an environment variable
+pm.environment.get("variable_key");
+
+//Logging variables:
+console.log(pm.variables.get("variable_key"));
+
+//Using dynamic variables:
+
+{{$guid}} : A v4 style guid
+{{$timestamp}}: The current timestamp (Unix timestamp in seconds)
+{{$randomInt}}: A random integer between 0 and 1000
+
+//Backup Collections:
+
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "collection": {
+      "id": "/properties/collection",
+      "properties": {},
+      "type": "object"
+    }
+  },
+  "type": "object"
+}
+
+//Monitor Run Results:
+//The following is a schema for monitor run results:
+
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "collection_name": {
+      "id": "/properties/collection_name",
+      "type": "string"
+    },
+    "collection_uid": {
+      "id": "/properties/collection_uid",
+      "type": "string"
+    },
+    "environment_name": {
+      "id": "/properties/environment_name",
+      "type": "string"
+    },
+    "environment_uid": {
+      "id": "/properties/environment_uid",
+      "type": "string"
+    },
+    "metrics": {
+      "id": "/properties/metrics",
+      "properties": {
+        "errors":
+          "id": "/properties/metrics/properties/errors",
+          "type": "integer"
+        },
+        "failedTests": {
+          "id": "/properties/metrics/properties/failedTests",
+          "type": "integer"
+        },
+        "passedTests": {
+          "id": "/properties/metrics/properties/passedTests",
+          "type": "integer"
+        },
+        "requestCount": {
+          "id": "/properties/metrics/properties/requestCount",
+          "type": "integer"
+        },
+        "totalLatency": {
+          "id": "/properties/metrics/properties/totalLatency",
+          "type": "integer"
+        },
+        "warnings": {
+          "id": "/properties/metrics/properties/warnings",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "monitor_name": {
+      "id": "/properties/monitor_name",
+      "type": "string"
+    },
+    "monitor_uid": {
+      "id": "/properties/monitor_uid",
+      "type": "string"
+    },
+    "user_id": {
+      "id": "/properties/user_id",
+      "type": "string"
+    },
+    "user_name": {
+      "id": "/properties/user_name",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}
+
+
+//The following is a schema for Team Activity:
+
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "action": {
+      "id": "/properties/action",
+      "type": "string"
+    },
+    "collection_name": {
+      "id": "/properties/collection_name",
+      "type": "string"
+    },
+    "collection_uid": {
+      "id": "/properties/collection_uid",
+      "type": "string"
+    },
+    "message": {
+      "id": "/properties/message",
+      "type": "string"
+    },
+    "model": {
+      "id": "/properties/model",
+      "type": "string"
+    },
+    "model_name": {
+      "id": "/properties/model_name",
+      "type": "string"
+    },
+    "model_uid": {
+      "id": "/properties/model_uid",
+      "type": "string"
+    },
+    "user_id": {
+      "id": "/properties/user_id",
+      "type": "string"
+    },
+    "user_name": {
+      "id": "/properties/user_name",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}
+
+//The following excerpt demonstrates using the SDK to read a file and parse it into a collection object in JavaScript:
+
+var fs = require('fs'),
+  Collection = require('postman-collection').Collection,
+  myCollection;
+
+myCollection = new Collection(JSON.parse
+  (fs.readFileSync('sample-collection.json').toString()));
+
+console.log(myCollection.toJSON());
+
+//The following example code shows a simplified outline of using the Runtime library in conjunction with the Collection SDK:
+
+runtime = require('postman-runtime');
+var runner = new runtime.Runner();
+
+//Collection object constructed via Collection SDK
+var collection = new sdk.Collection();
+
+runner.run(collection, {
+  data: [],
+  timeout: {
+    request: 30000,
+    script: 5000
+  },
+  iterationCount: 1,
+
+  //other options...
+
+},
+function (err, run) {
+  //Callbacks to execute as the collection runs
+  run.start(callbacks);
+});
+
+//The following simplified code excerpt demonstrates using convert
+// to build a client code snippet from a Request object with the Collection SDK, targeting Node.js:
+
+ var codegen = require('postman-code-generators'),
+  sdk = require('postman-collection'),
+  request = new sdk.Request('https://www.google.com'),
+  language = 'nodejs',
+  variant = 'request',
+  options = {
+    indentCount: 3,
+    indentType: 'Space',
+    trimRequestBody: true,
+    followRedirect: true
+  };
+codegen.convert(language, variant, request, options,
+  function(error, snippet) {
+    if (error) {
+      //  handle error
+    }
+    //  handle snippet..
+});
+
+//You can use the getOptions method to find config options for your target language:
+
+var codegen = require('postman-code-generators'),
+  language = 'nodejs',
+  variant = 'Request';
+
+codegen.getOptions(language, variant, function (error, options) {
+  if (error) {
+    // handle error
+  }
+  console.log(options);
+});
+
+//The getLanguageList method returns available languages your request client code can target:
+
+var codegen = require('postman-code-generators'),
+  supportedCodegens = codegen.getLanguageList();
+  console.log(supportedCodegens);
+
+  Policy json-schema
+
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt909923626743",
+            "Effect": "Allow",
+            "Action": [
+                "apigateway:GET"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+
+//API to pass login credentials to Postman:
+_pm('env.create', 'Spotify', {
+  user_id: 'spotifyuser',
+  authorization: 'Bearer 1234xyzd'
+});
+
+//Use the env.create method to create a new environment:
+_pm('env.create', 'environment_name', {key: value}, runButtonIndex);
+
+//Create a new environment using API keys entered by your user:
+function () {
+  var stagingKey = document.getElementById('staging-key-input').value,
+    productionKey = document.getElementById('production-key-input').value,
+    runButtonIndex = 0,
+    envData = {
+      stagingKey: stagingKey,
+      productionKey: productionKey
+    };
+
+  _pm('env.create', 'API Keys', envData, runButtonIndex);
+}
+
+Use the env.assign method to modify an environment:
+
+_pm('env.assign', 'environment_name', {key: new_value, new_key: value}, preventDefault, runButtonIndex)
+
+//Update an environment's API keys:
+function () {
+  var stagingKey = document.getElementById('staging-key-input').value,
+    productionKey = document.getElementById('production-key-input').value,
+    preventOveride = true;
+    runButtonIndex = 0,
+    envData = {
+      stagingKey: stagingKey,
+      productionKey: productionKey
+    };
+
+  _pm('env.assign', 'API Keys', envData, preventOveride, runButtonIndex);
+}
+
+//Use the env.replace method to replace an entire environment:
+_pm('env.replace', 'environment_name', {key: value}, runButtonIndex)
+
+// Existing environment named 'user_data':
+{
+   auth_token: 'q4yugoiwqu4habddef3897ryq3891s',
+   user_id: '823',
+   session_data: {}
+}
+
+// Replace the 'user_data' environment:
+_pm('env.replace', 'user_data', {});
+
+Using multiple buttons with separate environments:
+_pm('_property.set', 'segregateEnvironments', true);
+
+//Including the index:
+var runButtons = Array.prototype.slice.call(document.getElementsByClassName('postman-run-button')),
+  runButtonIndex = runButtons.indexOf(elem);
+
+//Using the index for jQuery:
+
+var runButtonIndex = $('postman-run-button').index(elem);
+
+//Complex objects and arrays can be handled via:
+
+// set the value
+postman.setEnvironmentVariable('complexObj', JSON.stringify(myComplexObjOrArray, null, 2));
+
+// Fetch the value
+var foo;
+try {
+    foo = JSON.parse(postman.getEnvironmentVariable('complexObj'));
+}
+catch (e) {
+    console.error(e);
+    foo = { __parseError: true };
+}
+if (foo.__parseError) {
+    // handle parse errors here
+}
+
+//Monitoring HTTP response codes:
+
+tests['Request resulted in 200 OK'] = responseCode.code === 200;
+
+//Monitoring latency:
+
+tests['Response latency is acceptable'] = responseTime < 1000;
+// responseTime is in milliseconds
+
+//Logging relevant information:
+
+console.log(JSON.stringify(responseBody, null, 2));
+console.log(JSON.stringify(responseHeaders, null, 2));
+
+//For instance, your example's response body might contain dynamic variables as follows:
+
+{
+    "name": "{{$randomFullName}}",
+    "userName": "{{$randomUserName}}",
+    "location": "{{$randomCity}}",
+    "company": "{{$randomCompanyName}}",
+    "jobTitle": "{{$randomJobTitle}}",
+    "updatedAt": "{{$timestamp}}"
+}
+
+{
+    "name": "Cielo McClure",
+    "userName": "Aurelie.Lockman",
+    "location": "Kubhaven",
+    "company": "Runolfsdottir, Bernhard and Hodkiewicz",
+    "jobTitle": "Direct Branding Liaison",
+    "updatedAt": "1565088856"
+}
+
+//Mock your Collection using the following url:
+
+https://{{mockId}}.mock.pstmn.io/{{mockPath}}
+
+//To specify the request to run next,
+// add the following code on the Tests tab of a request. Replace request_name with the name of the request you want to run next.
+
+postman.setNextRequest("request_name");
+
+//To stop a workflow, add the following code on the Tests tab of a trimRequestBody:
+
+postman.setNextRequest(null);
+
+//get the 'value' field from the data file for this request run
+
+pm.iterationData.get("value")
+
+//For example, a data file such as the one shown below runs 2 iterations, with each iteration using a set of variables.
+
+[{
+    "url": "http://127.0.0.1:5000",
+    "user_id": "1",
+    "id": "1",
+    "token_id": "123123",
+},
+{
+    "url": "http://postman-echo.com",
+    "user_id": "2",
+    "id": "2",
+    "token_id": "899899",
+}]
+
+$ newman run mycollection.json -d data.json
+
+//Here's an example of the CSV file for the above set of variables:
+
+url, user_id, id, token_id
+http://127.0.0.1:5000, 1, 1, 123123123
+http://postman-echo.com, 2, 2, 899899
+
+Example collection with failing tests
+→ Status Code Test
+  GET https://postman-echo.com/status/404 [404 Not Found, 534B, 1551ms]
+  1\. response code is 200
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │        1 │        1 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 1917ms                    │
+├───────────────────────────────────────────────┤
+│ total data received: 14B (approx)             │
+├───────────────────────────────────────────────┤
+│ average response time: 1411ms                 │
+└───────────────────────────────────────────────┘
+
+  #  failure        detail
+
+ 1\.  AssertionFai…  response code is 200
+                    at assertion:1 in test-script
+                    inside "Status Code Test" of "Example Collection with
+                    Failing Tests"
+
+For instance, review this collection:
+
+{
+    "variables": [],
+    "info": {
+        "name": "file-upload",
+        "_postman_id": "9dbfcf22-fdf4-f328-e440-95dbd8e4cfbb",
+        "description": "A set of `POST` requests to upload files as form data fields",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Form data upload",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "var response = JSON.parse(responseBody).files[\"sample-file.txt\"];",
+                            "",
+                            "tests[\"Status code is 200\"] = responseCode.code === 200;",
+                            "tests[\"File was uploaded correctly\"] = /^data:application\\/octet-stream;base64/.test(response);",
+                            ""
+                        ]
+                    }
+                }
+            ],
+            "request": {
+                "url": "https://postman-echo.com/post",
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "file",
+                            "type": "file",
+                            "enabled": true,
+                            "src": "sample-file.txt"
+                        }
+                    ]
+                },
+                "description": "Uploads a file as a form data field to `https://postman-echo.com/post` via a `POST` request."
+            },
+            "response": []
+        }
+    ]
+}
+
+//Newman has been built as a library from the ground up. It can be extended and used in various ways. You can use it as follows in your Node.js code:
+
+var newman = require('newman'); // require Newman in your project
+
+// call newman.run to pass `options` object and wait for callback
+newman.run({
+    collection: require('./sample-collection.json'),
+    reporters: 'cli'
+}, function (err) {
+    if (err) { throw err; }
+    console.log('collection run complete!');
+});
+
+//A custom reporter is a Node module with a name of the form newman-reporter-<name>. To create a custom reporter:
+
+Navigate to a directory of your choice, and create a blank npm package with npm init.
+
+Add an index.js file, that exports a function of the following form:
+
+function (emitter, reporterOptions, collectionRunOptions) {
+  // emitter is is an event emitter that triggers the following events: https://github.com/postmanlabs/newman#newmanrunevents
+  // reporterOptions is an object of the reporter specific options. See usage examples below for more details.
+  // collectionRunOptions is an object of all the collection run options:
+  // https://github.com/postmanlabs/newman#newmanrunoptions-object--callback-function--run-eventemitter
+};
+
+//Scoped reporter packages must be specified with the scope prefix. For instance, if your package name is @myorg/newman-reporter-name, you must specify the reporter with @myorg/name.
+//CLI:
+
+newman run /path/to/collection.json -r myreporter --reporter-myreporter-<option-name> <option-value> # The option is optional
+
+//Programmatically:
+
+var newman = require('newman');
+
+newman.run({
+   collection: '/path/to/collection.json',
+   reporters: 'myreporter',
+   reporter: {
+     myreporter: {
+       'option-name': 'option-value' // this is optional
+     }
+   }
+}, function (err, summary) {
+  if (err) { throw err; }
+  console.info('collection run complete!');
+});
+
+//For example, enter the following in the Tests tab of a request to test if the response status code is 200:
+
+pm.test("Status test", function () {
+    pm.response.to.have.status(200);
+});
+
+//Your code can test the request environment, as in the following example:
+
+pm.test("environment to be production", function () {
+    pm.expect(pm.environment.get("env")).to.equal("production");
+});
+
+
+You can use different syntax variants to write your tests in a way that you find readable, and that suits your application and testing logic.
+
+pm.test("response should be okay to process", function () {
+    pm.response.to.not.be.error;
+    pm.response.to.have.jsonBody("");
+    pm.response.to.not.have.jsonBody("error");
+});
+
+//Your tests can establish validity of request responses using syntax that you tailor to the response data format.
+
+pm.test("response must be valid and have a body", function () {
+     pm.response.to.be.ok;
+     pm.response.to.be.withBody;
+     pm.response.to.be.json;
+});
+
+//To add a new cookie for the domain, select Add Cookie below the domain.
+ //A pre-generated cookie string compliant with HTTP State Management standards is created:
+
+<cookieName>=<cookieValue>; path=/; domain=.domain.com; HttpOnly; Secure; Expires=Tue, 19 Jan 2038 03:14:07 GMT;
+
+//To create a cookie jar, use the pm.cookies.jar() method. This creates an object to contain the cookies and methods for accessing them.
+
+const cookieJar = pm.cookies.jar();
+
+After a cookie jar is created, you can place cookies into it. Set a cookie using the .set() function. It takes a URL, a cookie name and a cookie value:
+
+// create a cookie
+cookieJar.set(URL, cookie name, cookie value, callback(error, cookie));
+
+You can also set a PostmanCookie or its compatible cookie object using the .set() function:
+
+// create a PostmanCookie
+cookieJar.set(URL, { name: cookie name, value: cookie value, httpOnly: true }, callback (error, cookie));
+
+To retrieve a cookie, use the .get() function. The function takes a URL and name of the required cookie. It returns the value of cookie.
+
+// get the created cookie
+cookieJar.get(URL, cookie name, callback(error, cookie));
+
+To get all the cookies for a particular URL that are in the cookie jar, use the .getAll() function. It takes a URL and returns all the cookies for that URL:
+
+// get the created cookies
+cookieJar.getAll(URL, callback(error, cookies));
+
+To delete a cookie, use the .unset() function. It takes a URL and the name of the cookie to be removed:
+
+// Delete the created cookie
+cookieJar.unset(URL , cookie name, callback (error));
+
+// delete the set cookies
+cookieJar.clear(URL, callback (error));
+
+//If you want to test the number conversion SOAP API used in the last section, enter the following XML in the text entry area:
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <NumberToWords xmlns="http://www.dataaccess.com/webservicesserver/">
+      <ubiNum>500</ubiNum>
+    </NumberToWords>
+  </soap:Body>
+</soap:Envelope>
+
+
+
+
+
+
+
+
+  

@@ -1,0 +1,18 @@
+1) Available Postman integrations guide
+
+https://learning.postman.com/docs/integrations/available-integrations/apimatic/
+
+2) Developer Resources
+
+https://learning.postman.com/docs/developer/resources-intro/
+
+OpenAPI 3.0 Security warnings
+
+https://learning.postman.com/docs/api-security/security-warnings/openapi3/
+
+OpenAPI 2.0 warnings
+
+https://learning.postman.com/docs/api-security/security-warnings/openapi2/
+
+
+
