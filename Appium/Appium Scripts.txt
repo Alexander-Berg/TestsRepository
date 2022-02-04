@@ -482,7 +482,653 @@ As a special case, scrollIntoView returns the element that is scrolled into view
 element = find_element(:uiautomator, 'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("WebView").instance(0));')
 element.text # "WebView"
 
+/////////////Example//////////////
+This is a ListView taken from the source XML of an Android App:
+
+<android.widget.ListView index="0" package="io.appium.android.apis" class="android.widget.ListView" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" scrollable="true" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,210][1080,1794]" resource-id="android:id/list" adapter-type="HashMap" adapters="{contentDescription=Animation, title=Animation, intent=Intent { cmp=io.appium.android.apis/.ApiDemos (has extras) }},{contentDescription=Auto Complete, title=Auto Complete, intent=Intent { cmp=io.appium.android.apis/.ApiDemos (has extras) }}, ...}">
+    <android.widget.TextView index="0" package="io.appium.android.apis" class="android.widget.TextView" content-desc="Drag and Drop" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,148][1080,274]" text="Drag and Drop" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="1" package="io.appium.android.apis" class="android.widget.TextView" content-desc="Expandable Lists" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,277][1080,403]" text="Expandable Lists" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="2" package="io.appium.android.apis" class="android.widget.TextView" content-desc="Focus" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,406][1080,532]" text="Focus" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="3" package="io.appium.android.apis" class="android.widget.TextView" content-desc="Gallery" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,535][1080,661]" text="Gallery" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="4" package="io.appium.android.apis" class="android.widget.TextView" content-desc="Game Controller Input" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,664][1080,790]" text="Game Controller Input" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="5" package="io.appium.android.apis" class="android.widget.TextView" content-desc="Grid" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,793][1080,919]" text="Grid" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="6" package="io.appium.android.apis" class="android.widget.TextView" content-desc="Hover Events" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,922][1080,1048]" text="Hover Events" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="7" package="io.appium.android.apis" class="android.widget.TextView" content-desc="ImageButton" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,1051][1080,1177]" text="ImageButton" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="8" package="io.appium.android.apis" class="android.widget.TextView" content-desc="ImageSwitcher" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,1180][1080,1306]" text="ImageSwitcher" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="9" package="io.appium.android.apis" class="android.widget.TextView" content-desc="ImageView" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,1309][1080,1435]" text="ImageView" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="10" package="io.appium.android.apis" class="android.widget.TextView" content-desc="Layout Animation" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,1438][1080,1564]" text="Layout Animation" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="11" package="io.appium.android.apis" class="android.widget.TextView" content-desc="Layouts" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,1567][1080,1693]" text="Layouts" hint="false" resource-id="android:id/text1" />
+    <android.widget.TextView index="12" package="io.appium.android.apis" class="android.widget.TextView" content-desc="Lists" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible="true" bounds="[0,1696][1080,1822]" text="Lists" hint="false" resource-id="android:id/text1" />
+</android.widget.ListView>
+
+The ListView node in the above XML has an attribute called adapters that contains the data that "backs up" the ListView:
+
+{
+    contentDescription = Animation, title = Animation, intent = Intent {
+        cmp = io.appium.android.apis / .ApiDemos(has extras)
+    }
+}, {
+    contentDescription = Auto Complete,
+    title = Auto Complete,
+    intent = Intent {
+        cmp = io.appium.android.apis / .ApiDemos(has extras)
+    }
+}, {
+    contentDescription = Buttons,
+    title = Buttons,
+    intent = Intent {
+        cmp = io.appium.android.apis / .view.Buttons1
+    }
+},
+...
+
+//////These items can be targeted using a datamatcher selector. Here's a code snippet that shows how to locate and click TextClock:
+
+//Javascript example
+driver.findElementById("list")
+  .findElement("-android datamatcher", JSON.stringify({
+    "name": "hasEntry",
+    "args": ["title", "TextClock"]
+  }))
+  .click();
+
+//Python example
+  driver.find_element_by_id('list')
+    .find_element_by_android_data_matcher({
+        name='hasEntry',
+        args=['title', 'TextClock']
+    })
+    .click()
+
+//Ruby example
+    @driver.find_element(:id, 'list')
+  .find_element(:data_matcher, {
+    name: 'hasEntry',
+    args: ['title', 'TextClock']
+  }.to_json)
+  .click
+
+  This Appium selector is equivalent to writing this matcher in Espresso:
+
+  // Espresso code (not Appium code)
+  onData(hasEntry("title", "textClock")
+    .inAdapterView(withId("android:id/list))
+    .perform(click());
+
+    
+//Locating the parent AdapterView is not necessary if the Activity only has one adapter view. In that case, it can be omitted.
+
+/Javascrypt example
+  driver.findElement("-android datamatcher", JSON.stringify({
+      "name": "hasEntry",
+      "args": ["title", "TextClock"]
+    }))
+    .click();
+  
+//Python Example
+driver.find_element_by_android_data_matcher({
+  name='hasEntry',
+  args=['title', 'TextClock']
+}).click()
+
+//Python Example
+@driver.find_element(:data_matcher, {
+  name: 'hasEntry',
+  args: ['title', 'TextClock']
+}.to_json).click
+
+//Examples of JSON matchers with the equivalent Espresso onData matcher
+
+//StartsWith
+//Js
+// 'startsWith' JSON
+{
+  "name": "startsWith",
+  "args": "substr" // if it's a single arg, we don't need args to be an array
+}
+
+//Java
+// Espresso 'startsWith' example
+onData(startsWith("substr"));
+
+//Multiple Matchers
+//Js
+// 'multiple matchers' JSON
+{
+  "name": "allOf",
+  "args": [
+    {"name": "instanceOf", "args": "Map.class"},
+    {"name": "hasEntry", "args": {
+      "name": "equalTo", "args": "STR"
+    }},
+    {"name": "is", "args": "item: 50"}
+  ]
+}
+
+//Java
+// Espresso 'multiple matchers' example
+onData(allOf(is(instanceOf(Map.class)), hasEntry(equalTo("STR"), is("item: 50"))));
+Cursor Matchers
+//Js
+// 'cursor matchers' JSON
+{
+  "name": "is", "args": {
+    "name": "instanceOf", "args": "Cursor.class"
+  },
+  "name": "CursorMatchers.withRowString", "args": [
+    "job_title", {"name": "is", "args": "Barista"}
+  ]
+}
+
+//Java
+// Espresso 'cursor matchers' example
+onData(
+    is(instanceOf(Cursor.class)),
+    CursorMatchers.withRowString("job_title", is("Barista"))
+);
 
 
+//Shell Commands On The Remote Device
+//Java
+Map<String, Object> args = new HashMap<>();
+args.put("command", "echo");
+args.put("args", Lists.newArrayList("arg1", "arg2"));
+String output = driver.executeScript("mobile: shell", args);
+assert output.equals("arg1 arg2");
+
+//JS
+const output = driver.executeScript('mobile: shell', [{
+  command: 'ls',
+  args: ['/sdcard'],
+  }]);
+//PYTHON
+result = driver.execute_script('mobile: shell', {
+  'command': 'echo',
+  'args': ['arg1', 'arg2'],
+  'includeStderr': True,
+  'timeout': 5000
+})
+assert result['stdout'] == 'arg1 arg2'
+
+// javascript
+// set airplane mode
+driver.setNetworkConnection(1)
+
+// set wifi only
+driver.setNetworkConnection(2)
+
+// set data only
+driver.setNetworkConnection(4)
+
+// set wifi and data
+driver.setNetworkConnection(6)
+
+// javascript
+driver.getNetworkConnection().then(function (connectionType) {
+  switch (connectionType) {
+    case 0:
+      // no network connection
+      break;
+    case 1:
+      // airplane mode
+      break;
+    case 2:
+      // wifi
+      break;
+    case 4:
+      // data
+      break;
+    case 6:
+      // wifi and data
+      break;
+  }
+});
+
+////////////////////////Strings Format Normalization//////////////////
+// javascript
+var unorm = require('unorm');
+
+'some ASCII text' === unorm.nfd('some ASCII text');
+unorm.nfd('Adélaïde Hervé') === unorm.nfd(unorm.nfd('Adélaïde Hervé'));
+
+// javascript
+var unorm = require('unorm');
+driver
+  .elementByAccessibilityId('find')
+    .text()
+    .then(function (txt) {
+      unorm.nfd(txt).should.be(unorm.nfd("é Œ ù ḍ"));
+    });
+
+//Finding by text can also require normalization. For instance, if you have a button in an iOS app with the name Найти you may need to normalize the text within the find command.
+
+    // javascript
+    var unorm = require('unorm');
+    driver
+      .findElementByXPath(unorm.nfd("//UIAButton[@name='Найти']"))
+        .should.eventually.exist;
+//One tell-tale sign that the problem is with the encoding of the unicode text is an assertion that fails but reports what look to be the same string:
+
+        AssertionError: expected 'François Gérard' to deeply equal 'François Gérard'
+              + expected - actual
+        
+              +"François Gérard"
+              -"François Gérard"
+// As above, the text received may need to be normalized before asserting on it.
+
+// javascript
+var unorm = require('unorm');
+var testText = unorm.nfd("é Œ ù ḍ");
+driver
+  .elementsByClassName('UIATextField').at(1)
+    .sendKeys(testText)
+    .text()
+    .should.become(testText)
+  .nodeify(done);
+
+//Then tests can pass Unicode text to editable fields using send_keys.
+
+  // javascript
+  var desired = {
+    app: '/path/to/app',
+    deviceName: 'Android Emulator',
+    deviceVersion: '4.4',
+    platformName: 'Android',
+    unicodeKeyboard: true,
+    resetKeyboard: true
+  };
+  var testText = 'é Œ ù ḍ';
+  driver
+    .elementByClassName('android.widget.EditText')
+    .sendKeys(testText)
+    .text()
+    .should.eventually.become(testText)
+    .nodeify(done);
+  
+  //Images Debug
+  # Ruby core
+@driver.update_settings({ getMatchedImageResult: true })
+el = @driver.find_element_by_image 'path/to/img.ong'
+img_el.visual # returns base64 encoded string
+
+self.driver.update_settings({"getMatchedImageResult": True})
+el = self.driver.find_element_by_image('path/to/img.ong')
+el.get_attribute('visual') # returns base64 encoded string
+
+//Grid Node Configuration Example json file
+{
+  "capabilities":
+      [
+        {
+          "browserName": "<e.g._iPhone5_or_iPad4>",
+          "version":"<version_of_iOS_e.g._7.1>",
+          "maxInstances": 1,
+          "platform":"<platform_e.g._MAC_or_ANDROID>"
+        }
+      ],
+  "configuration":
+  {
+    "cleanUpCycle":2000,
+    "timeout":30000,
+    "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
+    "url":"http://<host_name_appium_server_or_ip-address_appium_server>:<appium_port>/wd/hub",
+    "host": "<host_name_appium_server_or_ip-address_appium_server>",
+    "port": <appium_port>,
+    "maxSession": 1,
+    "register": true,
+    "registerCycle": 5000,
+    "hubPort": <grid_port>,
+    "hubHost": "<Grid_host_name_or_grid_ip-address>"
+    "hubProtocol": "<Protocol_of_Grid_defaults_to_http>"
+  }
+}
+
+//Logs Filtering
+Config Examples
+Replace all occurrences of my.magic.app string with the default replacer:
+
+[
+    {
+        "text": "my.magic.app"
+    }
+]
+Replace all occurrences of my.magic.<any char> string with a custom replacer (case insensitive):
+
+[
+    {
+        "pattern": "my\\.magic\\.\\w",
+        "flags": "i",
+        "replacer": "***"
+    }
+]
+Replace all occurrences of my.magic.<any chars> and/or your.magic strings with a custom replacer (case insensitive):
+
+[
+    {
+        "pattern": "my\\.magic\\.\\w+",
+        "flags": "i",
+        "replacer": "***"
+    },
+    {
+        "pattern": "your\\.magic",
+        "flags": "i",
+        "replacer": "***"
+    }
+]
+Cut off all log lines to max 15 chars (advanced):
+
+[
+    {
+        "pattern": "(.{1,15}).*",
+        "flags": "s",
+        "replacer": "$1"
+    }
+]
+
+//Cross-domain iFrame Automation
+Parent:
+
+<html>
+  <head>
+    <script>
+      document.domain = 'site.com';
+    </script>
+  </head>
+  <body>
+    <iframe src="http://shop.site.com" width="200" height="200"></iframe>
+  </body>
+</html>
+Child iFrame:
+
+<html>
+  <head>
+    <script>
+      document.domain = 'site.com';
+    </script>
+  </head>
+  <body>
+    <p>This is an iFrame!</p>
+  </body>
+</html>
+
+//How To Set Up And Customize WebDriverAgent Server
+//This helper class written in Java illustrates the main implementation details wit iproxy:
+public class WDAServer {
+  private static final Logger log = ZLogger.getLog(WDAServer.class.getSimpleName());
+
+  private static final int MAX_REAL_DEVICE_RESTART_RETRIES = 1;
+  private static final Timedelta REAL_DEVICE_RUNNING_TIMEOUT = Timedelta.ofMinutes(4);
+  private static final Timedelta RESTART_TIMEOUT = Timedelta.ofMinutes(1);
+
+  // These settings are needed to properly sign WDA for real device tests
+  // See https://github.com/appium/appium-xcuitest-driver for more details
+  private static final File KEYCHAIN = new File(String.format("%s/%s",
+          System.getProperty("user.home"), "/Library/Keychains/MyKeychain.keychain"));
+  private static final String KEYCHAIN_PASSWORD = "******";
+
+  private static final File IPROXY_EXECUTABLE = new File("/usr/local/bin/iproxy");
+  private static final File XCODEBUILD_EXECUTABLE = new File("/usr/bin/xcodebuild");
+  private static final File WDA_PROJECT =
+          new File("/usr/local/lib/node_modules/appium/node_modules/appium-webdriveragent" +
+                  "/WebDriverAgent.xcodeproj");
+  private static final String WDA_SCHEME = "WebDriverAgentRunner";
+  private static final String WDA_CONFIGURATION = "Debug";
+  private static final File XCODEBUILD_LOG = new File("/usr/local/var/log/appium/build.log");
+  private static final File IPROXY_LOG = new File("/usr/local/var/log/appium/iproxy.log");
+
+  private static final int PORT = 8100;
+  public static final String SERVER_URL = String.format("http://127.0.0.1:%d", PORT);
+
+  private static final String[] IPROXY_CMDLINE = new String[]{
+          IPROXY_EXECUTABLE.getAbsolutePath(),
+          Integer.toString(PORT),
+          Integer.toString(PORT),
+          String.format("> %s 2>&1 &", IPROXY_LOG.getAbsolutePath())
+  };
+
+  private static WDAServer instance = null;
+  private final boolean isRealDevice;
+  private final String deviceId;
+  private final String platformVersion;
+  private int failedRestartRetriesCount = 0;
+
+  private WDAServer() {
+      try {
+          this.isRealDevice = !getIsSimulatorFromConfig(getClass());
+          final String udid;
+          if (isRealDevice) {
+              udid = IOSRealDeviceHelpers.getUDID();
+          } else {
+              udid = IOSSimulatorHelpers.getId();
+          }
+          this.deviceId = udid;
+          this.platformVersion = getPlatformVersionFromConfig(getClass());
+      } catch (Exception e) {
+          throw new RuntimeException(e);
+      }
+      ensureToolsExistence();
+      ensureParentDirExistence();
+  }
+
+  public synchronized static WDAServer getInstance() {
+      if (instance == null) {
+          instance = new WDAServer();
+      }
+      return instance;
+  }
+
+  private boolean waitUntilIsRunning(Timedelta timeout) throws Exception {
+      final URL status = new URL(SERVER_URL + "/status");
+      try {
+          if (timeout.asSeconds() > 5) {
+              log.debug(String.format("Waiting max %s until WDA server starts responding...", timeout));
+          }
+          new UrlChecker().waitUntilAvailable(timeout.asMillis(), TimeUnit.MILLISECONDS, status);
+          return true;
+      } catch (UrlChecker.TimeoutException e) {
+          return false;
+      }
+  }
+
+  private static void ensureParentDirExistence() {
+      if (!XCODEBUILD_LOG.getParentFile().exists()) {
+          if (!XCODEBUILD_LOG.getParentFile().mkdirs()) {
+              throw new IllegalStateException(String.format(
+                      "The script has failed to create '%s' folder for Appium logs. " +
+                              "Please make sure your account has correct access permissions on the parent folder(s)",
+                      XCODEBUILD_LOG.getParentFile().getAbsolutePath()));
+          }
+      }
+  }
+
+  private void ensureToolsExistence() {
+      if (isRealDevice && !IPROXY_EXECUTABLE.exists()) {
+          throw new IllegalStateException(String.format("%s tool is expected to be installed (`npm install -g iproxy`)",
+                  IPROXY_EXECUTABLE.getAbsolutePath()));
+      }
+      if (!XCODEBUILD_EXECUTABLE.exists()) {
+          throw new IllegalStateException(String.format("xcodebuild tool is not detected on the current system at %s",
+                  XCODEBUILD_EXECUTABLE.getAbsolutePath()));
+      }
+      if (!WDA_PROJECT.exists()) {
+          throw new IllegalStateException(String.format("WDA project is expected to exist at %s",
+                  WDA_PROJECT.getAbsolutePath()));
+      }
+  }
+
+  private List<String> generateXcodebuildCmdline() {
+      final List<String> result = new ArrayList<>();
+      result.add(XCODEBUILD_EXECUTABLE.getAbsolutePath());
+      result.add("clean build test");
+      result.add(String.format("-project %s", WDA_PROJECT.getAbsolutePath()));
+      result.add(String.format("-scheme %s", WDA_SCHEME));
+      result.add(String.format("-destination id=%s", deviceId));
+      result.add(String.format("-configuration %s", WDA_CONFIGURATION));
+      result.add(String.format("IPHONEOS_DEPLOYMENT_TARGET=%s", platformVersion));
+      result.add(String.format("> %s 2>&1 &", XCODEBUILD_LOG.getAbsolutePath()));
+      return result;
+  }
+
+  private static List<String> generateKeychainUnlockCmdlines() throws Exception {
+      final List<String> result = new ArrayList<>();
+      result.add(String.format("/usr/bin/security -v list-keychains -s %s", KEYCHAIN.getAbsolutePath()));
+      result.add(String.format("/usr/bin/security -v unlock-keychain -p %s %s",
+              KEYCHAIN_PASSWORD, KEYCHAIN.getAbsolutePath()));
+      result.add(String.format("/usr/bin/security set-keychain-settings -t 3600 %s", KEYCHAIN.getAbsolutePath()));
+      return result;
+  }
+
+  public synchronized void restart() throws Exception {
+      if (isRealDevice && failedRestartRetriesCount >= MAX_REAL_DEVICE_RESTART_RETRIES) {
+          throw new IllegalStateException(String.format(
+                  "WDA server cannot start on the connected device with udid %s after %s retries. " +
+                          "Reboot the device manually and try again", deviceId, MAX_REAL_DEVICE_RESTART_RETRIES));
+      }
+
+      final String hostname = InetAddress.getLocalHost().getHostName();
+      log.info(String.format("Trying to (re)start WDA server on %s:%s...", hostname, PORT));
+      UnixProcessHelpers.killProcessesGracefully(IPROXY_EXECUTABLE.getName(), XCODEBUILD_EXECUTABLE.getName());
+
+      final File scriptFile = File.createTempFile("script", ".sh");
+      try {
+          final List<String> scriptContent = new ArrayList<>();
+          scriptContent.add("#!/bin/bash");
+          if (isRealDevice && isRunningInJenkinsNetwork()) {
+              scriptContent.add(String.join("\n", generateKeychainUnlockCmdlines()));
+          }
+          if (isRealDevice) {
+              scriptContent.add(String.join(" ", IPROXY_CMDLINE));
+          }
+          final String wdaBuildCmdline = String.join(" ", generateXcodebuildCmdline());
+          log.debug(String.format("Building WDA with command line:\n%s\n", wdaBuildCmdline));
+          scriptContent.add(wdaBuildCmdline);
+          try (Writer output = new BufferedWriter(new FileWriter(scriptFile))) {
+              output.write(String.join("\n", scriptContent));
+          }
+          new ProcessBuilder("/bin/chmod", "u+x", scriptFile.getCanonicalPath())
+                  .redirectErrorStream(true).start().waitFor(5, TimeUnit.SECONDS);
+          final ProcessBuilder pb = new ProcessBuilder("/bin/bash", scriptFile.getCanonicalPath());
+          final Map<String, String> env = pb.environment();
+          // This is needed for Jenkins
+          env.put("BUILD_ID", "dontKillMe");
+          // This line is important. If USE_PORT environment variable is not set then WDA
+          // takes port number zero by default and won't accept any incoming requests
+          env.put("USE_PORT", Integer.toString(PORT));
+          log.info(String.format("Waiting max %s for WDA to be (re)started on %s:%s...", RESTART_TIMEOUT.toString(),
+                  hostname, PORT));
+          final Timedelta started = Timedelta.now();
+          pb.redirectErrorStream(true).start().waitFor(RESTART_TIMEOUT.asMillis(), TimeUnit.MILLISECONDS);
+          if (!waitUntilIsRunning(RESTART_TIMEOUT)) {
+              ++failedRestartRetriesCount;
+              throw new IllegalStateException(
+                      String.format("WDA server has failed to start after %s timeout on server '%s'.\n"
+                                      + "Please make sure that iDevice is properly connected and you can build "
+                                      + "WDA manually from XCode.\n"
+                                      + "Xcodebuild logs:\n\n%s\n\n\niproxy logs:\n\n%s\n\n\n",
+                              RESTART_TIMEOUT, hostname,
+                              getLog(XCODEBUILD_LOG).orElse("EMPTY"), getLog(IPROXY_LOG).orElse("EMPTY"))
+              );
+          }
+
+          log.info(String.format("WDA server has been successfully (re)started after %s " +
+                  "and now is listening on %s:%s", Timedelta.now().diff(started).toString(), hostname, PORT));
+      } finally {
+          scriptFile.delete();
+      }
+  }
+
+  public boolean isRunning() throws Exception {
+      if (!isProcessRunning(XCODEBUILD_EXECUTABLE.getName())
+              || (isRealDevice && !isProcessRunning(IPROXY_EXECUTABLE.getName()))) {
+          return false;
+      }
+      return waitUntilIsRunning(isRealDevice ? REAL_DEVICE_RUNNING_TIMEOUT : Timedelta.ofSeconds(3));
+  }
+
+  public Optional<String> getLog(File logFile) {
+      if (logFile.exists()) {
+          try {
+              return Optional.of(new String(Files.readAllBytes(logFile.toPath()), Charset.forName("UTF-8")));
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+      return Optional.empty();
+  }
+}
+
+//One should call this piece of code before to start Appium iOS driver, for example, in setUp method:
+
+   if (!WDAServer.getInstance().isRunning()) {
+       WDAServer.getInstance().restart();
+   }
+
+//It is important to set webDriverAgentUrl capability for Appium driver to let it know that our WDA driver is ready for use:
+
+    capabilities.setCapability("webDriverAgentUrl", WDAServer.SERVER_URL);
+
+  //Appium Event Timing
+  {
+    "<event_type>": [<occurence_timestamp_1>, ...],
+    "commands": [
+        {
+            "cmd": "<command_name>",
+            "startTime": <js_timestamp>,
+            "endTime": <js_timestamp>
+        },
+        ...
+    ]
+}
+
+//Update Device Settings
+POST /session/:sessionId/appium/settings
+
+//Expects a JSON hash of settings, where keys correspond to setting names, and values to the value of the setting.
+
+{
+  settings: {
+   ignoreUnimportantViews : true
+  }
+}
+
+//Retrieve Device Settings
+GET /session/:sessionId/appium/settings
+
+//Returns a JSON hash of all the currently specified settings.
+
+{
+  ignoreUnimportantViews : true
+}
+
+//Memory Collection
+Creating a dump file
+To create a dump file at any given time, add the following command line parameter to node process, which executes the appium.js script:
+
+--heapsnapshot-signal=&lt;signal&gt;
+//where signal can be one of available custom signals, for example SIGUSR2. Then you will be able to
+
+kill -SIGUSR2 &lt;nodePID&gt;
+
+Dump files are created in the same folder where the main Appium script has been executed. They have the .heapsnapshot extension, and can be loaded into the Chrome Inspector for further investigation.
+
+Examples
+# 1. Go to the directory where appium is installed via NPM using one of the two cd command below, depending on appium 
+# is installed globally or locally
+## if your appium is globally installed via NPM with command "npm install -g appium":
+cd "$(npm -g root)/appium/"
+## else if your appium is locally installed via NPM:
+cd "$(npm root)/appium/"
+
+# 2. Start appium server with heapsnapshot signal
+# "&" at the end puts the process at background, so we can continue working on the same terminal
+node --heapsnapshot-signal=SIGUSR2 . &
+
+# 3. Get the PID of previous node process
+pid=$!
+
+# 4. When it's time to dump the heap, issue a SIGUSR2 signal to the PID got above
+kill -SIGUSR2 $pid
+# Then the heap dump file is created in current directory
 
 
+  
