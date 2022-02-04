@@ -1,2 +1,2 @@
 # TestsRepository
-My Code Tests
+My Tests
