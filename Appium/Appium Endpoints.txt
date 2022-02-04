@@ -1,0 +1,276 @@
+//Status
+//Retrieve the servers current status
+GET /status
+//Execute Mobile Command
+//Execute a native mobile command
+GET /status
+//Session
+//Create New Session
+POST /session
+//End the running session
+DELETE /session/:session_id
+//Retrieve the capabilities of the specified session
+GET /session/:session_id
+//Navigate backwards in the browser history, if possible (Web context only)
+POST /session/:session_id/back
+//Take a screenshot of the current viewport/window/page
+GET /session/:session_id/screenshot
+//Get the current application hierarchy XML (app) or page source (web)
+GET /session/:session_id/source
+//Configure the amount of time that a particular type of operation can execute for before they are aborted
+POST /session/:session_id/timeouts
+//Set Implicit Wait Timeout
+//Set the amount of time the driver should wait when searching for elements
+POST /session/:session_id/timeouts/implicit_wait
+//Set Script Timeout
+//Set the amount of time, in milliseconds, that asynchronous scripts executed by execute async are permitted to run before they are aborted (Web context only)
+POST /session/:session_id/timeouts/async_script
+//Get Orientation
+//Get the current device/browser orientation
+GET /session/:session_id/orientation
+//Get/set the current geo location
+GET /session/:session_id/location
+//Get available log types as a list of strings
+GET /session/:session_id/log/types
+//Get the log for a given log type. Log buffer is reset after each request
+POST /session/:session_id/log
+//Log event
+//Store a custom event
+POST /session/:session_id/appium/log_event
+//Device
+//Start Activity
+//Start an Android activity by providing package name and activity name
+POST /session/:session_id/appium/device/start_activity
+//Get the name of the current Android activity
+GET /session/:session_id/appium/device/current_activity
+//Get the name of the current Android package
+GET /session/:session_id/appium/device/current_package
+//Install App
+//Install the given app onto the device
+POST /session/:session_id/appium/device/install_app
+POST /session/:session_id/appium/device/app_installed
+POST /session/:session_id/appium/app/launch
+POST /session/:session_id/appium/app/background
+POST /session/:session_id/appium/app/close
+POST /session/:session_id/appium/app/reset
+POST /session/:session_id/appium/device/remove_app
+POST /session/:session_id/appium/device/activate_app
+POST /session/:session_id/appium/device/terminate_app
+//Get Clipboard
+//Get the content of the system clipboard
+POST /session/:session_id/appium/device/get_clipboard
+POST /session/:session_id/appium/device/set_clipboard
+//Emulate power state
+POST /session/:session_id/appium/device/power_ac
+POST /session/:session_id/appium/device/power_capacity
+//Push/Pull File/folder
+POST /session/:session_id/appium/device/power_capacity
+POST /session/:session_id/appium/device/pull_file
+POST /session/:session_id/appium/device/pull_folder
+//Interactions
+POST /session/:session_id/appium/device/shake
+POST /session/:session_id/appium/device/lock
+POST /session/:session_id/appium/device/unlock
+POST /session/:session_id/appium/device/is_locked
+POST /session/:session_id/appium/device/rotate
+//Keys
+POST /session/:session_id/appium/device/press_keycode
+POST /session/:session_id/appium/device/long_press_keycode
+POST /session/:session_id/appium/device/hide_keyboard
+GET /session/:session_id/appium/device/is_keyboard_shown
+//Network
+POST /session/:session_id/appium/device/toggle_airplane_mode
+POST /session/:session_id/appium/device/toggle_wifi
+POST /session/:session_id/appium/device/toggle_data
+//PerformanceData
+POST /session/:session_id/appium/getPerformanceData
+POST /session/:session_id/appium/performanceData/types
+//ScreenRecording
+POST /session/:session_id/appium/start_recording_screen
+//Elements
+POST /session/:session_id/element
+POST /session/:session_id/elements
+//click
+POST /session/:session_id/element/:element_id/click
+POST /session/:session_id/element/:element_id/value
+POST /session/:session_id/element/:element_id/clear
+//Atributes
+//Text
+GET /session/:session_id/element/:element_id/text
+//Get an element's tag name
+GET /session/:session_id/elements/:element_id/name
+//Get the value of an element's attribute
+GET /session/:session_id/elements/:element_id/attribute/:name
+//Determine if a form or form-like element (checkbox, select, etc...) is selected
+GET /session/:session_id/element/:element_id/selected
+//Determine if an element is currently enabled
+GET /session/:session_id/element/:element_id/enabled
+//Determine if an element is currently displayed
+GET /session/:session_id/element/:element_id/displayed
+//Submit a FORM element
+POST /session/:session_id/element/:element_id/submit
+//Gets the active element of the current session
+'GET'(W3C), 'POST'(JSONWP) /session/:session_id/element/active
+//Test if two element IDs refer to the same element
+GET /session/:session_id/element/:element_id/equals/:other_element_id
+//Get the current context in which Appium is running
+GET /session/:session_id/context
+//Get all the contexts available to automate
+GET /session/:session_id/contexts
+//Set the context being automated
+POST /session/:session_id/context
+//Move the mouse by an offset of the specificed element
+POST /session/:session_id/moveto
+Click any mouse button at the current mouse coordinates
+POST /session/:session_id/click
+//Double-clicks at the current mouse coordinates (set by moveto).
+POST /session/:session_id/doubleClick
+//Click and hold the left mouse button at the current mouse coordinates
+POST /session/:session_id/buttondown
+//Releases the mouse button previously held
+POST /session/:session_id/buttonup
+//Single tap on the touch enabled device
+POST /session/:session_id/touch/click
+//Double tap on the touch screen using finger motion events
+POST /session/:session_id/touch/move
+//Finger down on the screen
+POST /session/:session_id/touch/down
+//Finger up on the screen
+POST /session/:session_id/touch/up
+//Long press on the touch screen using finger motion events
+POST /session/:session_id/touch/longclick
+//Perform a chain or multiple chains of keyboard and pointer (touch, mouse, stylus) actions
+POST /session/:sessionId/actions
+//Change focus to another window (Web context only)
+POST /session/:session_id/window
+//Close the current window (Web context only)
+DELETE /session/:session_id/window
+//Retrieve the current window handle (Web context only)
+GET /session/:session_id/window_handle
+//Retrieve the list of all window handles available to the session (Web context only)
+GET /session/:session_id/window_handles
+//Get the current page title (Web context only)
+GET /session/:session_id/title
+//Get the size of the specified window (Web context only)
+GET /session/:session_id/window/:window_handle/size
+//Execute Script
+//Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame (Web context). Run a native mobile command (Native Context).
+POST /session/:session_id/execute
+//Execute Async Script
+//Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame (Web context only)
+POST /session/:session_id/execute_async
+//Change focus to another frame on the page (Web context only)
+POST /session/:session_id/frame
+//Change focus to the parent context (Web context only)
+GET /session/:session_id/url
+//Navigate to a new URL (Web context) or open an Appium deep link (Native)
+POST /session/:session_id/url
+//Retrieve the URL of the current page (Web context only)
+GET /session/:session_id/url
+//Navigate backwards in the browser history, if possible (Web context only)
+POST /session/:session_id/back
+//Navigate forwards in the browser history, if possible (Web context only)
+POST /session/:session_id/forward
+//Refresh the current page. (Web context only)
+POST /session/:session_id/refresh
+//Retrieve all cookies visible to the current page (Web context only)
+GET /session/:sessionId/cookie
+//Set a cookie (Web context only)
+POST /session/:sessionId/cookie
+//Delete the cookie with the given name (Web context only)
+DELETE /session/:sessionId/cookie/:name
+Delete all cookies visible to current page (Web context only)
+DELETE /session/:sessionId/cookie
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

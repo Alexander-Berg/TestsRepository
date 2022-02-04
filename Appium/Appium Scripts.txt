@@ -1,0 +1,488 @@
+//Running Tests on IOS
+1)Basically, first make sure Appium is running:
+node .
+2)Then script your WebDriver test, sending in the following desired capabilities:
+
+//java
+DesiredCapabilities capabilities = new DesiredCapabilities();
+capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "7.1");
+capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone Simulator");
+capabilities.setCapability(MobileCapabilityType.APP, myApp);
+
+//PYTHON
+{
+    'platformName': 'iOS',
+    'platformVersion': '7.1',
+    'deviceName': 'iPhone Simulator',
+    'app': myApp
+}
+
+3)JS
+{
+    platformName: 'iOS',
+    platformVersion: '7.1',
+    deviceName: 'iPhone Simulator',
+    app: myApp
+}
+n this set of capabilities, myApp must be either:
+
+A local absolute path to your simulator-compiled .app directory or .zip
+A url of a zip file containing your .app package
+A path to one of the sample app relative to the appium install root
+
+1)Running your test app with Appium (Android)
+First, make sure you have one and only one Android emulator or device connected.
+ If you run adb devices, for example, you should see one device connected. 
+ This is the device Appium will use for tests. Of course, to have a device connected, you'll need to have made an Android AVD.
+  If the Android SDK tools are on your path, you can simply run:
+
+2)  emulator -avd <MyAvdName>
+
+And wait for the android emulator to finish launching. Sometimes, for various reasons, adb gets stuck. 
+If it's not showing any connected devices or otherwise failing, you can restart it by running:
+
+  adb kill-server && adb devices
+
+Now, make sure Appium is running:
+
+3)  node .
+
+ Then script your WebDriver test, sending in the following desired capabilities: 
+
+4)//java
+DesiredCapabilities capabilities = new DesiredCapabilities();
+capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "4.4");
+capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
+capabilities.setCapability(MobileCapabilityType.APP, myApp);
+
+//PYTHON
+{
+    'platformName': 'Android',
+    'platformVersion': '4.4',
+    'deviceName': 'Android Emulator',
+    'app': myApp
+}
+
+//JS
+{
+    platformName: 'Android',
+    platformVersion: '4.4',
+    deviceName: 'Android Emulator',
+    app: myApp
+}
+
+/////////////////////////////////////////////
+
+
+   //Desired Copabilities Example
+{
+    "platformName": "iOS",
+    "platformVersion": "11.0",
+    "deviceName": "iPhone 7",
+    "automationName": "XCUITest",
+    "app": "/path/to/my.app"
+}
+
+FULL LIST OF Copabilities:
+https://appium.io/docs/en/writing-running-appium/caps/
+
+
+# raw JSON as an argument
+--default-capabilities '{"app": "myapp.app", "deviceName": "iPhone Simulator"}'
+# or the name of a JSON file
+--default-capabilities /path/to/file.json
+
+//Pseudocode example of tapping with two fingers:
+
+action0 = TouchAction().tap(el)
+action1 = TouchAction().tap(el)
+MultiAction().add(action0).add(action1).perform()
+
+Automating Sliders
+
+iOS
+
+Java
+// java
+// slider values can be string representations of numbers between 0 and 1
+// e.g., "0.1" is 10%, "1.0" is 100%
+WebElement slider =  driver.findElement(By.xpath("//window[1]/slider[1]"));
+slider.sendKeys("0.1");
+
+///////////////////////////////////Image Comparison Example//////////////////////////////
+
+// java
+
+byte[] screenshot = Base64.encodeBase64(driver.getScreenshotAs(OutputType.BYTES));
+FeaturesMatchingResult result = driver
+        .matchImagesFeatures(screenshot, originalImg, new FeaturesMatchingOptions()
+                .withDetectorName(FeatureDetector.ORB)
+                .withGoodMatchesFactor(40)
+                .withMatchFunc(MatchingFunction.BRUTE_FORCE_HAMMING)
+                .withEnabledVisualization());
+assertThat(result.getVisualization().length, is(greaterThan(0)));
+assertThat(result.getCount(), is(greaterThan(0)));
+assertThat(result.getTotalCount(), is(greaterThan(0)));
+assertFalse(result.getPoints1().isEmpty());
+assertNotNull(result.getRect1());
+assertFalse(result.getPoints2().isEmpty());
+assertNotNull(result.getRect2());
+
+# Ruby
+image1 = File.read 'first/image/path.png'
+image2 = File.read 'second/image/path.png'
+
+match_result = @driver.match_images_features first_image: image1, second_image: image2
+assert_equal %w(points1 rect1 points2 rect2 totalCount count), match_result.keys
+
+match_result_visual = @driver.match_images_features first_image: image1, second_image: image2, visualize: true
+assert_equal %w(points1 rect1 points2 rect2 totalCount count visualization), match_result_visual.keys
+File.open('match_result_visual.png', 'wb') { |f| f<< Base64.decode64(match_result_visual['visualization']) }
+assert File.size? 'match_result_visual.png'
+
+//////////////////////////////////Image Occurrences Lookup Examples////////////////////////////////
+
+// java
+
+byte[] screenshot = Base64.encodeBase64(driver.getScreenshotAs(OutputType.BYTES));
+OccurrenceMatchingResult result = driver
+        .findImageOccurrence(screenshot, partialImage, new OccurrenceMatchingOptions()
+                .withEnabledVisualization());
+assertThat(result.getVisualization().length, is(greaterThan(0)));
+assertNotNull(result.getRect());
+
+// Typescript / Javascript
+  /*
+     Typescsript code for occurrence comparison using the template matching algorithm.
+     It detects if an image is contained in another image (called the template).
+     The image must have the same scale and look the same. However, you can add a scaling transformation beforehand.
+
+     official doc:
+     https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
+     OpenCV algorithm doc:
+     https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
+     official sample code:
+     https://github.com/justadudewhohacks/opencv4nodejs/blob/master/examples/templateMatching.js
+
+     You must install opencv4nodejs using the -g option.
+
+     The Javascript client driver webdriverio does not support (in January 2020) the "-image" strategy implemented in the Appium server. You will have more power and understanding while using openCV directly. Since the appium server is in Javascript, you can do all it does with opencv in your test suite.
+
+     The testing framework mocha can be run with typescript to have async/await.
+     You need to run mocha with those options in the right order and with the associated packages installed:
+     NODE_PATH=/path/to/nodejs/lig/node_modules TS_NODE_PROJECT=config/tsconfig_test.json --require ts-node/register --require tsconfig-paths/register
+     You will also need to make a basic config/tsconfig_test.json
+     Note that paths in tsconfig.json does not support absolute paths. Hence, you cannot move the NODE_PATH there.
+  */
+  import * as path from 'path';
+  const cv = require(path.join(process.env.NODE_PATH, 'opencv4nodejs'));
+  const isImagePresent = async () => {
+    /// Take screenshot and read the image
+    const screenImagePath = './appium_screenshot1.png';
+    await driver.saveScreenshot(screenImagePath)
+    const likedImagePath = './occurrence1.png';
+
+    // Load images
+    const originalMatPromise = cv.imreadAsync(screenImagePath);
+    const waldoMatPromise = cv.imreadAsync(likedImagePath);
+    const [originalMat, waldoMat] = await Promise.all([originalMatPromise, waldoMatPromise]);
+
+    // Match template (the brightest locations indicate the highest match)
+    // In the OpenCV doc, the option 5 refers to the algorithm called CV_TM_CCOEFF_NORMED
+    const matched = originalMat.matchTemplate(waldoMat, 5);
+
+    // Use minMaxLoc to locate the highest value (or lower, depending of the type of matching method)
+    const minMax = matched.minMaxLoc();
+    const { maxLoc: { x, y } } = minMax;
+
+    // Draw bounding rectangle
+    originalMat.drawRectangle(
+      new cv.Rect(x, y, waldoMat.cols, waldoMat.rows),
+      new cv.Vec(0, 255, 0),
+      2,
+      cv.LINE_8
+    );
+
+    // Open result in new window
+    // If the image is too big for your screen, you need to write to a file instead.
+    // Check the source of opencv4nodejs for writing an image to a file.
+    cv.imshow('We\'ve found Waldo!', originalMat);
+    await cv.waitKey();
+
+    // then you know if the image was found by comparing the rectangle with a reference rectangle.
+    // the structure minMax contains the property maxVal that gives the quality of the match
+    // 1 is prefect match, but you may get .999. If you extract an image from the screenshot manually,
+    // you will get an image that matches.
+  };
+
+//Ruby
+image1 = File.read 'first/image/path.png'
+image2 = File.read 'partial/image/path.png'
+
+find_result = @driver.find_image_occurrence full_image: image1, partial_image: image2
+assert_equal({ 'rect' => { 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 } }, find_result)
+
+find_result_visual = @driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
+assert_equal %w(rect visualization), find_result_visual.keys
+File.open('find_result_visual.png', 'wb') { |f| f<< Base64.decode64(find_result_visual['visualization']) }
+assert File.size? 'find_result_visual.png'
+
+////////////////////////////////////Image Similarity Calculation////////////////////////////////////
+
+Examples
+// java
+
+byte[] screenshot1 = Base64.encodeBase64(driver.getScreenshotAs(OutputType.BYTES));
+byte[] screenshot2 = Base64.encodeBase64(driver.getScreenshotAs(OutputType.BYTES));
+SimilarityMatchingResult result = driver
+        .getImagesSimilarity(screenshot1, screenshot2, new SimilarityMatchingOptions()
+                .withEnabledVisualization());
+assertThat(result.getVisualization().length, is(greaterThan(0)));
+assertThat(result.getScore(), is(greaterThan(0.0)));
+
+//All the SimilarityMatchingOptions builder methods above contain detailed descriptions in their docstrings.
+
+# Ruby
+image1 = File.read 'first/image/path.png'
+image2 = File.read 'second/image/path.png'
+
+get_images_result = @driver.get_images_similarity first_image: image1, second_image: image2
+assert_equal({ 'score' => 0.891606867313385 }, get_images_result)
+
+get_images_result_visual = @driver.get_images_similarity first_image: image1, second_image: image2, visualize: true
+assert_equal %w(score visualization), get_images_result_visual.keys
+File.open('get_images_result_visual.png', 'wb') { |f| f<< Base64.decode64(get_images_result_visual['visualization']) }
+assert File.size? 'get_images_result_visual.png'
+
+///////////////////////////////////////////////////////IOS Tests Automation/////////////////////////////////////////////////////////
+Use desired capabilities like these to run your test in mobile Safari:
+
+//Java
+DesiredCapabilities capabilities = new DesiredCapabilities();
+capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13.2");
+capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
+capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Safari");
+capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 11");
+ 
+//PYTHON
+{
+  'platformName': 'iOS',
+  'platformVersion': '13.2',
+  'automationName': 'XCUITest',
+  'browserName': 'Safari',
+  'deviceName': 'iPhone 11'
+}
+//JS
+{
+  platformName: 'iOS'
+  , platformVersion: '13.2'
+  , automationName: 'XCUITest'
+  , browserName: 'Safari'
+  , deviceName: 'iPhone 11'
+}
+//Ruby
+{
+  platformName: 'iOS',
+  platformVersion: '13.2',
+  automationName: 'XCUITest',
+  deviceName: 'iPhone 11',
+  browserName: 'Safari'
+}
+
+Running your test
+To configure you test to run against safari simply set the "browserName" to be "Safari".
+
+////Java
+
+# setup the web driver and launch the webview app.
+capabilities = { 'browserName': 'Safari', 'automationName': 'XCUITest' }
+driver = webdriver.Remote('http://localhost:4723/wd/hub', capabilities)
+
+# Navigate to the page and interact with the elements on the guinea-pig page using id.
+driver.get('http://saucelabs.com/test/guinea-pig');
+div = driver.find_element_by_id('i_am_an_id')
+# check the text retrieved matches expected value
+assertEqual('I am a div', div.text)
+
+# populate the comments field by id
+driver.find_element_by_id('comments').send_keys('My comment')
+
+# close the driver
+driver.quit()
+
+////Python
+# setup the web driver and launch the webview app.
+capabilities = { 'browserName': 'Safari', 'automationName': 'XCUITest' }
+driver = webdriver.Remote('http://localhost:4723/wd/hub', capabilities)
+
+# Navigate to the page and interact with the elements on the guinea-pig page using id.
+driver.get('http://saucelabs.com/test/guinea-pig');
+div = driver.find_element_by_id('i_am_an_id')
+# check the text retrieved matches expected value
+assertEqual('I am a div', div.text)
+
+# populate the comments field by id
+driver.find_element_by_id('comments').send_keys('My comment')
+
+# close the driver
+driver.quit()
+
+///////////////////////////////////////////////////////////Android mobile web automation///////////////////////////////////
+
+Capabilities:
+//Java
+DesiredCapabilities capabilities = new DesiredCapabilities();
+capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "9.0");
+capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
+capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UIAutomator2");
+capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+
+
+
+//JS
+{
+  platformName: 'Android'
+  , platformVersion: '9.0'
+  , deviceName: 'Android Emulator'
+  , automationName: 'UIAutomator2'
+  , browserName: 'Chrome'
+};
+
+//RUBY
+{
+  platformName: 'Android',
+  platformVersion: '9.0',
+  deviceName: 'Android Emulator',
+  automationName: 'UIAutomator2',
+  browserName: 'Chrome'
+}
+
+//Python
+{
+  'platformName': 'Android',
+  'platformVersion': '9.0',
+  'deviceName': 'Android Emulator',
+  'automationName': 'UIAutomator2',
+  'browserName': 'Chrome'
+}
+
+
+////Automatically entering the web view context on session start///
+
+//Java
+// assuming we have a set of capabilities
+driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+
+Set<String> contextNames = driver.getContextHandles();
+for (String contextName : contextNames) {
+    System.out.println(contextName); //prints out something like NATIVE_APP \n WEBVIEW_1
+}
+driver.context(contextNames.toArray()[1]); // set context to WEBVIEW_1
+
+//do some web testing
+String myText = driver.findElement(By.cssSelector(".green_button")).click();
+
+driver.context("NATIVE_APP");
+
+// do more native testing if we want
+
+driver.quit();
+
+//Python
+
+# assuming we have an initialized `driver` object for an app
+
+# switch to webview
+webview = driver.contexts.last
+driver.switch_to.context(webview)
+
+# do some webby stuff
+driver.find_element(By.CSS, ".green_button").click
+
+# switch back to native view
+driver.switch_to.context(driver.contexts.first)
+
+# do more native testing if we want
+
+driver.quit()
+
+//JS
+
+// assuming we have an initialized `driver` object for an app
+driver
+    .contexts().then(function (contexts) { // get list of available views. Returns array: ["NATIVE_APP","WEBVIEW_1"]
+        return driver.context(contexts[1]); // choose the webview context
+    })
+
+    // do some web testing
+    .elementsByCss('.green_button').click()
+
+    .context('NATIVE_APP') // leave webview context
+
+    // do more native stuff here if we want
+
+    .quit() // stop webdrivage
+
+//Ruby
+# assuming we have a set of capabilities
+@driver = Appium::Core.for(url: SERVER_URL, desired_capabilities: capabilities).start_driver
+# ruby_lib
+# opts = { caps: capabilities, appium_lib: { custom_url: SERVER_URL }}
+# @driver = Appium::Driver.new(opts, true).start_driver
+
+# I switch to the last context because its always the webview in our case, in other cases you may need to specify a context
+# View the appium logs while running @driver.contexts to figure out which context is the one you want and find the associated ID
+# Then switch to it using @driver.switch_to.context("WEBVIEW_6")
+
+Given(/^I switch to webview$/) do
+    webview = @driver.available_contexts.last
+    @driver.switch_to.context(webview)
+end
+
+Given(/^I switch out of webview$/) do
+    @driver.switch_to.context(@driver.contexts.first)
+end
+
+# Now you can use CSS to select an element inside your webview
+
+And(/^I click a webview button $/) do
+    @driver.find_element(:css, ".green_button").click
+end
+
+//IOS Predicate
+# Ruby example
+text = 'Various uses'
+predicate = "name contains[c] '#{text}' || label contains[c] '#{text}' || value contains[c] '#{text}'"
+element = execute_script(%Q(au.mainApp().getFirstWithPredicate("#{predicate}");))
+
+puts element.name # Buttons, Various uses of UIButton
+
+////////////////////////////////Android uiautomator UiSelector///////////////////////////
+Find the first textview.
+
+# ruby
+first_textview = find_element(:uiautomator, 'new UiSelector().className("android.widget.TextView").instance(0)');
+
+# ruby
+first_text = find_element(:uiautomator, 'new UiSelector().text("Animation")')
+first_text.text # "Animation"
+
+Find the first scrollable element, then find a TextView with the text "Tabs". The "Tabs" element will be scrolled into view.
+
+# ruby
+element = find_element(:uiautomator, 'new UiScrollable(new UiSelector().scrollable(true).instance(0)).getChildByText(new UiSelector().className("android.widget.TextView"), "Tabs")')
+
+As a special case, scrollIntoView returns the element that is scrolled into view. scrollIntoView allows scrolling to any UiSelector.
+
+# ruby
+element = find_element(:uiautomator, 'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("WebView").instance(0));')
+element.text # "WebView"
+
+
+
+
+
