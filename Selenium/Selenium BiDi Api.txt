@@ -1,0 +1,173 @@
+1. Register Basic Auth
+
+A. Java
+Predicate<URI> uriPredicate = uri -> uri.getHost().contains("your-domain.com");
+
+((HasAuthentication) driver).register(uriPredicate, UsernameAndPassword.of("admin", "password"));
+driver.get("https://your-domain.com/login");
+B. Python
+
+C. C#
+NetworkAuthenticationHandler handler = new NetworkAuthenticationHandler()
+{
+    UriMatcher = (d) => d.Host.Contains("your-domain.com"),
+    Credentials = new PasswordCredentials("admin", "password")
+};
+
+INetwork networkInterceptor = driver.Manage().Network;
+networkInterceptor.AddAuthenticationHandler(handler);
+await networkInterceptor.StartMonitoring();
+D. Ruby
+require 'selenium-webdriver'
+
+driver = Selenium::WebDriver.for :chrome
+
+begin
+  driver.devtools.new
+  driver.register(username: 'username', password: 'password')
+  driver.get '<your site url>'
+ensure
+  driver.quit
+end
+E. Javascrypt
+const {Builder} = require('selenium-webdriver');
+
+(async function example() {
+  try {
+    let driver = await new Builder()
+      .forBrowser('chrome')
+      .build();
+
+    const pageCdpConnection = await driver.createCDPConnection('page');
+    await driver.register('username', 'password', pageCdpConnection);
+    await driver.get('https://the-internet.herokuapp.com/basic_auth');
+    await driver.quit();
+  }catch (e){
+    console.log(e)
+  }
+}())
+F. Kotlin
+val uriPredicate = Predicate { uri: URI ->
+    uri.host.contains("your-domain.com")
+}
+(driver as HasAuthentication).register(uriPredicate, UsernameAndPassword.of("admin", "password"))
+driver.get("https://your-domain.com/login")
+
+2. Mutation Observation
+A. Java
+ChromeDriver driver = new ChromeDriver();
+
+AtomicReference<DomMutationEvent> seen = new AtomicReference<>();
+CountDownLatch latch = new CountDownLatch(1);
+((HasLogEvents) driver).onLogEvent(domMutation(mutation -> {
+    seen.set(mutation);
+    latch.countDown();
+}));
+
+driver.get("https://www.google.com");
+WebElement span = driver.findElement(By.cssSelector("span"));
+
+((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute('cheese', 'gouda');", span);
+
+assertThat(latch.await(10, SECONDS), is(true));
+assertThat(seen.get().getAttributeName(), is("cheese"));
+assertThat(seen.get().getCurrentValue(), is("gouda"));
+
+driver.quit();
+  
+B. Python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+
+driver = webdriver.Chrome()
+async with driver.log.mutation_events() as event:
+    pages.load("dynamic.html")
+    driver.find_element(By.ID, "reveal").click()
+    WebDriverWait(driver, 5)\
+        .until(EC.visibility_of(driver.find_element(By.ID, "revealed")))
+
+assert event["attribute_name"] == "style"
+assert event["current_value"] == ""
+assert event["old_value"] == "display:none;"
+
+  
+C. C#
+List<DomMutationData> attributeValueChanges = new List<DomMutationData>();
+DefaultWait<List<DomMutationData>> wait = new DefaultWait<List<DomMutationData>>(attributeValueChanges);
+wait.Timeout = TimeSpan.FromSeconds(3);
+
+IJavaScriptEngine monitor = new JavaScriptEngine(driver);
+monitor.DomMutated += (sender, e) =>
+{
+    attributeValueChanges.Add(e.AttributeData);
+};
+await monitor.StartEventMonitoring();
+
+driver.Navigate().GoToUrl("http://www.google.com");
+IWebElement span = driver.FindElement(By.CssSelector("span"));
+
+await monitor.EnableDomMutationMonitoring();
+((IJavaScriptExecutor) driver).ExecuteScript("arguments[0].setAttribute('cheese', 'gouda');", span);
+
+wait.Until((list) => list.Count > 0);
+Console.WriteLine("Found {0} DOM mutation events", attributeValueChanges.Count);
+foreach(var record in attributeValueChanges)
+{
+    Console.WriteLine("Attribute name: {0}", record.AttributeName);
+    Console.WriteLine("Attribute value: {0}", record.AttributeValue);
+}
+
+await monitor.DisableDomMutationMonitoring();
+  
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :firefox
+begin
+  driver.on_log_event(:mutation) { |mutation| mutations.push(mutation) }
+  driver.navigate.to url_for('dynamic.html')
+  driver.find_element(id: 'reveal').click
+  wait.until { mutations.any? }
+  mutation = mutations.first
+  expect(mutation.element).to eq(driver.find_element(id: 'revealed'))
+  expect(mutation.attribute_name).to eq('style')
+  expect(mutation.current_value).to eq('')
+  expect(mutation.old_value).to eq('display:none;')
+ensure
+  driver.quit
+end
+  
+E. Javascrypt
+const {Builder, until} = require('selenium-webdriver');
+const assert = require("assert");
+
+(async function example() {
+  try {
+    let driver = await new Builder()
+      .forBrowser('chrome')
+      .build();
+
+    const cdpConnection = await driver.createCDPConnection('page');
+    await driver.logMutationEvents(cdpConnection, event => {
+      assert.deepStrictEqual(event['attribute_name'], 'style');
+      assert.deepStrictEqual(event['current_value'], "");
+      assert.deepStrictEqual(event['old_value'], "display:none;");
+    });
+
+    await driver.get('dynamic.html');
+    await driver.findElement({id: 'reveal'}).click();
+    let revealed = driver.findElement({id: 'revealed'});
+    await driver.wait(until.elementIsVisible(revealed), 5000);
+    await driver.quit();
+  }catch (e){
+    console.log(e)
+  }
+}())
+  
+F. Kotlin
+val uriPredicate = Predicate { uri: URI ->
+    uri.host.contains("your-domain.com")
+}
+(driver as HasAuthentication).register(uriPredicate, UsernameAndPassword.of("admin", "password"))
+driver.get("https://your-domain.com/login")
+

@@ -1,0 +1,160 @@
+/////////////////
+1. Code Export
+////////////////
+
+1.1 C# NUnit
+
+To create a new boilerplate project to work with NUnit use the dotnet new command.
+
+dotnet new nunit -n NUnit-Tests --framework netcoreapp2.0
+
+<!-- filename: example.csproj -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="3.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="Selenium.Support" Version="4.0.0-alpha03" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.0.0-alpha03" />
+  </ItemGroup>
+
+</Project>
+
+> dotnet restore example.csproj
+
+/////////////
+1.2 C# xUnit
+////////////
+
+> dotnet new xUnitTests
+
+<!-- filename: example.csproj -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="Selenium.Support" Version="4.0.0-alpha03" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.0.0-alpha03" />
+  </ItemGroup>
+
+</Project>
+
+> dotnet restore example.csproj
+
+///////////////
+1.3 Java JUnit
+//////////////
+
+Here's a sample pom.xml to help you get started.
+
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.seleniumhq.selenium</groupId>
+  <artifactId>selenium-ide-java-code-export</artifactId>
+  <version>1</version>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>4.0.0-alpha-3</version>
+    </dependency>
+  </dependencies>
+</project>
+
+/////////////////
+1.4 JavaScript Mocha
+////////////////
+
+{
+    "dependencies": {
+      "mocha": "^6.1.4",
+      "selenium-webdriver": "^4.0.0-alpha.3"
+    }
+  }
+
+///////////////
+1.5 Python pytest
+//////////////
+
+You should be able to take the exported JavaScript file and run it after installing these dependencies (e.g., with pip3 install).
+
+Here's a sample requirements.txt to help you get started.
+
+pytest == 4.6.3
+selenium == 4.0.0a1
+
+> pip3 install -r ./requirements.txt
+
+///////////////
+1.6 Ruby RSpec
+//////////////
+
+# Gemfile
+source 'https://rubygems.org'
+
+gem 'selenium-webdriver'
+gem 'rspec'
+
+> gem install bunder
+> bundle install
+
+2. Launching the runner
+
+> selenium-side-runner /path/to/your-project.side
+
+3. Running on a different browser locally
+
+selenium-side-runner -c "browserName=chrome"
+selenium-side-runner -c "browserName='internet explorer'"
+selenium-side-runner -c "browserName=edge"
+selenium-side-runner -c "browserName=firefox"
+selenium-side-runner -c "browserName=safari"
+
+4. Output test results to a file
+
+selenium-side-runner --output-directory=results
+# Outputs results in `jest` frormat in `./results/projectName.json'
+selenium-side-runner --output-directory=results --output-format=jest
+# Outputs results in `jest` frormat in `./results/projectName.json'
+selenium-side-runner --output-directory=results --output-format=junit
+# Outputs results in `junit` frormat in `./results/projectName.xml'
+
+5. Specify a default configuration
+
+capabilities:
+  browserName: "firefox"
+baseUrl: "https://www.seleniumhq.org"
+server: "http://localhost:4444/wd/hub"
+
+6. Comand Line runner
+https://www.selenium.dev/selenium-ide/docs/en/introduction/command-line-runner
+
+7. Control Flow
+https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow
+
+8. API Reference Commands
+https://www.selenium.dev/selenium-ide/docs/en/api/commands
+
+9. API Reference Arguments
+https://www.selenium.dev/selenium-ide/docs/en/api/arguments

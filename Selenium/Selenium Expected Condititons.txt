@@ -1,0 +1,110 @@
+static ExpectedCondition<Alert>	alertIsPresent()	 
+static ExpectedCondition<java.lang.Boolean>	and​(ExpectedCondition<?>... conditions)	
+An expectation with the logical and condition of the given list of conditions.
+static ExpectedCondition<java.lang.Boolean>	attributeContains​(By locator, java.lang.String attribute, java.lang.String value)	
+An expectation for checking WebElement with given locator has attribute which contains specific value
+static ExpectedCondition<java.lang.Boolean>	attributeContains​(WebElement element, java.lang.String attribute, java.lang.String value)	
+An expectation for checking WebElement with given locator has attribute which contains specific value
+static ExpectedCondition<java.lang.Boolean>	attributeToBe​(By locator, java.lang.String attribute, java.lang.String value)	
+An expectation for checking WebElement with given locator has attribute with a specific value
+static ExpectedCondition<java.lang.Boolean>	attributeToBe​(WebElement element, java.lang.String attribute, java.lang.String value)	
+An expectation for checking given WebElement has attribute with a specific value
+static ExpectedCondition<java.lang.Boolean>	attributeToBeNotEmpty​(WebElement element, java.lang.String attribute)	
+An expectation for checking WebElement any non empty value for given attribute
+static ExpectedCondition<java.lang.Boolean>	domAttributeToBe​(WebElement element, java.lang.String attribute, java.lang.String value)	
+An expectation for checking given WebElement has DOM attribute with a specific value
+static ExpectedCondition<java.lang.Boolean>	domPropertyToBe​(WebElement element, java.lang.String property, java.lang.String value)	
+An expectation for checking given WebElement has DOM property with a specific value
+static ExpectedCondition<java.lang.Boolean>	elementSelectionStateToBe​(By locator, boolean selected)	 
+static ExpectedCondition<java.lang.Boolean>	elementSelectionStateToBe​(WebElement element, boolean selected)	
+An expectation for checking if the given element is selected.
+static ExpectedCondition<WebElement>	elementToBeClickable​(By locator)	
+An expectation for checking an element is visible and enabled such that you can click it.
+static ExpectedCondition<WebElement>	elementToBeClickable​(WebElement element)	
+An expectation for checking an element is visible and enabled such that you can click it.
+static ExpectedCondition<java.lang.Boolean>	elementToBeSelected​(By locator)	 
+static ExpectedCondition<java.lang.Boolean>	elementToBeSelected​(WebElement element)	
+An expectation for checking if the given element is selected.
+static ExpectedCondition<WebDriver>	frameToBeAvailableAndSwitchToIt​(int frameLocator)	
+An expectation for checking whether the given frame is available to switch to.
+static ExpectedCondition<WebDriver>	frameToBeAvailableAndSwitchToIt​(java.lang.String frameLocator)	
+An expectation for checking whether the given frame is available to switch to.
+static ExpectedCondition<WebDriver>	frameToBeAvailableAndSwitchToIt​(By locator)	
+An expectation for checking whether the given frame is available to switch to.
+static ExpectedCondition<WebDriver>	frameToBeAvailableAndSwitchToIt​(WebElement frameLocator)	
+An expectation for checking whether the given frame is available to switch to.
+static ExpectedCondition<java.lang.Boolean>	invisibilityOf​(WebElement element)	
+An expectation for checking the element to be invisible
+static ExpectedCondition<java.lang.Boolean>	invisibilityOfAllElements​(java.util.List<WebElement> elements)	
+An expectation for checking all elements from given list to be invisible
+static ExpectedCondition<java.lang.Boolean>	invisibilityOfAllElements​(WebElement... elements)	
+An expectation for checking all elements from given list to be invisible
+static ExpectedCondition<java.lang.Boolean>	invisibilityOfElementLocated​(By locator)	
+An expectation for checking that an element is either invisible or not present on the DOM.
+static ExpectedCondition<java.lang.Boolean>	invisibilityOfElementWithText​(By locator, java.lang.String text)	
+An expectation for checking that an element with text is either invisible or not present on the DOM.
+static ExpectedCondition<java.lang.Boolean>	javaScriptThrowsNoExceptions​(java.lang.String javaScript)	
+An expectation to check if js executable.
+static ExpectedCondition<java.lang.Object>	jsReturnsValue​(java.lang.String javaScript)	
+An expectation for String value from javascript
+static ExpectedCondition<java.lang.Boolean>	not​(ExpectedCondition<?> condition)	
+An expectation with the logical opposite condition of the given condition.
+static ExpectedCondition<java.util.List<WebElement>>	numberOfElementsToBe​(By locator, java.lang.Integer number)	
+An expectation for checking number of WebElements with given locator
+static ExpectedCondition<java.util.List<WebElement>>	numberOfElementsToBeLessThan​(By locator, java.lang.Integer number)	
+An expectation for checking number of WebElements with given locator being less than defined number
+static ExpectedCondition<java.util.List<WebElement>>	numberOfElementsToBeMoreThan​(By locator, java.lang.Integer number)	
+An expectation for checking number of WebElements with given locator being more than defined number
+static ExpectedCondition<java.lang.Boolean>	numberOfWindowsToBe​(int expectedNumberOfWindows)	 
+static ExpectedCondition<java.lang.Boolean>	or​(ExpectedCondition<?>... conditions)	
+An expectation with the logical or condition of the given list of conditions.
+static ExpectedCondition<java.util.List<WebElement>>	presenceOfAllElementsLocatedBy​(By locator)	
+An expectation for checking that there is at least one element present on a web page.
+static ExpectedCondition<WebElement>	presenceOfElementLocated​(By locator)	
+An expectation for checking that an element is present on the DOM of a page.
+static ExpectedCondition<WebElement>	presenceOfNestedElementLocatedBy​(By locator, By childLocator)	
+An expectation for checking child WebElement as a part of parent element to present
+static ExpectedCondition<WebElement>	presenceOfNestedElementLocatedBy​(WebElement element, By childLocator)	
+An expectation for checking child WebElement as a part of parent element to be present
+static ExpectedCondition<java.util.List<WebElement>>	presenceOfNestedElementsLocatedBy​(By parent, By childLocator)	
+An expectation for checking child WebElement as a part of parent element to present
+static <T> ExpectedCondition<T>	refreshed​(ExpectedCondition<T> condition)	
+Wrapper for a condition, which allows for elements to update by redrawing.
+static ExpectedCondition<java.lang.Boolean>	stalenessOf​(WebElement element)	
+Wait until an element is no longer attached to the DOM.
+static ExpectedCondition<java.lang.Boolean>	textMatches​(By locator, java.util.regex.Pattern pattern)	
+An expectation for checking WebElement with given locator has text with a value as a part of it
+static ExpectedCondition<java.lang.Boolean>	textToBe​(By locator, java.lang.String value)	
+An expectation for checking WebElement with given locator has specific text
+static ExpectedCondition<java.lang.Boolean>	textToBePresentInElement​(WebElement element, java.lang.String text)	
+An expectation for checking if the given text is present in the specified element.
+static ExpectedCondition<java.lang.Boolean>	textToBePresentInElementLocated​(By locator, java.lang.String text)	
+An expectation for checking if the given text is present in the element that matches the given locator.
+static ExpectedCondition<java.lang.Boolean>	textToBePresentInElementValue​(By locator, java.lang.String text)	
+An expectation for checking if the given text is present in the specified elements value attribute.
+static ExpectedCondition<java.lang.Boolean>	textToBePresentInElementValue​(WebElement element, java.lang.String text)	
+An expectation for checking if the given text is present in the specified elements value attribute.
+static ExpectedCondition<java.lang.Boolean>	titleContains​(java.lang.String title)	
+An expectation for checking that the title contains a case-sensitive substring
+static ExpectedCondition<java.lang.Boolean>	titleIs​(java.lang.String title)	
+An expectation for checking the title of a page.
+static ExpectedCondition<java.lang.Boolean>	urlContains​(java.lang.String fraction)	
+An expectation for the URL of the current page to contain specific text.
+static ExpectedCondition<java.lang.Boolean>	urlMatches​(java.lang.String regex)	
+Expectation for the URL to match a specific regular expression
+static ExpectedCondition<java.lang.Boolean>	urlToBe​(java.lang.String url)	
+An expectation for the URL of the current page to be a specific url.
+static ExpectedCondition<WebElement>	visibilityOf​(WebElement element)	
+An expectation for checking that an element, known to be present on the DOM of a page, is visible.
+static ExpectedCondition<java.util.List<WebElement>>	visibilityOfAllElements​(java.util.List<WebElement> elements)	
+An expectation for checking that all elements present on the web page that match the locator are visible.
+static ExpectedCondition<java.util.List<WebElement>>	visibilityOfAllElements​(WebElement... elements)	
+An expectation for checking that all elements present on the web page that match the locator are visible.
+static ExpectedCondition<java.util.List<WebElement>>	visibilityOfAllElementsLocatedBy​(By locator)	
+An expectation for checking that all elements present on the web page that match the locator are visible.
+static ExpectedCondition<WebElement>	visibilityOfElementLocated​(By locator)	
+An expectation for checking that an element is present on the DOM of a page and visible.
+static ExpectedCondition<java.util.List<WebElement>>	visibilityOfNestedElementsLocatedBy​(By parent, By childLocator)	
+An expectation for checking child WebElement as a part of parent element to be visible
+static ExpectedCondition<java.util.List<WebElement>>	visibilityOfNestedElementsLocatedBy​(WebElement element, By childLocator)	
+An expectation for checking child WebElement as a part of parent element to be visible

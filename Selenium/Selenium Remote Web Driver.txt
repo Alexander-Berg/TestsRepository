@@ -1,0 +1,247 @@
+1. Below is an example of instantiating a remote WebDriver object pointing to our remote web server, www.example.com, running our tests on Firefox
+A. Java
+FirefoxOptions firefoxOptions = new FirefoxOptions();
+WebDriver driver = new RemoteWebDriver(new URL("http://www.example.com"), firefoxOptions);
+driver.get("http://www.google.com");
+driver.quit();
+  
+B. Python
+from selenium import webdriver
+
+firefox_options = webdriver.FirefoxOptions()
+driver = webdriver.Remote(
+    command_executor='http://www.example.com',
+    options=firefox_options
+)
+driver.get("http://www.google.com")
+driver.quit() 
+  
+C. C#
+FirefoxOptions firefoxOptions = new FirefoxOptions();
+IWebDriver driver = new RemoteWebDriver(new Uri("http://www.example.com"), firefoxOptions);
+driver.Navigate().GoToUrl("http://www.google.com");
+driver.Quit();
+ 
+D. Ruby
+require 'selenium-webdriver'
+
+driver = Selenium::WebDriver.for :remote, url: "http://www.example.com", desired_capabilities: :firefox
+driver.get "http://www.google.com"
+driver.close
+  
+E. Javascrypt
+const { Builder, Capabilities } = require("selenium-webdriver");
+var capabilities = Capabilities.firefox();
+(async function helloSelenium() {
+    let driver = new Builder()
+        .usingServer("http://example.com")   
+        .withCapabilities(capabilities)
+        .build();
+    try {
+        await driver.get('http://www.google.com');
+    } finally {
+        await driver.quit();
+    }
+})();  
+  
+
+F. Kotlin
+firefoxOptions = FirefoxOptions()
+driver: WebDriver = new RemoteWebDriver(new URL("http://www.example.com"), firefoxOptions)
+driver.get("http://www.google.com")
+driver.quit()
+
+2. Browser options
+//For example, suppose you wanted to run Chrome on Windows XP, using Chrome version 67:
+
+A. Java
+ChromeOptions chromeOptions = new ChromeOptions();
+chromeOptions.setCapability("browserVersion", "67");
+chromeOptions.setCapability("platformName", "Windows XP");
+WebDriver driver = new RemoteWebDriver(new URL("http://www.example.com"), chromeOptions);
+driver.get("http://www.google.com");
+driver.quit();
+  
+B. Python
+from selenium import webdriver
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.set_capability("browserVersion", "67")
+chrome_options.set_capability("platformName", "Windows XP")
+driver = webdriver.Remote(
+    command_executor='http://www.example.com',
+    options=chrome_options
+)
+driver.get("http://www.google.com")
+driver.quit()  
+  
+C. C#
+var chromeOptions = new ChromeOptions();
+chromeOptions.BrowserVersion = "67";
+chromeOptions.PlatformName = "Windows XP";
+IWebDriver driver = new RemoteWebDriver(new Uri("http://www.example.com"), chromeOptions);
+driver.Navigate().GoToUrl("http://www.google.com");
+driver.Quit();
+  
+D. Ruby
+caps = Selenium::WebDriver::Remote::Capabilities.chrome
+caps.platform = Windows XP
+caps.version = 67
+
+driver = Selenium::WebDriver.for :remote, :url => "http://www.example.com", :desired_capabilities => caps
+  
+E. Javascrypt
+const { Builder } = require("selenium-webdriver");
+const chrome = require("selenium-webdriver/chrome");
+let opts = new chrome.Options();
+opts.setAcceptInsecureCerts(true);
+opts.setBrowserVersion('67');
+opts.setPlatform('Windows XP');
+(async function helloSelenium() {
+    let driver = new Builder()
+        .usingServer("http://example.com")
+        .forBrowser('chrome')
+        .setChromeOptions(opts)
+        .build();
+    try {
+        await driver.get('http://www.google.com');
+    }
+    finally {
+        await driver.quit();
+    }
+})();
+  
+
+F. Kotlin
+val chromeOptions = ChromeOptions()
+chromeOptions.setCapability("browserVersion", "67")
+chromeOptions.setCapability("platformName", "Windows XP")
+val driver: WebDriver = new RemoteWebDriver(new URL("http://www.example.com"), chromeOptions)
+driver.get("http://www.google.com")
+driver.quit()
+  
+3. Local file detector
+//The Local File Detector allows the transfer of files from the client machine to the remote server
+
+A. Java
+driver.setFileDetector(new LocalFileDetector());
+  
+B. Python
+from selenium.webdriver.remote.file_detector import LocalFileDetector
+
+driver.file_detector = LocalFileDetector()
+  
+C. C#
+driver.Navigate().GoToUrl("http://sso.dev.saucelabs.com/test/guinea-file-upload");
+IWebElement upload = driver.FindElement(By.Id("myfile"));
+upload.SendKeys(@"/Users/sso/the/local/path/to/darkbulb.jpg");
+  
+D. Ruby
+@driver.navigate.to "http://sso.dev.saucelabs.com/test/guinea-file-upload"
+    element = @driver.find_element(:id, 'myfile')
+    element.send_keys "/Users/sso/SauceLabs/sauce/hostess/maitred/maitred/public/images/darkbulb.jpg"
+  
+E. Javascrypt
+var remote = require('selenium-webdriver/remote');
+driver.setFileDetector(new remote.FileDetector);  
+  
+F. Kotlin
+driver.get("http://sso.dev.saucelabs.com/test/guinea-file-upload")
+val upload: WebElement = driver.findElement(By.id("myfile"))
+upload.sendKeys("/Users/sso/the/local/path/to/darkbulb.jpg")
+  
+4. Tracing client requests
+A. Java
+//Beta 2 onwards
+//Add the required dependencies
+
+<dependency>
+<groupId>io.opentelemetry</groupId>
+<artifactId>opentelemetry-exporter-jaeger</artifactId>
+<version>1.0.0</version>
+</dependency>
+<dependency>
+<groupId>io.grpc</groupId>
+<artifactId>grpc-netty</artifactId>
+<version>1.35.0</version>
+</dependency>
+
+//Add/pass the required system properties while running the client
+
+System.setProperty("otel.traces.exporter", "jaeger");
+System.setProperty("otel.exporter.jaeger.endpoint", "http://localhost:14250");
+System.setProperty("otel.resource.attributes", "service.name=selenium-java-client");
+
+ImmutableCapabilities capabilities = new ImmutableCapabilities("browserName", "chrome");
+
+WebDriver driver = new RemoteWebDriver(new URL("http://www.example.com"), capabilities);
+
+driver.get("http://www.google.com");
+
+driver.quit();
+
+Selenium Grid ships with support for distributed tracing, backed by
+the OpenTelemetry APIs. This allows admins and devops engineers to
+trace the flow of control through the Grid for each and every command.
+
+To enable this support, you must first provide a "Tracer"
+implementation that should be used. We use OpenTelemtry's own
+mechanisms for selecting the implementations, so if your chosen
+tracing library supports this you should be good to go. If you are
+using the standalone selenium jar, updating the classpath to contain
+your tracer can be done using the `--ext` flag to selenium.
+
+As a worked example, using Jaeger as the tracing library and running
+on macOS or Linux:
+
+```
+  java -jar selenium.jar \
+       --ext $(coursier fetch -p \
+          io.opentelemetry:opentelemetry-exporter-jaeger:0.14.1 \
+          io.grpc:grpc-netty:1.34.1) \
+       standalone
+```
+
+This example uses a tool called "coursier" to generate a full
+classpath, but you can also write this manually. When started this
+way, the selenium server will inform you that it has found a tracer on
+stdout.
+
+However, just making the tracer available is seldom enough. You must
+also configure it to send diagnostics back. In the case of Jaeger,
+this can be done via system properties. Modifying our example:
+
+```
+  java -DJAEGER_SERVICE_NAME="selenium-standalone" \
+       -DJAEGER_AGENT_HOST=localhost \
+       -DJAEGER_AGENT_PORT=14250 \
+       -jar selenium.jar \
+       --ext $(coursier fetch -p \
+          io.opentelemetry:opentelemetry-exporter-jaeger:0.14.1 \
+          io.grpc:grpc-netty:1.34.1) \
+       standalone
+```
+
+You will also need to be running a tracing server somewhere. In the
+case of Jaeger, you can do this using docker to fire up something
+locally:
+
+```
+  docker run --rm -it --name jaeger \
+    -p 16686:16686 \
+    -p 14250:14250 \
+    jaegertracing/all-in-one:1.19.2
+```
+
+Now run some tests, and then point a browser at
+http://localhost:16686/ to view the outputs.
+
+There are other popular tracing libraries that are supported by
+OpenTelemetry, so please check their documentation for more
+information on how to configure them.
+
+More information can be found at:
+
+* OpenTelemetry: https://opentelemetry.io
+* Jaeger: https://www.jaegertracing.io
+* Coursier: https://get-coursier.io

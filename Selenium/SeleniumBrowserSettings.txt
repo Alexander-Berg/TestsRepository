@@ -1,0 +1,2287 @@
+Get browser information 
+//////////////
+1.1 Get title
+/////////////
+A. Java
+driver.getTitle();
+B. Python
+driver.title
+C. C#
+driver.Title;
+D. Ruby
+driver.title
+E. Javascrypt
+await driver.getTitle();
+F. Kotlin
+driver.title
+
+1.2 Get current URL
+
+A. Java
+driver.getCurrentUrl();
+B. Python
+driver.current_url
+C. C#
+driver.Url;
+D. Ruby
+driver.current_url
+E. Javascrypt
+await driver.getCurrentUrl();
+F. Kotlin
+driver.currentUrl
+
+//////////////
+2. Navigate to
+//////////////
+//The first thing you will want to do after launching a browser is to open your website. This can be achieved in a single line:
+
+A. Java
+//Convenient
+driver.get("https://selenium.dev");
+
+//Longer way
+driver.navigate().to("https://selenium.dev");
+  
+B. Python
+driver.get("https://selenium.dev")
+  
+C. C#
+driver.Navigate().GoToUrl(@"https://selenium.dev");
+  
+D. Ruby
+driver.navigate.to 'https://selenium.dev'
+  
+E. Javascrypt
+await driver.get('https://selenium.dev');
+  
+F. Kotlin
+//Convenient
+driver.get("https://selenium.dev")
+
+//Longer way
+driver.navigate().to("https://selenium.dev")
+
+2.1 Back
+//Pressing the browser’s back button:
+
+A. Java
+driver.navigate().back();
+B. Python
+driver.back()
+C. C#
+driver.Navigate().Back();
+D. Ruby
+driver.navigate.back
+E. Javascrypt
+await driver.navigate().back();
+F. Kotlin
+driver.navigate().back()
+
+////////////
+2.2 Forward
+///////////
+//Pressing the browser’s forward button:
+
+A. Java
+driver.navigate().forward();
+B. Python
+driver.forward()
+C. C#
+driver.Navigate().Forward();
+D. Ruby
+driver.navigate.forward
+E. Javascrypt
+await driver.navigate().forward();
+F. Kotlin
+driver.navigate().forward()
+////////////
+2.3 Refresh
+///////////
+//Refresh the current page:
+
+A. Java
+driver.navigate().refresh();
+B. Python
+driver.refresh()
+C. C#
+driver.Navigate().Refresh();
+D. Ruby
+driver.navigate.refresh
+E. Javascrypt
+await driver.navigate().refresh();
+F. Kotlin
+driver.navigate().refresh()
+/////////////
+3. Alerts
+//////////
+A. Java
+//Click the link to activate the alert
+driver.findElement(By.linkText("See an example alert")).click();
+
+//Wait for the alert to be displayed and store it in a variable
+Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+
+//Store the alert text in a variable
+String text = alert.getText();
+
+//Press the OK button
+alert.accept();
+  
+B. Python
+# Click the link to activate the alert
+driver.find_element(By.LINK_TEXT, "See an example alert").click()
+
+# Wait for the alert to be displayed and store it in a variable
+alert = wait.until(expected_conditions.alert_is_present())
+
+# Store the alert text in a variable
+text = alert.text
+
+# Press the OK button
+alert.accept()
+  
+C. C#
+//Click the link to activate the alert
+driver.FindElement(By.LinkText("See an example alert")).Click();
+
+//Wait for the alert to be displayed and store it in a variable
+IAlert alert = wait.Until(ExpectedConditions.AlertIsPresent());
+
+//Store the alert text in a variable
+string text = alert.Text;
+
+//Press the OK button
+alert.Accept();
+  
+D. Ruby
+# Click the link to activate the alert
+driver.find_element(:link_text, 'See an example alert').click
+
+# Store the alert reference in a variable
+alert = driver.switch_to.alert
+
+# Store the alert text in a variable
+alert_text = alert.text
+
+# Press on OK button
+alert.accept
+  
+E. Javascrypt
+//Click the link to activate the alert
+await driver.findElement(By.linkText('See an example alert')).click();
+
+// Wait for the alert to be displayed
+await driver.wait(until.alertIsPresent());
+
+// Store the alert in a variable
+let alert = await driver.switchTo().alert();
+
+//Store the alert text in a variable
+let alertText = await alert.getText();
+
+//Press the OK button
+await alert.accept();
+
+// Note: To use await, the above code should be inside an async function
+  
+
+F. Kotlin
+//Click the link to activate the alert
+driver.findElement(By.linkText("See an example alert")).click()
+
+//Wait for the alert to be displayed and store it in a variable
+val alert = wait.until(ExpectedConditions.alertIsPresent())
+
+//Store the alert text in a variable
+val text = alert.getText()
+
+//Press the OK button
+alert.accept()
+
+///////////////
+3.1 Confirm
+//////////////
+//A confirm pop-up box is similar to an alert
+A. Java
+//Click the link to activate the alert
+driver.findElement(By.linkText("See a sample confirm")).click();
+
+//Wait for the alert to be displayed
+wait.until(ExpectedConditions.alertIsPresent());
+
+//Store the alert in a variable
+Alert alert = driver.switchTo().alert();
+
+//Store the alert in a variable for reuse
+String text = alert.getText();
+
+//Press the Cancel button
+alert.dismiss();
+  
+B. Python
+# Click the link to activate the alert
+driver.find_element(By.LINK_TEXT, "See a sample confirm").click()
+
+# Wait for the alert to be displayed
+wait.until(expected_conditions.alert_is_present())
+
+# Store the alert in a variable for reuse
+alert = driver.switch_to.alert
+
+# Store the alert text in a variable
+text = alert.text
+
+# Press the Cancel button
+alert.dismiss()
+  
+C. C#
+//Click the link to activate the alert
+driver.FindElement(By.LinkText("See a sample confirm")).Click();
+
+//Wait for the alert to be displayed
+wait.Until(ExpectedConditions.AlertIsPresent());
+
+//Store the alert in a variable
+IAlert alert = driver.SwitchTo().Alert();
+
+//Store the alert in a variable for reuse
+string text = alert.Text;
+
+//Press the Cancel button
+alert.Dismiss();
+  
+D. Ruby
+# Click the link to activate the alert
+driver.find_element(:link_text, 'See a sample confirm').click
+
+# Store the alert reference in a variable
+alert = driver.switch_to.alert
+
+# Store the alert text in a variable
+alert_text = alert.text
+
+# Press on Cancel button
+alert.dismiss
+  
+E. Javascrypt
+//Click the link to activate the alert
+await driver.findElement(By.linkText('See a sample confirm')).click();
+
+// Wait for the alert to be displayed
+await driver.wait(until.alertIsPresent());
+
+// Store the alert in a variable
+let alert = await driver.switchTo().alert();
+
+//Store the alert text in a variable
+let alertText = await alert.getText();
+
+//Press the Cancel button
+await alert.dismiss();
+
+// Note: To use await, the above code should be inside an async function
+  
+F. Kotlin
+//Click the link to activate the alert
+driver.findElement(By.linkText("See a sample confirm")).click()
+
+//Wait for the alert to be displayed
+wait.until(ExpectedConditions.alertIsPresent())
+
+//Store the alert in a variable
+val alert = driver.switchTo().alert()
+
+//Store the alert in a variable for reuse
+val text = alert.text
+
+//Press the Cancel button
+alert.dismiss()
+
+/////////////
+3.2 Prompt
+////////////
+//Prompts are similar to confirm boxes, except they also include a text input
+
+A. Java
+//Click the link to activate the alert
+driver.findElement(By.linkText("See a sample prompt")).click();
+
+//Wait for the alert to be displayed and store it in a variable
+Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+
+//Type your message
+alert.sendKeys("Selenium");
+
+//Press the OK button
+alert.accept();
+  
+B. Python
+# Click the link to activate the alert
+driver.find_element(By.LINK_TEXT, "See a sample prompt").click()
+
+# Wait for the alert to be displayed
+wait.until(expected_conditions.alert_is_present())
+
+# Store the alert in a variable for reuse
+alert = Alert(driver)
+
+# Type your message
+alert.send_keys("Selenium")
+
+# Press the OK button
+alert.accept()
+  
+C. C#
+//Click the link to activate the alert
+driver.FindElement(By.LinkText("See a sample prompt")).Click();
+
+//Wait for the alert to be displayed and store it in a variable
+IAlert alert = wait.Until(ExpectedConditions.AlertIsPresent());
+
+//Type your message
+alert.SendKeys("Selenium");
+
+//Press the OK button
+alert.Accept();
+  
+D. Ruby
+# Click the link to activate the alert
+driver.find_element(:link_text, 'See a sample prompt').click
+
+# Store the alert reference in a variable
+alert = driver.switch_to.alert
+
+# Type a message
+alert.send_keys("selenium")
+
+# Press on Ok button
+alert.accept
+  
+E. Javascrypt
+//Click the link to activate the alert
+await driver.findElement(By.linkText('See a sample prompt')).click();
+
+// Wait for the alert to be displayed
+await driver.wait(until.alertIsPresent());
+
+// Store the alert in a variable
+let alert = await driver.switchTo().alert();
+
+//Type your message
+await alert.sendKeys("Selenium");
+
+//Press the OK button
+await alert.accept();
+
+//Note: To use await, the above code should be inside an async function
+  
+
+F. Kotlin
+//Click the link to activate the alert
+driver.findElement(By.linkText("See a sample prompt")).click()
+
+//Wait for the alert to be displayed and store it in a variable
+val alert = wait.until(ExpectedConditions.alertIsPresent())
+
+//Type your message
+alert.sendKeys("Selenium")
+
+//Press the OK button
+alert.accept()
+
+////////////////////
+4. Cookies
+4.1 Add Cookies
+///////////////////
+//It is used to add a cookie to the current browsing context
+//you need to be on the domain that the cookie will be valid for.
+//If you are trying to preset cookies before you start interacting with a site and your homepage is large / 
+//takes a while to load an alternative is to find a smaller page on the site
+
+A. Java
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class addCookie {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("http://www.example.com");
+
+            // Adds the cookie into current browser context
+            driver.manage().addCookie(new Cookie("key", "value"));
+        } finally {
+            driver.quit();
+        }
+    }
+}
+  
+B. Python
+
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+
+driver.get("http://www.example.com")
+
+# Adds the cookie into current browser context
+driver.add_cookie({"name": "key", "value": "value"})
+  
+C. C#
+
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace AddCookie {
+ class AddCookie {
+  public static void Main(string[] args) {
+   IWebDriver driver = new ChromeDriver();
+   try {
+    // Navigate to Url
+    driver.Navigate().GoToUrl("https://example.com");
+
+    // Adds the cookie into current browser context
+    driver.Manage().Cookies.AddCookie(new Cookie("key", "value"));
+   } finally {
+    driver.Quit();
+   }
+  }
+ }
+}
+  
+D. Ruby
+
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :chrome
+
+begin
+  driver.get 'https://www.example.com'
+  
+  # Adds the cookie into current browser context
+  driver.manage.add_cookie(name: "key", value: "value")
+ensure
+  driver.quit
+end
+  
+E. Javascrypt
+
+const {Builder} = require('selenium-webdriver');
+(async function example() {
+    let driver = new Builder()
+        .forBrowser('chrome')
+        .build();
+
+    await driver.get('https://www.example.com');
+
+    // set a cookie on the current domain
+    await driver.manage().addCookie({name:'key', value: 'value'});
+})();
+  
+
+F. Kotlin
+
+import org.openqa.selenium.Cookie
+import org.openqa.selenium.chrome.ChromeDriver
+
+fun main() {
+    val driver = ChromeDriver()
+    try {
+        driver.get("https://example.com")
+
+        // Adds the cookie into current browser context
+        driver.manage().addCookie(Cookie("key", "value"))
+    } finally {
+        driver.quit()
+    }
+}
+
+////////////////////
+4.2 Get Named Cookie 
+///////////////////
+//It returns the serialized cookie data matching with the cookie name among all associated cookies.
+
+A. Java
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class getCookieNamed {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("http://www.example.com");
+            driver.manage().addCookie(new Cookie("foo", "bar"));
+
+            // Get cookie details with named cookie 'foo'
+            Cookie cookie1 = driver.manage().getCookieNamed("foo");
+            System.out.println(cookie1);
+        } finally {
+            driver.quit();
+        }
+    }
+}
+  
+B. Python
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+
+# Navigate to url
+driver.get("http://www.example.com")
+
+# Adds the cookie into current browser context
+driver.add_cookie({"name": "foo", "value": "bar"})
+
+# Get cookie details with named cookie 'foo'
+print(driver.get_cookie("foo"))
+  
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace GetCookieNamed {
+ class GetCookieNamed {
+  public static void Main(string[] args) {
+   IWebDriver driver = new ChromeDriver();
+   try {
+    // Navigate to Url
+    driver.Navigate().GoToUrl("https://example.com");
+    driver.Manage().Cookies.AddCookie(new Cookie("foo", "bar"));
+
+    // Get cookie details with named cookie 'foo'
+    var cookie = driver.Manage().Cookies.GetCookieNamed("foo");
+    System.Console.WriteLine(cookie);
+   } finally {
+    driver.Quit();
+   }
+  }
+ }
+}
+  
+D. Ruby
+
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :chrome
+
+begin
+  driver.get 'https://www.example.com'
+  driver.manage.add_cookie(name: "foo", value: "bar")
+
+  # Get cookie details with named cookie 'foo'
+  puts driver.manage.cookie_named('foo')
+ensure
+  driver.quit
+end
+  
+E. Javascrypt
+
+const {Builder} = require('selenium-webdriver');
+(async function example() {
+    let driver = new Builder()
+        .forBrowser('chrome')
+        .build();
+
+    await driver.get('https://www.example.com');
+
+    // set a cookie on the current domain
+    await driver.manage().addCookie({name:'foo', value: 'bar'});
+
+    // Get cookie details with named cookie 'foo' 
+    driver.manage().getCookie('foo').then(function (cookie) {
+        console.log('cookie details => ', cookie);
+    });
+})();
+  
+
+F. Kotlin
+
+import org.openqa.selenium.Cookie
+import org.openqa.selenium.chrome.ChromeDriver
+
+fun main() {
+    val driver = ChromeDriver()
+    try {
+        driver.get("https://example.com")
+        driver.manage().addCookie(Cookie("foo", "bar"))
+
+        // Get cookie details with named cookie 'foo'
+        val cookie = driver.manage().getCookieNamed("foo")
+        println(cookie)
+    } finally {
+        driver.quit()
+    }
+}  
+
+///////////////////
+4.3 Get All Cookies 
+//////////////////
+//It returns a ‘successful serialized cookie data’ for current browsing context. If browser is no longer available it returns error.
+
+A. Java
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import java.util.Set;
+
+public class getAllCookies {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("http://www.example.com");
+            // Add few cookies
+            driver.manage().addCookie(new Cookie("test1", "cookie1"));
+            driver.manage().addCookie(new Cookie("test2", "cookie2"));
+
+            // Get All available cookies
+            Set<Cookie> cookies = driver.manage().getCookies();
+            System.out.println(cookies);
+        } finally {
+            driver.quit();
+        }
+    }
+}
+  
+  
+B. Python
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+
+# Navigate to url
+driver.get("http://www.example.com")
+
+# Adds the cookie into current browser context
+driver.add_cookie({"name": "foo", "value": "bar"})
+
+# Get cookie details with named cookie 'foo'
+print(driver.get_cookie("foo"))
+  
+  
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace GetCookieNamed {
+ class GetCookieNamed {
+  public static void Main(string[] args) {
+   IWebDriver driver = new ChromeDriver();
+   try {
+    // Navigate to Url
+    driver.Navigate().GoToUrl("https://example.com");
+    driver.Manage().Cookies.AddCookie(new Cookie("foo", "bar"));
+
+    // Get cookie details with named cookie 'foo'
+    var cookie = driver.Manage().Cookies.GetCookieNamed("foo");
+    System.Console.WriteLine(cookie);
+   } finally {
+    driver.Quit();
+   }
+  }
+ }
+}
+  
+  
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :chrome
+
+begin
+  driver.get 'https://www.example.com'
+  driver.manage.add_cookie(name: "test1", value: "cookie1")
+  driver.manage.add_cookie(name: "test2", value: "cookie2")
+
+  # Get all available cookies
+  puts driver.manage.all_cookies
+ensure
+  driver.quit
+end
+  
+  
+E. Javascrypt
+const {Builder} = require('selenium-webdriver');
+(async function example() {
+    let driver = new Builder()
+        .forBrowser('chrome')
+        .build();
+
+    await driver.get('https://www.example.com');
+
+    // Add few cookies
+    await driver.manage().addCookie({name:'test1', value:'cookie1'});
+    await driver.manage().addCookie({name:'test2', value:'cookie2'});
+
+    // Get all Available cookies
+    driver.manage().getCookies().then(function (cookies) {
+        console.log('cookie details => ', cookies);
+    });
+})();
+  
+
+  
+
+F. Kotlin
+import org.openqa.selenium.Cookie
+import org.openqa.selenium.chrome.ChromeDriver
+
+fun main() {
+    val driver = ChromeDriver()
+    try {
+        driver.get("https://example.com")
+        driver.manage().addCookie(Cookie("test1", "cookie1"))
+        driver.manage().addCookie(Cookie("test2", "cookie2"))
+
+        // Get All available cookies
+        val cookies = driver.manage().cookies
+        println(cookies)
+    } finally {
+        driver.quit()
+    }
+}  
+ 
+/////////////////
+4.3 Delete Cookie
+////////////////// 
+//It deletes the cookie data matching with the provided cookie name.
+
+A. Java
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class deleteCookie {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("http://www.example.com");
+            driver.manage().addCookie(new Cookie("test1", "cookie1"));
+            Cookie cookie1 = new Cookie("test2", "cookie2");
+            driver.manage().addCookie(cookie1);
+
+            // delete a cookie with name 'test1'
+            driver.manage().deleteCookieNamed("test1");
+
+            /*
+             Selenium Java bindings also provides a way to delete
+             cookie by passing cookie object of current browsing context
+             */
+            driver.manage().deleteCookie(cookie1);
+        } finally {
+            driver.quit();
+        }
+    }
+}
+  
+B. Python
+from selenium import webdriver
+driver = webdriver.Chrome()
+
+# Navigate to url
+driver.get("http://www.example.com")
+driver.add_cookie({"name": "test1", "value": "cookie1"})
+driver.add_cookie({"name": "test2", "value": "cookie2"})
+
+#  Deletes all cookies
+driver.delete_all_cookies()
+  
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace DeleteCookie {
+ class DeleteCookie {
+  public static void Main(string[] args) {
+   IWebDriver driver = new ChromeDriver();
+   try {
+    // Navigate to Url
+    driver.Navigate().GoToUrl("https://example.com");
+    driver.Manage().Cookies.AddCookie(new Cookie("test1", "cookie1"));
+    var cookie = new Cookie("test2", "cookie2");
+    driver.Manage().Cookies.AddCookie(cookie);
+
+    // delete a cookie with name 'test1'	
+    driver.Manage().Cookies.DeleteCookieNamed("test1");
+
+    // Selenium .net bindings also provides a way to delete
+    // cookie by passing cookie object of current browsing context
+    driver.Manage().Cookies.DeleteCookie(cookie);
+   } finally {
+    driver.Quit();
+   }
+  }
+ }
+}
+  
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :chrome
+
+begin
+  driver.get 'https://www.example.com'
+  driver.manage.add_cookie(name: "test1", value: "cookie1")
+  driver.manage.add_cookie(name: "test2", value: "cookie2")
+
+  # deletes all cookies
+  driver.manage.delete_all_cookies
+ensure
+  driver.quit
+end
+  
+E. Javascrypt
+const {Builder} = require('selenium-webdriver');
+(async function example() {
+    let driver = new Builder()
+        .forBrowser('chrome')
+        .build();
+
+    await driver.get('https://www.example.com');
+
+    // Add few cookies
+    await driver.manage().addCookie({name:'test1', value:'cookie1'});
+    await driver.manage().addCookie({name:'test2', value:'cookie2'});
+
+    // Delete a cookie with name 'test1'
+    await driver.manage().deleteCookie('test1');
+    
+    // Get all Available cookies
+    driver.manage().getCookies().then(function (cookies) {
+        console.log('cookie details => ', cookies);
+    });
+})();
+  
+
+F. Kotlin
+import org.openqa.selenium.Cookie
+import org.openqa.selenium.chrome.ChromeDriver
+
+fun main() {
+    val driver = ChromeDriver()
+    try {
+        driver.get("https://example.com")
+        driver.manage().addCookie(Cookie("test1", "cookie1"))
+        val cookie1 = Cookie("test2", "cookie2")
+        driver.manage().addCookie(cookie1)
+
+        // delete a cookie with name 'test1'
+        driver.manage().deleteCookieNamed("test1")
+        
+        // delete cookie by passing cookie object of current browsing context.
+        driver.manage().deleteCookie(cookie1)
+    } finally {
+        driver.quit()
+    }
+}  
+ 
+////////////////////////
+4.5 Delete All Cookies 
+///////////////////////
+//It deletes all the cookies of the current browsing context.
+
+A. Java
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class deleteCookie {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("http://www.example.com");
+            driver.manage().addCookie(new Cookie("test1", "cookie1"));
+            Cookie cookie1 = new Cookie("test2", "cookie2");
+            driver.manage().addCookie(cookie1);
+
+            // delete a cookie with name 'test1'
+            driver.manage().deleteCookieNamed("test1");
+
+            /*
+             Selenium Java bindings also provides a way to delete
+             cookie by passing cookie object of current browsing context
+             */
+            driver.manage().deleteCookie(cookie1);
+        } finally {
+            driver.quit();
+        }
+    }
+}
+  
+B. Python
+
+from selenium import webdriver
+driver = webdriver.Chrome()
+
+# Navigate to url
+driver.get("http://www.example.com")
+driver.add_cookie({"name": "test1", "value": "cookie1"})
+driver.add_cookie({"name": "test2", "value": "cookie2"})
+
+#  Deletes all cookies
+driver.delete_all_cookies()
+  
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace DeleteAllCookies {
+ class DeleteAllCookies {
+  public static void Main(string[] args) {
+   IWebDriver driver = new ChromeDriver();
+   try {
+    // Navigate to Url
+    driver.Navigate().GoToUrl("https://example.com");
+    driver.Manage().Cookies.AddCookie(new Cookie("test1", "cookie1"));
+    driver.Manage().Cookies.AddCookie(new Cookie("test2", "cookie2"));
+
+    // deletes all cookies
+    driver.Manage().Cookies.DeleteAllCookies();
+   } finally {
+    driver.Quit();
+   }
+  }
+ }
+}
+  
+D. Ruby
+
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :chrome
+
+begin
+  driver.get 'https://www.example.com'
+  driver.manage.add_cookie(name: "test1", value: "cookie1")
+  driver.manage.add_cookie(name: "test2", value: "cookie2")
+
+  # deletes all cookies
+  driver.manage.delete_all_cookies
+ensure
+  driver.quit
+end
+  
+E. Javascrypt
+
+const {Builder} = require('selenium-webdriver');
+(async function example() {
+    let driver = new Builder()
+        .forBrowser('chrome')
+        .build();
+
+    await driver.get('https://www.example.com');
+
+    // Add few cookies
+    await driver.manage().addCookie({name:'test1', value:'cookie1'});
+    await driver.manage().addCookie({name:'test2', value:'cookie2'});
+
+    // Delete all cookies
+    await driver.manage().deleteAllCookies();
+})();
+  
+F. Kotlin
+
+import org.openqa.selenium.Cookie
+import org.openqa.selenium.chrome.ChromeDriver
+
+fun main() {
+    val driver = ChromeDriver()
+    try {
+        driver.get("https://example.com")
+        driver.manage().addCookie(Cookie("test1", "cookie1"))
+        driver.manage().addCookie(Cookie("test2", "cookie2"))
+
+        // deletes all cookies
+        driver.manage().deleteAllCookies()
+    } finally {
+        driver.quit()
+    }
+}  
+ 
+///////////////////////////////
+4.6 Same-Site Cookie Attribute
+///////////////////////////////
+//It allows a user to instruct browsers to control whether cookies are sent along with the request initiated by third party sites.
+// It is introduced to prevent CSRF (Cross-Site Request Forgery) attacks.
+//There are 2 types of Same-site cookies atributes:
+
+4.6.1 Strict:
+//When the sameSite attribute is set as Strict, the cookie will not be sent along with requests initiated by third party websites
+
+4.6.2 Lax:
+//When you set a cookie sameSite attribute to Lax, the cookie will be sent along with the GET request initiated by third party website.
+
+A. Java
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class cookieTest {
+  public static void main(String[] args) {
+    WebDriver driver = new ChromeDriver();
+    try {
+      driver.get("http://www.example.com");
+      Cookie cookie = new Cookie.Builder("key", "value").sameSite("Strict").build();
+      Cookie cookie1 = new Cookie.Builder("key", "value").sameSite("Lax").build();
+      driver.manage().addCookie(cookie);
+      driver.manage().addCookie(cookie1);
+      System.out.println(cookie.getSameSite());
+      System.out.println(cookie1.getSameSite());
+    } finally {
+      driver.quit();
+    }
+  }
+}
+  
+B. Python
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+
+driver.get("http://www.example.com")
+# Adds the cookie into current browser context with sameSite 'Strict' (or) 'Lax'
+driver.add_cookie({"name": "foo", "value": "value", 'sameSite': 'Strict'})
+driver.add_cookie({"name": "foo1", "value": "value", 'sameSite': 'Lax'})
+cookie1 = driver.get_cookie('foo')
+cookie2 = driver.get_cookie('foo1')
+print(cookie1)
+print(cookie2)
+  
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace DeleteAllCookies {
+ class DeleteAllCookies {
+  public static void Main(string[] args) {
+   IWebDriver driver = new ChromeDriver();
+   try {
+    // Navigate to Url
+    driver.Navigate().GoToUrl("https://example.com");
+    driver.Manage().Cookies.AddCookie(new Cookie("test1", "cookie1"));
+    driver.Manage().Cookies.AddCookie(new Cookie("test2", "cookie2"));
+
+    // deletes all cookies
+    driver.Manage().Cookies.DeleteAllCookies();
+   } finally {
+    driver.Quit();
+   }
+  }
+ }
+}
+  
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :chrome
+
+begin
+  driver.get 'https://www.example.com'
+  # Adds the cookie into current browser context with sameSite 'Strict' (or) 'Lax'
+  driver.manage.add_cookie(name: "foo", value: "bar", same_site: "Strict")
+  driver.manage.add_cookie(name: "foo1", value: "bar", same_site: "Lax")
+  puts driver.manage.cookie_named('foo')
+  puts driver.manage.cookie_named('foo1')
+ensure
+  driver.quit
+end
+  
+E. Javascrypt
+const {Builder} = require('selenium-webdriver');
+(async function example() {
+    let driver = new Builder()
+        .forBrowser('chrome')
+        .build();
+        
+    await driver.get('https://www.example.com');
+    
+    // set a cookie on the current domain with sameSite 'Strict' (or) 'Lax'
+    await driver.manage().addCookie({name:'key', value: 'value', sameSite:'Strict'});
+    await driver.manage().addCookie({name:'key', value: 'value', sameSite:'Lax'});
+    console.log(await driver.manage().getCookie('key'));
+})();
+  
+
+F. Kotlin
+
+import org.openqa.selenium.Cookie
+import org.openqa.selenium.chrome.ChromeDriver
+
+fun main() {
+    val driver = ChromeDriver()
+    try {
+        driver.get("http://www.example.com")
+        val cookie = Cookie.Builder("key", "value").sameSite("Strict").build()
+        val cookie1 = Cookie.Builder("key", "value").sameSite("Lax").build()
+        driver.manage().addCookie(cookie)
+        driver.manage().addCookie(cookie1)
+        println(cookie.getSameSite())
+        println(cookie1.getSameSite())
+    } finally {
+        driver.quit()
+    }
+}
+
+///////////////////////////////////
+5. Working with iFrames and frames
+//////////////////////////////////
+5.1 Using a WebElement
+//Switching using a WebElement is the most flexible option. You can find the frame using your preferred selector and switch to i
+
+A. Java
+//Store the web element
+WebElement iframe = driver.findElement(By.cssSelector("#modal>iframe"));
+
+//Switch to the frame
+driver.switchTo().frame(iframe);
+
+//Now we can click the button
+driver.findElement(By.tagName("button")).click();
+  
+B. Python
+    # Store iframe web element
+    iframe = driver.find_element(By.CSS_SELECTOR, "#modal > iframe")
+
+    # switch to selected iframe
+driver.switch_to.frame(iframe)
+
+    # Now click on button
+driver.find_element(By.TAG_NAME, 'button').click()
+  
+C. C#
+//Store the web element
+IWebElement iframe = driver.FindElement(By.CssSelector("#modal>iframe"));
+
+//Switch to the frame
+driver.SwitchTo().Frame(iframe);
+
+//Now we can click the button
+driver.FindElement(By.TagName("button")).Click();
+  
+D. Ruby
+    # Store iframe web element
+    iframe = driver.find_element(:css,'#modal > iframe')
+
+    # Switch to the frame
+driver.switch_to.frame iframe
+
+    # Now, Click on the button
+driver.find_element(:tag_name,'button').click
+  
+E. Javascrypt
+// Store the web element
+const iframe = driver.findElement(By.css('#modal > iframe'));
+
+// Switch to the frame
+await driver.switchTo().frame(iframe);
+
+// Now we can click the button
+await driver.findElement(By.css('button')).click();
+  
+F. Kotlin
+
+//Store the web element
+val iframe = driver.findElement(By.cssSelector("#modal>iframe"))
+
+//Switch to the frame
+driver.switchTo().frame(iframe)
+
+//Now we can click the button
+driver.findElement(By.tagName("button")).click()
+
+///////////////////////
+5.2 Using a name or ID
+//////////////////////
+//If your frame or iframe has an id or name attribute, this can be used instead.
+//If the name or ID is not unique on the page, then the first one found will be switched to
+
+A. Java
+//Using the ID
+driver.switchTo().frame("buttonframe");
+
+//Or using the name instead
+driver.switchTo().frame("myframe");
+
+//Now we can click the button
+driver.findElement(By.tagName("button")).click();
+  
+B. Python
+    # Switch frame by id
+    driver.switch_to.frame('buttonframe')
+
+    # Now, Click on the button
+driver.find_element(By.TAG_NAME, 'button').click()
+  
+C. C#
+//Using the ID
+driver.SwitchTo().Frame("buttonframe");
+
+//Or using the name instead
+driver.SwitchTo().Frame("myframe");
+
+//Now we can click the button
+driver.FindElement(By.TagName("button")).Click();
+  
+D. Ruby
+    # Switch by ID
+    driver.switch_to.frame 'buttonframe'
+
+    # Now, Click on the button
+driver.find_element(:tag_name,'button').click
+  
+E. Javascrypt
+// Using the ID
+await driver.switchTo().frame('buttonframe');
+
+// Or using the name instead
+await driver.switchTo().frame('myframe');
+
+// Now we can click the button
+await driver.findElement(By.css('button')).click();
+  
+F. Kotlin
+//Using the ID
+driver.switchTo().frame("buttonframe")
+
+//Or using the name instead
+driver.switchTo().frame("myframe")
+
+//Now we can click the button
+driver.findElement(By.tagName("button")).click()
+
+///////////////////
+5.3 Using an index
+///////////////////
+//It is also possible to use the index of the frame, such as can be queried using window.frames in JavaScript.
+
+A. Java
+// Switches to the second frame
+driver.switchTo().frame(1);
+  
+B. Python
+    # Switch to the second frame
+    driver.switch_to.frame(1)
+  
+C. C#
+// Switches to the second frame
+driver.SwitchTo().Frame(1);
+  
+D. Ruby
+    # switching to second iframe based on index
+    iframe = driver.find_elements_by_tag_name('iframe')[1]
+
+    # switch to selected iframe
+driver.switch_to.frame(iframe)
+  
+E. Javascrypt
+// Switches to the second frame
+await driver.switchTo().frame(1);
+  
+F. Kotlin
+// Switches to the second frame
+driver.switchTo().frame(1)
+ 
+///////////////
+5.4 Leaving a frame
+///////////////
+//To leave an iframe or frameset, switch back to the default content like so:
+
+A. Java
+// Return to the top level
+driver.switchTo().defaultContent();
+  
+B. Python
+    # switch back to default content
+    driver.switch_to.default_content()
+  
+C. C#
+// Return to the top level
+driver.SwitchTo().DefaultContent();
+  
+D. Ruby
+    # Return to the top level
+    driver.switch_to.default_content
+  
+E. Javascrypt
+// Return to the top level
+await driver.switchTo().defaultContent();
+  
+F. Kotlin
+
+// Return to the top level
+driver.switchTo().defaultContent()
+
+/////////////////////
+6. Windows and tabs 
+///////////////////
+6.1Get window handle
+///////////////////
+//WebDriver does not make the distinction between windows and tabs.
+//If your site opens a new tab or window, Selenium will let you work with it using a window handle.
+//Each window has a unique identifier which remains persistent in a single session. 
+//You can get the window handle of the current window by using:
+
+A. Java
+driver.getWindowHandle();
+B. Python
+driver.getWindowHandle();
+C. C#
+driver.CurrentWindowHandle;
+D. Ruby
+driver.window_handle
+E. Javascrypt
+await driver.getWindowHandle();
+F. Kotlin
+driver.windowHandle
+
+//////////////////
+6.2 Switching windows or tabs
+/////////////////
+//Switch active window.
+However, Selenium 4 provides a new api NewWindow which creates a new tab (or) new window and automatically switches to it.
+
+A. Java
+//Store the ID of the original window
+String originalWindow = driver.getWindowHandle();
+
+//Check we don't have other windows open already
+assert driver.getWindowHandles().size() == 1;
+
+//Click the link which opens in a new window
+driver.findElement(By.linkText("new window")).click();
+
+//Wait for the new window or tab
+wait.until(numberOfWindowsToBe(2));
+
+//Loop through until we find a new window handle
+for (String windowHandle : driver.getWindowHandles()) {
+    if(!originalWindow.contentEquals(windowHandle)) {
+        driver.switchTo().window(windowHandle);
+        break;
+    }
+}
+
+//Wait for the new tab to finish loading content
+wait.until(titleIs("Selenium documentation"));
+  
+B. Python
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+with webdriver.Firefox() as driver:
+    # Open URL
+    driver.get("https://seleniumhq.github.io")
+
+    # Setup wait for later
+    wait = WebDriverWait(driver, 10)
+
+    # Store the ID of the original window
+    original_window = driver.current_window_handle
+
+    # Check we don't have other windows open already
+    assert len(driver.window_handles) == 1
+
+    # Click the link which opens in a new window
+    driver.find_element(By.LINK_TEXT, "new window").click()
+
+    # Wait for the new window or tab
+    wait.until(EC.number_of_windows_to_be(2))
+
+    # Loop through until we find a new window handle
+    for window_handle in driver.window_handles:
+        if window_handle != original_window:
+            driver.switch_to.window(window_handle)
+            break
+
+    # Wait for the new tab to finish loading content
+    wait.until(EC.title_is("SeleniumHQ Browser Automation"))
+  
+C. C#
+//Store the ID of the original window
+string originalWindow = driver.CurrentWindowHandle;
+
+//Check we don't have other windows open already
+Assert.AreEqual(driver.WindowHandles.Count, 1);
+
+//Click the link which opens in a new window
+driver.FindElement(By.LinkText("new window")).Click();
+
+//Wait for the new window or tab
+wait.Until(wd => wd.WindowHandles.Count == 2);
+
+//Loop through until we find a new window handle
+foreach(string window in driver.WindowHandles)
+{
+    if(originalWindow != window)
+    {
+        driver.SwitchTo().Window(window);
+        break;
+    }
+}
+//Wait for the new tab to finish loading content
+wait.Until(wd => wd.Title == "Selenium documentation");
+  
+D. Ruby
+    # Store the ID of the original window
+    original_window = driver.window_handle
+
+    # Check we don't have other windows open already
+assert(driver.window_handles.length == 1, 'Expected one window')
+
+    # Click the link which opens in a new window
+driver.find_element(link: 'new window').click
+
+    # Wait for the new window or tab
+wait.until { driver.window_handles.length == 2 }
+
+    #Loop through until we find a new window handle
+driver.window_handles.each do |handle|
+    if handle != original_window
+        driver.switch_to.window handle
+        break
+    end
+end
+
+    #Wait for the new tab to finish loading content
+wait.until { driver.title == 'Selenium documentation'}
+  
+E. Javascrypt
+//Store the ID of the original window
+const originalWindow = await driver.getWindowHandle();
+
+//Check we don't have other windows open already
+assert((await driver.getAllWindowHandles()).length === 1);
+
+//Click the link which opens in a new window
+await driver.findElement(By.linkText('new window')).click();
+
+//Wait for the new window or tab
+await driver.wait(
+    async () => (await driver.getAllWindowHandles()).length === 2,
+    10000
+  );
+
+//Loop through until we find a new window handle
+const windows = await driver.getAllWindowHandles();
+windows.forEach(async handle => {
+  if (handle !== originalWindow) {
+    await driver.switchTo().window(handle);
+  }
+});
+
+//Wait for the new tab to finish loading content
+await driver.wait(until.titleIs('Selenium documentation'), 10000);
+  
+F. Kotlin
+
+//Store the ID of the original window
+val originalWindow = driver.getWindowHandle()
+
+//Check we don't have other windows open already
+assert(driver.getWindowHandles().size() === 1)
+
+//Click the link which opens in a new window
+driver.findElement(By.linkText("new window")).click()
+
+//Wait for the new window or tab
+wait.until(numberOfWindowsToBe(2))
+
+//Loop through until we find a new window handle
+for (windowHandle in driver.getWindowHandles()) {
+    if (!originalWindow.contentEquals(windowHandle)) {
+        driver.switchTo().window(windowHandle)
+        break
+    }
+}
+
+//Wait for the new tab to finish loading content
+wait.until(titleIs("Selenium documentation"))
+
+//////////////
+5.3 Create new window (or) new tab and switch
+/////////////
+//Creates a new window (or) tab and will focus the new window or tab on screen.
+//Note: This feature works with Selenium 4 and later versions.
+
+A. Java
+// Opens a new tab and switches to new tab
+driver.switchTo().newWindow(WindowType.TAB);
+
+// Opens a new window and switches to new window
+driver.switchTo().newWindow(WindowType.WINDOW);
+  
+B. Python
+    # Opens a new tab and switches to new tab
+    driver.switch_to.new_window('tab')
+
+    # Opens a new window and switches to new window
+driver.switch_to.new_window('window')
+  
+C. C#
+// Opens a new tab and switches to new tab
+driver.SwitchTo().NewWindow(WindowType.Tab)
+
+// Opens a new window and switches to new window
+driver.SwitchTo().NewWindow(WindowType.Window)
+  
+D. Ruby
+    # Note: The new_window in ruby only opens a new tab (or) Window and will not switch automatically
+    # The user has to switch to new tab (or) new window
+
+    # Opens a new tab and switches to new tab
+    driver.manage.new_window(:tab)
+
+    # Opens a new window and switches to new window
+driver.manage.new_window(:window)
+  
+E. Javascrypt
+// Opens a new tab and switches to new tab
+await driver.switchTo().newWindow('tab');
+
+// Opens a new window and switches to new window
+await driver.switchTo().newWindow('window');
+
+F. Kotlin
+
+// Opens a new tab and switches to new tab
+driver.switchTo().newWindow(WindowType.TAB)
+
+// Opens a new window and switches to new window
+driver.switchTo().newWindow(WindowType.WINDOW)
+
+////////////////
+5.4 Closing a window or tab
+//////////////
+//When you are finished with a window or tab and it is not the last window or tab open in your browser, 
+you should close it and switch back to the window you were using previously.
+Assuming you followed the code sample in the previous section you will have the previous window handle stored in a variable. Put this together and you will get:
+
+A. Java
+//Close the tab or window
+driver.close();
+
+//Switch back to the old tab or window
+driver.switchTo().window(originalWindow);
+  
+B. Python
+    #Close the tab or window
+    driver.close()
+
+    #Switch back to the old tab or window
+driver.switch_to.window(original_window)
+  
+C. C#
+//Close the tab or window
+driver.Close();
+
+//Switch back to the old tab or window
+driver.SwitchTo().Window(originalWindow);
+  
+D. Ruby
+    #Close the tab or window
+    driver.close
+
+    #Switch back to the old tab or window
+driver.switch_to.window original_window
+  
+E. Javascrypt
+//Close the tab or window
+await driver.close();
+
+//Switch back to the old tab or window
+await driver.switchTo().window(originalWindow);
+  
+
+F. Kotlin
+//Close the tab or window
+driver.close()
+
+//Switch back to the old tab or window
+driver.switchTo().window(originalWindow)
+
+//////////////////////
+5.5 Quitting the browser at the end of a session
+/////////////////////
+//When you are finished with the browser session you should call quit, instead of close:
+//Quit will:
+#Close all the windows and tabs associated with that WebDriver session
+#Close the browser process
+#Close the background driver process
+#Notify Selenium Grid that the browser is no longer in use so it can be used by another session (if you are using Selenium Grid)
+
+//If not running WebDriver in a test context,
+//you may consider using try / finally which is offered by most languages so that an exception will still clean up the WebDriver session.
+//Some test frameworks offer methods and annotations which you can hook into to tear down at the end of a test
+A. Java
+A1. 
+driver.quit();
+
+A2. /**
+ * Example using JUnit
+ * https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterAll.html
+ */
+@AfterAll
+public static void tearDown() {
+    driver.quit();
+}
+
+A3. 
+try {
+    //WebDriver code here...
+} finally {
+    driver.quit();
+}
+  
+  
+B. Python
+B1. 
+driver.quit()
+
+B2.   
+# unittest teardown
+    # https://docs.python.org/3/library/unittest.html?highlight=teardown#unittest.TestCase.tearDown
+    def tearDown(self):
+    self.driver.quit()
+
+B3.   
+try:
+#WebDriver code here...
+finally:
+driver.quit()
+
+B4. Python’s WebDriver now supports the python context manager, which when using the with keyword can automatically quit the driver at the end of execution.
+with webdriver.Firefox() as driver:
+  # WebDriver code here...
+
+# WebDriver will automatically quit after indentation
+
+
+
+C. C#
+C1. 
+driver.Quit();
+
+C2. 
+/*
+    Example using Visual Studio's UnitTesting
+    https://msdn.microsoft.com/en-us/library/microsoft.visualstudio.testtools.unittesting.aspx
+*/
+[TestCleanup]
+public void TearDown()
+{
+    driver.Quit();
+}
+
+C3.
+try {
+    //WebDriver code here...
+} finally {
+    driver.Quit();
+}
+  
+D. Ruby
+D1. 
+driver.quit
+
+D2.
+    # UnitTest Teardown
+    # https://www.rubydoc.info/github/test-unit/test-unit/Test/Unit/TestCase
+    def teardown
+    @driver.quit
+end
+D3.
+begin
+    #WebDriver code here...
+ensure
+    driver.quit
+end
+  
+
+E. Javascrypt
+E1.
+await driver.quit();
+
+E2.
+/**
+ * Example using Mocha
+ * https://mochajs.org/#hooks
+ */
+after('Tear down', async function () {
+  await driver.quit();
+});
+
+E3.
+try {
+    //WebDriver code here...
+} finally {
+    await driver.quit();
+}
+  
+
+
+F. Kotlin
+F1. driver.quit()
+
+F2.
+/**
+ * Example using JUnit
+ * https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterAll.html
+ */
+@AfterAll
+fun tearDown() {
+    driver.quit()
+}
+  
+F3.
+try {
+    //WebDriver code here...
+} finally {
+    driver.quit()
+}
+
+///////////////////////
+6. Window management
+///////////////////////
+6.1 Get window size
+//////////////////////
+
+A. Java
+//Access each dimension individually
+int width = driver.manage().window().getSize().getWidth();
+int height = driver.manage().window().getSize().getHeight();
+
+//Or store the dimensions and query them later
+Dimension size = driver.manage().window().getSize();
+int width1 = size.getWidth();
+int height1 = size.getHeight();
+  
+B. Python
+    # Access each dimension individually
+    width = driver.get_window_size().get("width")
+    height = driver.get_window_size().get("height")
+    
+        # Or store the dimensions and query them later
+    size = driver.get_window_size()
+    width1 = size.get("width")
+    height1 = size.get("height")
+      
+C. C#
+//Access each dimension individually
+int width = driver.Manage().Window.Size.Width;
+int height = driver.Manage().Window.Size.Height;
+
+//Or store the dimensions and query them later
+System.Drawing.Size size = driver.Manage().Window.Size;
+int width1 = size.Width;
+int height1 = size.Height;
+  
+D. Ruby
+    # Access each dimension individually
+    width = driver.manage.window.size.width
+    height = driver.manage.window.size.height
+    
+        # Or store the dimensions and query them later
+    size = driver.manage.window.size
+    width1 = size.width
+    height1 = size.height
+      
+E. Javascrypt
+// Access each dimension individually
+const { width, height } = await driver.manage().window().getRect();
+
+// Or store the dimensions and query them later
+const rect = await driver.manage().window().getRect();
+const width1 = rect.width;
+const height1 = rect.height;
+  
+
+F. Kotlin
+//Access each dimension individually
+val width = driver.manage().window().size.width
+val height = driver.manage().window().size.height
+
+//Or store the dimensions and query them later
+val size = driver.manage().window().size
+val width1 = size.width
+val height1 = size.height
+
+////////////////////
+6.2 Set window size
+///////////////////
+
+A. Java
+driver.manage().window().setSize(new Dimension(1024, 768));
+B. Python
+    # Access each dimension individually
+    width = driver.get_window_size().get("width")
+    height = driver.get_window_size().get("height")
+    
+        # Or store the dimensions and query them later
+    size = driver.get_window_size()
+    width1 = size.get("width")
+    height1 = size.get("height")
+      
+C. C#
+//Access each dimension individually
+int width = driver.Manage().Window.Size.Width;
+int height = driver.Manage().Window.Size.Height;
+
+//Or store the dimensions and query them later
+System.Drawing.Size size = driver.Manage().Window.Size;
+int width1 = size.Width;
+int height1 = size.Height;
+  
+D. Ruby
+    # Access each dimension individually
+    width = driver.manage.window.size.width
+    height = driver.manage.window.size.height
+    
+        # Or store the dimensions and query them later
+    size = driver.manage.window.size
+    width1 = size.width
+    height1 = size.height
+      
+E. Javascrypt
+// Access each dimension individually
+const { width, height } = await driver.manage().window().getRect();
+
+// Or store the dimensions and query them later
+const rect = await driver.manage().window().getRect();
+const width1 = rect.width;
+const height1 = rect.height;
+  
+
+F. Kotlin
+//Access each dimension individually
+val width = driver.manage().window().size.width
+val height = driver.manage().window().size.height
+
+//Or store the dimensions and query them later
+val size = driver.manage().window().size
+val width1 = size.width
+val height1 = size.height
+
+/////////////////////////
+6.3 Get window position
+////////////////////////
+
+A. Java
+// Access each dimension individually
+int x = driver.manage().window().getPosition().getX();
+int y = driver.manage().window().getPosition().getY();
+
+// Or store the dimensions and query them later
+Point position = driver.manage().window().getPosition();
+int x1 = position.getX();
+int y1 = position.getY();
+  
+B. Python
+    # Access each dimension individually
+    x = driver.get_window_position().get('x')
+    y = driver.get_window_position().get('y')
+    
+        # Or store the dimensions and query them later
+    position = driver.get_window_position()
+    x1 = position.get('x')
+    y1 = position.get('y')
+      
+C. C#
+//Access each dimension individually
+int x = driver.Manage().Window.Position.X;
+int y = driver.Manage().Window.Position.Y;
+
+//Or store the dimensions and query them later
+Point position = driver.Manage().Window.Position;
+int x1 = position.X;
+int y1 = position.Y;
+  
+D. Ruby
+    #Access each dimension individually
+    x = driver.manage.window.position.x
+    y = driver.manage.window.position.y
+    
+        # Or store the dimensions and query them later
+    rect  = driver.manage.window.rect
+    x1 = rect.x
+    y1 = rect.y
+      
+E. Javascrypt
+// Access each dimension individually
+const { x, y } = await driver.manage().window().getRect();
+
+// Or store the dimensions and query them later
+const rect = await driver.manage().window().getRect();
+const x1 = rect.x;
+const y1 = rect.y;
+  
+F. Kotlin
+// Access each dimension individually
+val x = driver.manage().window().position.x
+val y = driver.manage().window().position.y
+
+// Or store the dimensions and query them later
+val position = driver.manage().window().position
+val x1 = position.x
+val y1 = position.y
+
+////////////////////////
+6.4Set window position
+///////////////////////
+
+A. Java
+// Move the window to the top left of the primary monitor
+driver.manage().window().setPosition(new Point(0, 0));
+  
+B. Python
+    # Move the window to the top left of the primary monitor
+    driver.set_window_position(0, 0)
+  
+C. C#
+// Move the window to the top left of the primary monitor
+driver.Manage().Window.Position = new Point(0, 0);
+  
+D. Ruby
+driver.manage.window.move_to(0,0)
+  
+E. Javascrypt
+// Move the window to the top left of the primary monitor
+await driver.manage().window().setRect({ x: 0, y: 0 });
+  
+F. Kotlin
+// Move the window to the top left of the primary monitor
+driver.manage().window().position = Point(0,0)
+
+///////////////////////
+6.5 Maximize or Minimize window or Fullscreen
+///////////////////////
+Enlarges the window. For most operating systems, the window will fill the screen, without blocking the operating system’s own menus and toolbars
+
+A. Java
+driver.manage().window().maximize();
+driver.manage().window().minimize();
+driver.manage().window().fullscreen();
+B. Python
+driver.maximize_window()
+driver.minimize_window()
+driver.fullscreen_window()
+C. C#
+driver.Manage().Window.Minimize();
+driver.Manage().Window.Maximize();
+driver.Manage().Window.FullScreen();
+D. Ruby
+driver.manage.window.minimize
+driver.manage.window.maximize
+driver.manage.window.full_screen
+E. Javascrypt
+await driver.manage().window().maximize();
+await driver.manage().window().minimize();
+await driver.manage().window().fullscreen();
+F. Kotlin
+driver.manage().window().maximize()
+driver.manage().window().minimize()
+driver.manage().window().fullscreen()
+
+/////////////////////
+6.6 Screenshot
+////////////////////
+
+A. Java
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.chrome.ChromeDriver;
+import java.io.*;
+import org.openqa.selenium.*;
+
+public class SeleniumTakeScreenshot {
+    public static void main(String args[]) throws IOException {
+        WebDriver driver = new ChromeDriver();
+        driver.get("http://www.example.com");
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File("./image.png"));
+        driver.quit();
+    }
+}
+  
+B. Python
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+
+driver.get("http://www.example.com")
+
+    # Returns and base64 encoded string into image
+driver.save_screenshot('./image.png')
+
+driver.quit()
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+
+var driver = new ChromeDriver();
+driver.Navigate().GoToUrl("http://www.example.com");
+Screenshot screenshot = (driver as ITakesScreenshot).GetScreenshot();
+screenshot.SaveAsFile("screenshot.png", ScreenshotImageFormat.Png); // Format values are Bmp, Gif, Jpeg, Png, Tiff
+
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :chrome
+
+begin
+  driver.get 'https://example.com/'
+
+    # Takes and Stores the screenshot in specified path
+  driver.save_screenshot('./image.png')
+
+end
+  
+E. Javascrypt
+let {Builder} = require('selenium-webdriver');
+let fs = require('fs');
+
+(async function example() {
+    let driver = await new Builder()
+      .forBrowser('chrome')
+      .build();
+
+    await driver.get('https://www.example.com');
+    // Returns base64 encoded string
+    let encodedString = await driver.takeScreenshot();
+    await fs.writeFileSync('./image.png', encodedString, 'base64');
+    await driver.quit();
+}())
+  
+
+F. Kotlin
+import com.oracle.tools.packager.IOUtils.copyFile
+import org.openqa.selenium.*
+import org.openqa.selenium.chrome.ChromeDriver
+import java.io.File
+
+fun main(){
+    val driver =  ChromeDriver()
+    driver.get("https://www.example.com")
+    val scrFile = (driver as TakesScreenshot).getScreenshotAs<File>(OutputType.FILE)
+    copyFile(scrFile, File("./image.png"))
+    driver.quit()
+}
+  
+////////////////////////
+6.7 TakeElementScreenshot
+////////////////////////
+A. Java
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import java.io.File;
+import java.io.IOException;
+
+public class SeleniumelementTakeScreenshot {
+  public static void main(String args[]) throws IOException {
+    WebDriver driver = new ChromeDriver();
+    driver.get("https://www.example.com");
+    WebElement element = driver.findElement(By.cssSelector("h1"));
+    File scrFile = element.getScreenshotAs(OutputType.FILE);
+    FileUtils.copyFile(scrFile, new File("./image.png"));
+    driver.quit();
+  }
+}
+  
+B. Python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+
+driver.get("http://www.example.com")
+
+ele = driver.find_element(By.CSS_SELECTOR, 'h1')
+
+    # Returns and base64 encoded string into image
+ele.screenshot('./image.png')
+
+driver.quit()
+  
+C. C#
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+
+driver.get("http://www.example.com")
+
+ele = driver.find_element(By.CSS_SELECTOR, 'h1')
+
+    # Returns and base64 encoded string into image
+ele.screenshot('./image.png')
+
+driver.quit()
+  
+D. Ruby
+    # Works with Selenium4-alpha7 Ruby bindings and above
+    require 'selenium-webdriver'
+    driver = Selenium::WebDriver.for :chrome
+    
+    begin
+      driver.get 'https://example.com/'
+      ele = driver.find_element(:css, 'h1')
+    
+        # Takes and Stores the element screenshot in specified path
+      ele.save_screenshot('./image.jpg')
+    end
+      
+E. Javascrypt
+const {Builder, By} = require('selenium-webdriver');
+let fs = require('fs');
+
+(async function example() {
+   let driver = await new Builder()
+       .forBrowser('chrome')
+       .build();
+
+   await driver.get('https://www.example.com');
+   let ele = await driver.findElement(By.css("h1"));
+   // Captures the element screenshot
+   let encodedString = await ele.takeScreenshot(true);
+   await fs.writeFileSync('./image.png', encodedString, 'base64');
+   await driver.quit();
+}())
+  
+F. Kotlin
+import org.apache.commons.io.FileUtils
+import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.*
+import java.io.File
+
+fun main() {
+    val driver = ChromeDriver()
+    driver.get("https://www.example.com")
+    val element = driver.findElement(By.cssSelector("h1"))
+    val scrFile: File = element.getScreenshotAs(OutputType.FILE)
+    FileUtils.copyFile(scrFile, File("./image.png"))
+    driver.quit()
+}
+
+//////////////////
+6.8 Execute Script
+//////////////////
+//Executes JavaScript code snippet in the current context of a selected frame or window.
+
+A. Java
+//Creating the JavascriptExecutor interface object by Type casting
+JavascriptExecutor js = (JavascriptExecutor)driver;
+//Button Element
+WebElement button =driver.findElement(By.name("btnLogin"));
+//Executing JavaScript to click on element
+js.executeScript("arguments[0].click();"", button);
+//Get return value from script
+String text = (String) js.executeScript("return arguments[0].innerText", button);
+Executing JavaScript directly
+js.executeScript("console.log('hello world')"");
+
+B. Python
+# Stores the header element
+header = driver.find_element(By.CSS_SELECTOR, "h1")
+
+    # Executing JavaScript to capture innerText of header element
+driver.execute_script('return arguments[0].innerText', header)
+  
+C. C#
+//creating Chromedriver instance
+IWebDriver driver = new ChromeDriver();
+//Creating the JavascriptExecutor interface object by Type casting
+IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+//Button Element
+IWebElement button = driver.FindElement(By.Name("btnLogin"));
+//Executing JavaScript to click on element
+js.ExecuteScript("arguments[0].click();"", button);
+//Get return value from script
+String text = (String)js.ExecuteScript("return arguments[0].innerText", button);
+//Executing JavaScript directly
+js.ExecuteScript("console.log('hello world')"");
+
+D. Ruby
+
+# Stores the header element
+header = driver.find_element(css: 'h1')
+
+    # Get return value from script
+result = driver.execute_script("return arguments[0].innerText", header)
+
+    # Executing JavaScript directly
+driver.execute_script("alert('hello world')"")
+  
+E. Javascrypt
+
+// Stores the header element
+let header = await driver.findElement(By.css('h1'));
+
+// Executing JavaScript to capture innerText of header element
+let text = await driver.executeScript('return arguments[0].innerText', header);
+  
+
+  
+F. Kotlin
+// Stores the header element
+val header = driver.findElement(By.cssSelector("h1"))
+
+// Get return value from script
+val result = driver.executeScript("return arguments[0].innerText", header)
+
+// Executing JavaScript directly
+driver.executeScript("alert('hello world')"")
+  
+////////////////
+6.9 Print Page
+///////////////
+
+A. Java
+import org.openqa.selenium.print.PrintOptions;
+
+driver.get("https://www.selenium.dev");
+printer = (PrintsPage) driver;
+
+PrintOptions printOptions = new PrintOptions();
+printOptions.setPageRanges("1-2");
+
+Pdf pdf = printer.print(printOptions);
+String content = pdf.getContent();
+
+B. Python
+from selenium.webdriver.common.print_page_options import PrintOptions
+
+print_options = PrintOptions()
+print_options.page_ranges = ['1-2']
+
+driver.get("printPage.html")
+
+base64code = driver.print_page(print_options)
+
+C. C#
+
+D. Ruby
+driver.navigate_to 'https://www.selenium.dev'
+
+base64encodedContent = driver.print_page(orientation: 'landscape')
+
+E. Javascrypt
+const {Builder} = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
+let opts = new chrome.Options();
+let fs = require('fs');
+(async function example() {
+  let driver = new Builder()
+    .forBrowser('chrome')
+    .setChromeOptions(opts.headless())
+    .build();
+  await driver.get('https://www.selenium.dev');
+  try {
+    let base64 = await driver.printPage({pageRanges:["1-2"]});
+    await fs.writeFileSync('./test.pdf', base64, 'base64');
+  } catch (e) {
+    console.log(e)
+  }
+  await driver.quit();
+})();
+
+F. Kotlin
+driver.get("https://www.selenium.dev")
+val printer = driver as PrintsPage
+
+val printOptions = PrintOptions()
+printOptions.setPageRanges("1-2")
+
+val pdf: Pdf = printer.print(printOptions)
+val content = pdf.content
+

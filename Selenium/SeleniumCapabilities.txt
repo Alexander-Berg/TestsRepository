@@ -1,0 +1,547 @@
+///////////////////////////////////////////////
+These capabilities are shared by all browsers.
+1. browserName:
+This capability is used to set the browserName for a given session. If the specified browser is not installed at the remote end, the session creation will fail.
+2. browserVersion:
+This capability is optional, this is used to set the available browser version at remote end. For Example,
+ if ask for Chrome version 75 on a system that only has 80 installed, the session creation will fail
+3. pageLoadStrategy:
+A. normal	Ready State complete	  Used by default, waits for all resources to download
+B. eager	Ready State interactive	  DOM access is ready, but other resources like images may still be loading
+C. none	    Ready State Any	          Does not block WebDriver at all
+When navigating to a new page via URL, by default Selenium will wait until the Document’s Ready State is “complete.” 
+The document.readyState property of a document describes the loading state of the current document. 
+By default, WebDriver will hold off on completing a navigation method (e.g., driver.navigate().get()) until the document ready state is complete. 
+This does not necessarily mean that the page has finished loading,
+ especially for sites like Single Page Applications that use a lot of JavaScript to dynamically load content after the Ready State returns complete.
+ Note also that this behavior does not apply to navigation that is a result of clicking an element or submitting a form.
+If a page takes a long time to load as a result of downloading assets (e.g., images, css, js) that aren’t important to the automation,
+ you can change from the default parameter of normal to eager or none to speed up the session. This value applies to the entire session,
+  so make sure that your waiting strategy is sufficient to minimize flakiness.
+The page load strategy queries the document.readyState as described in the table below:
+
+4. normal
+This will make Selenium WebDriver to wait for the entire page is loaded. When set to normal, Selenium WebDriver waits until the load event fire is returned.
+
+By default normal is set to browser if none is provided.
+
+A. JAVA
+import org.openqa.selenium.PageLoadStrategy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class pageLoadStrategy {
+public static void main(String[] args) {
+ChromeOptions chromeOptions = new ChromeOptions();
+chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+WebDriver driver = new ChromeDriver(chromeOptions);
+try {
+// Navigate to Url
+driver.get("https://google.com");
+} finally {
+driver.quit();
+}
+}
+}
+B. Python
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+options = Options()
+options.page_load_strategy = 'normal'
+driver = webdriver.Chrome(options=options)
+driver.get("http://www.google.com")
+driver.quit()
+
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace pageLoadStrategy {
+class pageLoadStrategy {
+public static void Main(string[] args) {
+var chromeOptions = new ChromeOptions();
+chromeOptions.PageLoadStrategy = PageLoadStrategy.Normal;
+IWebDriver driver = new ChromeDriver(chromeOptions);
+try {
+driver.Navigate().GoToUrl("https://example.com");
+} finally {
+driver.Quit();
+}
+}
+}
+}
+
+D. Ruby
+require 'selenium-webdriver'
+caps = Selenium::WebDriver::Remote::Capabilities.chrome
+caps.page_load_strategy='normal'
+
+driver = Selenium::WebDriver.for :chrome, :desired_capabilities => caps
+driver.get('https://www.google.com')
+
+E. Javascrypt
+const {Builder, Capabilities} = require('selenium-webdriver');
+const caps = new Capabilities();
+caps.setPageLoadStrategy("normal");
+(async function example() {
+let driver = await new Builder().
+withCapabilities(caps).
+forBrowser('chrome').
+build();
+try {
+// Navigate to Url
+await driver.get('https://www.google.com');
+}
+finally {
+await driver.quit();
+}
+})();
+
+F. Kotlin
+import org.openqa.selenium.PageLoadStrategy
+import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeOptions
+
+fun main() {
+val chromeOptions = ChromeOptions()
+chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL)
+val driver = ChromeDriver(chromeOptions)
+try {
+driver.get("https://www.google.com")
+}
+finally {
+driver.quit()
+}
+}
+
+5. eager
+This will make Selenium WebDriver to wait until the initial HTML document has been completely loaded and parsed, and discards loading of stylesheets,
+images and subframes.
+
+When set to eager, Selenium WebDriver waits until DOMContentLoaded event fire is returned.
+
+A. Java
+import org.openqa.selenium.PageLoadStrategy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class pageLoadStrategy {
+public static void main(String[] args) {
+ChromeOptions chromeOptions = new ChromeOptions();
+chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+WebDriver driver = new ChromeDriver(chromeOptions);
+try {
+// Navigate to Url
+driver.get("https://google.com");
+} finally {
+driver.quit();
+}
+}
+}
+
+B. Python
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+options = Options()
+options.page_load_strategy = 'none'
+driver = webdriver.Chrome(options=options)
+driver.get("http://www.google.com")
+driver.quit()
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace pageLoadStrategy {
+class pageLoadStrategy {
+public static void Main(string[] args) {
+var chromeOptions = new ChromeOptions();
+chromeOptions.PageLoadStrategy = PageLoadStrategy.Eager;
+IWebDriver driver = new ChromeDriver(chromeOptions);
+try {
+driver.Navigate().GoToUrl("https://example.com");
+} finally {
+driver.Quit();
+}
+}
+}
+}
+D. Ruby
+require 'selenium-webdriver'
+caps = Selenium::WebDriver::Remote::Capabilities.chrome
+caps.page_load_strategy='none'
+
+driver = Selenium::WebDriver.for :chrome, :desired_capabilities => caps
+driver.get('https://www.google.com')
+E. Javascrypt
+const {Builder, Capabilities} = require('selenium-webdriver');
+const caps = new Capabilities();
+caps.setPageLoadStrategy("eager");
+(async function example() {
+let driver = await new Builder().
+withCapabilities(caps).
+forBrowser('chrome').
+build();
+try {
+// Navigate to Url
+await driver.get('https://www.google.com');
+}
+finally {
+await driver.quit();
+}
+})();
+F. Kotlin
+import org.openqa.selenium.PageLoadStrategy
+import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeOptions
+
+fun main() {
+val chromeOptions = ChromeOptions()
+chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER)
+val driver = ChromeDriver(chromeOptions)
+try {
+driver.get("https://www.google.com")
+}
+finally {
+driver.quit()
+}
+}
+
+6. none
+When set to none Selenium WebDriver only waits until the initial page is downloaded.
+
+A. Java
+import org.openqa.selenium.PageLoadStrategy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class pageLoadStrategy {
+public static void main(String[] args) {
+ChromeOptions chromeOptions = new ChromeOptions();
+chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
+WebDriver driver = new ChromeDriver(chromeOptions);
+try {
+// Navigate to Url
+driver.get("https://google.com");
+} finally {
+driver.quit();
+}
+}
+}
+B. Python
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+options = Options()
+options.page_load_strategy = 'none'
+driver = webdriver.Chrome(options=options)
+driver.get("http://www.google.com")
+driver.quit()
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace pageLoadStrategy {
+class pageLoadStrategy {
+public static void Main(string[] args) {
+var chromeOptions = new ChromeOptions();
+chromeOptions.PageLoadStrategy = PageLoadStrategy.Eager;
+IWebDriver driver = new ChromeDriver(chromeOptions);
+try {
+driver.Navigate().GoToUrl("https://example.com");
+} finally {
+driver.Quit();
+}
+}
+}
+}
+D. Ruby
+require 'selenium-webdriver'
+caps = Selenium::WebDriver::Remote::Capabilities.chrome
+caps.page_load_strategy='none'
+
+driver = Selenium::WebDriver.for :chrome, :desired_capabilities => caps
+driver.get('https://www.google.com')
+E. Javascrypt
+const {Builder, Capabilities} = require('selenium-webdriver');
+const caps = new Capabilities();
+caps.setPageLoadStrategy("none");
+(async function example() {
+let driver = await new Builder().
+withCapabilities(caps).
+forBrowser('chrome').
+build();
+try {
+// Navigate to Url
+await driver.get('https://www.google.com');
+}
+finally {
+await driver.quit();
+}
+})();
+}
+})();
+F. Kotlin
+import org.openqa.selenium.PageLoadStrategy
+import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeOptions
+
+fun main() {
+val chromeOptions = ChromeOptions()
+chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE)
+val driver = ChromeDriver(chromeOptions)
+try {
+driver.get("https://www.google.com")
+}
+finally {
+driver.quit()
+}
+}
+
+7. platformName
+This identifies the operating system at the remote-end, fetching the platformName returns the OS name.
+
+In cloud-based providers, setting platformName sets the OS at the remote-end
+
+8. acceptInsecureCerts
+This capability checks whether an expired (or) invalid TLS Certificate is used while navigating during a session.
+
+If the capability is set to false, an insecure certificate error will be returned as navigation encounters any domain certificate problems.
+ If set to true, invalid certificate will be trusted by the browser.
+
+All self-signed certificates will be trusted by this capability by default. 
+Once set, acceptInsecureCerts capability will have an effect for the entire session.
+
+
+
+9. timeouts
+A WebDriver session is imposed with a certain session timeout interval,
+ during which the user can control the behaviour of executing scripts or retrieving information from the browser.
+
+Each session timeout is configured with combination of different timeouts as described below:
+
+A. Script Timeout:
+Specifies when to interrupt an executing script in a current browsing context.
+ The default timeout 30,000 is imposed when a new session is created by WebDriver.
+B. Page Load Timeout:
+Specifies the time interval in which web page needs to be loaded in a current browsing context.
+ The default timeout 300,000 is imposed when a new session is created by WebDriver.
+  If page load limits a given/default time frame, the script will be stopped by TimeoutException.
+
+C. Implicit Wait Timeout
+This specifies the time to wait for the implicit element location strategy when locating elements. 
+The default timeout 0 is imposed when a new session is created by WebDriver
+
+10. unhandledPromptBehavior
+Specifies the state of current session’s user prompt handler. Defaults to dismiss and notify state
+
+User Prompt Handler
+This defines what action must take when a user prompt encounters at the remote-end.
+ This is defined by unhandledPromptBehavior capability and has the following states:
+
+dismiss
+accept
+dismiss and notify
+accept and notify
+ignore
+
+11. setWindowRect
+This command alters the size and position of the current browsing context window.
+ This command acts as setter to getWindowRect command which accepts width, height, x, y as optional arguments.
+
+During automation, the current browsing context will be associated with window states, which describe the visibility of the browser window. The window states are
+
+maximized
+minimized
+normal
+fullscreen
+Setting Width or Height does not guaranteed that the resulting window size will exactly match that which was requested. 
+This is because some drivers may not be able to resize in single-pixel increments.
+ Due to this, fetching the window state/details by getWindowRect may not match the values set in the browser
+
+A. Java
+import org.openqa.selenium.Proxy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class proxyTest {
+public static void main(String[] args) {
+Proxy proxy = new Proxy();
+proxy.setHttpProxy("<HOST:PORT>");
+ChromeOptions options = new ChromeOptions();
+options.setCapability("proxy", proxy);
+WebDriver driver = new ChromeDriver(options);
+driver.get("https://www.google.com/");
+driver.manage().window().maximize();
+driver.quit();
+}
+}
+B. Python
+from selenium import webdriver
+
+PROXY = "<HOST:PORT>"
+webdriver.DesiredCapabilities.FIREFOX['proxy'] = {
+"httpProxy": PROXY,
+"ftpProxy": PROXY,
+"sslProxy": PROXY,
+"proxyType": "MANUAL",
+
+}
+
+with webdriver.Firefox() as driver:
+driver.get("https://selenium.dev")
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+public class ProxyTest{
+public static void Main() {
+ChromeOptions options = new ChromeOptions();
+Proxy proxy = new Proxy();
+proxy.Kind = ProxyKind.Manual;
+proxy.IsAutoDetect = false;
+proxy.SslProxy = "<HOST:PORT>";
+options.Proxy = proxy;
+options.AddArgument("ignore-certificate-errors");
+IWebDriver driver = new ChromeDriver(options);
+driver.Navigate().GoToUrl("https://www.selenium.dev/");
+}
+}
+D. Ruby
+proxy = Selenium::WebDriver::Proxy.new(http: '<HOST:PORT>')
+cap   = Selenium::WebDriver::Remote::Capabilities.chrome(proxy: proxy)
+
+driver = Selenium::WebDriver.for(:chrome, capabilities: cap)
+driver.get('http://google.com')
+E. Javascrypt
+let webdriver = require('selenium-webdriver');
+let chrome = require('selenium-webdriver/chrome');
+let proxy = require('selenium-webdriver/proxy');
+let opts = new chrome.Options();
+
+(async function example() {
+opts.setProxy(proxy.manual({http: '<HOST:PORT>'}));
+let driver = new webdriver.Builder()
+.forBrowser('chrome')
+.setChromeOptions(opts)
+.build();
+try {
+await driver.get("https://selenium.dev");
+}
+finally {
+await driver.quit();
+}
+}());
+F. Kotlin
+import org.openqa.selenium.Proxy
+import org.openqa.selenium.WebDriver
+import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeOptions
+
+class proxyTest {
+fun main() {
+
+        val proxy = Proxy()
+        proxy.setHttpProxy("<HOST:PORT>")
+        val options = ChromeOptions()
+        options.setCapability("proxy", proxy)
+        val driver: WebDriver = ChromeDriver(options)
+        driver["https://www.google.com/"]
+        driver.manage().window().maximize()
+        driver.quit()
+    }
+}
+
+/////////////////////////////////////////////
+These capabilities are specific to Firefox.
+/////////////////////////////////////////////
+1. Define Capabilities using FirefoxOptions
+FirefoxOptions is the new way to define capabilities for the Firefox browser and should generally be used in preference to DesiredCapabilities.
+
+A. Java
+FirefoxOptions options = new FirefoxOptions();
+options.addPreference("network.proxy.type", 0);
+driver = new RemoteWebDriver(options);
+  
+B. Python
+from selenium.webdriver.firefox.options import Options
+options = Options()
+options.headless = True
+driver = webdriver.Firefox(options=options)
+  
+C. C#
+var options = new FirefoxOptions();
+options.Proxy.Kind = ProxyKind.Direct;
+var driver = new FirefoxDriver(options);
+  
+D. Ruby
+require 'selenium-webdriver'
+opts = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
+driver = Selenium::WebDriver.for(:firefox, options: opts)
+  
+E. Javascrypt
+const { Builder } = require("selenium-webdriver");
+const firefox = require('selenium-webdriver/firefox');
+
+const options = new firefox.Options();
+options.headless();
+const driver = new Builder()
+    .forBrowser('firefox')
+    .setFirefoxOptions(options)
+    .build();
+  
+
+F. Kotlin
+val options = new FirefoxOptions()
+options.addPreference("network.proxy.type", 0)
+driver = RemoteWebDriver(options)
+
+2. Setting a custom profile
+It is possible to create a custom profile for Firefox as demonstrated below.
+
+A. Java
+FirefoxProfile profile = new FirefoxProfile();
+FirefoxOptions options = new FirefoxOptions();
+options.setProfile(profile);
+driver = new RemoteWebDriver(options);
+  
+B. Python
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+options=Options()
+firefox_profile = FirefoxProfile()
+firefox_profile.set_preference("javascript.enabled", False)
+options.profile = firefox_profile
+  
+C. C#
+var options = new FirefoxOptions();
+var profile = new FirefoxProfile();
+options.Profile = profile;
+var driver = new RemoteWebDriver(options);
+  
+D. Ruby
+profile = Selenium::WebDriver::Firefox::Profile.new
+profile['browser.download.dir'] = "/tmp/webdriver-downloads"
+options = Selenium::WebDriver::Firefox::Options.new(profile: profile)
+driver = Selenium::WebDriver.for :firefox, options: options
+  
+E. Javascrypt
+const { Builder } = require("selenium-webdriver");
+const firefox = require('selenium-webdriver/firefox');
+
+const options = new firefox.Options();
+let profile = '/path to custom profile';
+options.setProfile(profile);
+const driver = new Builder()
+    .forBrowser('firefox')
+    .setFirefoxOptions(options)
+    .build();
+  
+
+F. Kotlin
+val options = FirefoxOptions()
+options.profile = FirefoxProfile()
+driver = RemoteWebDriver(options)
+  

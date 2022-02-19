@@ -1,0 +1,255 @@
+1. Explicit wait
+
+A. Java
+WebDriver driver = new ChromeDriver();
+driver.get("https://google.com/ncr");
+driver.findElement(By.name("q")).sendKeys("cheese" + Keys.ENTER);
+// Initialize and wait till element(link) became clickable - timeout in 10 seconds
+WebElement firstResult = new WebDriverWait(driver, Duration.ofSeconds(10))
+        .until(ExpectedConditions.elementToBeClickable(By.xpath("//a/h3")));
+// Print the first result
+System.out.println(firstResult.getText());
+
+//More consice version
+WebElement foo = new WebDriverWait(driver, Duration.ofSeconds(3))
+          .until(driver -> driver.findElement(By.name("q")));
+assertEquals(foo.getText(), "Hello from JavaScript!"); 
+
+//Default timeout
+new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//a/h3")));
+  
+  
+B. Python
+from selenium.webdriver.support.ui import WebDriverWait
+def document_initialised(driver):
+    return driver.execute_script("return initialised")
+
+driver.navigate("file:///race_condition.html")
+WebDriverWait(driver).until(document_initialised)
+el = driver.find_element(By.TAG_NAME, "p")
+assert el.text == "Hello from JavaScript!"
+
+//More consice version
+from selenium.webdriver.support.ui import WebDriverWait
+
+driver.navigate("file:///race_condition.html")
+el = WebDriverWait(driver).until(lambda d: d.find_element_by_tag_name("p"))
+assert el.text == "Hello from JavaScript!"
+
+//Default timeout
+WebDriverWait(driver, timeout=3).until(some_condition)
+
+C. C#
+driver = new ChromeDriver();
+driver.Url = "https://www.google.com/ncr";
+driver.FindElement(By.Name("q")).SendKeys("cheese" + Keys.Enter);
+            
+WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+IWebElement firstResult = wait.Until(e => e.FindElement(By.XPath("//a/h3")));
+
+Console.WriteLine(firstResult.Text);
+
+//More consice version
+using (var driver = new FirefoxDriver())
+{
+    var foo = new WebDriverWait(driver, TimeSpan.FromSeconds(3))
+                    .Until(drv => drv.FindElement(By.Name("q")));
+    Debug.Assert(foo.Text.Equals("Hello from JavaScript!"));
+}
+//Default timeout
+new WebDriverWait(driver, TimeSpan.FromSeconds(3)).Until(ExpectedConditions.ElementToBeClickable(By.XPath("//a/h3")));
+  
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :firefox
+wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+
+def document_initialised(driver)
+  driver.execute_script('return initialised')
+end
+
+begin
+  driver.get 'file:///race_condition.html'
+  wait.until{document_initialised driver}
+  search_form = driver.find_element(:css,'p').text
+  "Hello from JavaScript!".eql? search_form
+ensure
+  driver.quit
+end
+
+//More consice version
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :firefox
+wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+
+def document_initialised(driver)
+  driver.execute_script('return initialised')
+end
+
+begin
+  driver.get 'file:///race_condition.html'
+  wait.until{document_initialised driver}
+  search_form = driver.find_element(:css,'p').text
+  "Hello from JavaScript!".eql? search_form
+ensure
+  driver.quit
+end
+
+//Default timeout
+driver.get 'file:///race_condition.html'
+wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+ele = wait.until { driver.find_element(css: 'p')}
+foo = ele.text
+assert_match foo, 'Hello from JavaScript'
+
+E. Javascrypt
+const documentInitialised = () =>
+    driver.executeScript('return initialised');
+
+await driver.get('file:///race_condition.html');
+await driver.wait(() => documentInitialised(), 10000);
+const element = driver.findElement(By.css('p'));
+assert.strictEqual(await element.getText(), 'Hello from JavaScript!');
+
+//More consice version
+let ele = await driver.wait(until.elementLocated(By.css('p')),10000);
+let foo = await ele.getText();
+assert(foo == "Hello from JavaScript");
+  
+//Default timeout
+await driver.wait(until.elementLocated(By.id('foo')), 30000);
+
+F. Kotlin
+driver.get("https://google.com/ncr")
+driver.findElement(By.name("q")).sendKeys("cheese" + Keys.ENTER)
+// Initialize and wait till element(link) became clickable - timeout in 10 seconds
+val firstResult = WebDriverWait(driver, Duration.ofSeconds(10))
+      .until(ExpectedConditions.elementToBeClickable(By.xpath("//a/h3")))
+// Print the first result
+println(firstResult.text)
+
+//More consice version
+driver.get("file:///race_condition.html")
+val ele = WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.presenceOfElementLocated(By.tagName("p")))
+assert(ele.text == "Hello from JavaScript!")
+ 
+//Default timeout
+WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//a/h3")))
+
+2. Implicit wait
+
+A. Java
+WebDriver driver = new FirefoxDriver();
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+driver.get("http://somedomain/url_that_delays_loading");
+WebElement myDynamicElement = driver.findElement(By.id("myDynamicElement"));
+  
+B. Python
+driver = Firefox()
+driver.implicitly_wait(10)
+driver.get("http://somedomain/url_that_delays_loading")
+my_dynamic_element = driver.find_element(By.ID, "myDynamicElement")
+  
+C. C#
+IWebDriver driver = new ChromeDriver();
+driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+driver.Url = "http://somedomain/url_that_delays_loading";
+IWebElement dynamicElement = driver.FindElement(By.Name("dynamicElement"));
+  
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :firefox
+driver.manage.timeouts.implicit_wait = 10
+
+begin
+  driver.get 'http://somedomain/url_that_delays_loading'
+  search_form = driver.find_element(:id,'dynamic_element')
+ensure
+  driver.quit
+end
+  
+E. Javascrypt
+const {Builder, until} = require('selenium-webdriver');
+
+(async function example() {
+    let driver = await new Builder().forBrowser('firefox').build();
+    await driver.get('http://somedomain/url_that_delays_loading');
+    // Waiting 30 seconds for an element to be present on the page, checking
+    // for its presence once every 5 seconds.
+    let foo = await driver.wait(until.elementLocated(By.id('foo')), 30000, 'Timed out after 30 seconds', 5000);
+})();
+  
+
+F. Kotlin
+val driver = FirefoxDriver()
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10))
+driver.get("http://somedomain/url_that_delays_loading")
+val myDynamicElement = driver.findElement(By.id("myDynamicElement"))
+
+3. Fluent Wait
+
+A. Java
+// Waiting 30 seconds for an element to be present on the page, checking
+// for its presence once every 5 seconds.
+Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+  .withTimeout(Duration.ofSeconds(30))
+  .pollingEvery(Duration.ofSeconds(5))
+  .ignoring(NoSuchElementException.class);
+
+WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
+  public WebElement apply(WebDriver driver) {
+    return driver.findElement(By.id("foo"));
+  }
+});
+  
+B. Python
+driver = Firefox()
+driver.get("http://somedomain/url_that_delays_loading")
+wait = WebDriverWait(driver, 10, poll_frequency=1, ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
+element = wait.until(EC.element_to_be_clickable((By.XPATH, "//div")))
+  
+C. C#
+using (var driver = new FirefoxDriver())
+{
+  WebDriverWait wait = new WebDriverWait(driver, timeout: TimeSpan.FromSeconds(30))
+  {
+      PollingInterval = TimeSpan.FromSeconds(5),
+  };
+  wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+  var foo = wait.Until(drv => drv.FindElement(By.Id("foo")));
+}
+  
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :firefox
+driver.manage.timeouts.implicit_wait = 10
+
+begin
+  driver.get 'http://somedomain/url_that_delays_loading'
+  search_form = driver.find_element(:id,'dynamic_element')
+ensure
+  driver.quit
+end
+  
+E. Javascrypt
+const {Builder, until} = require('selenium-webdriver');
+
+(async function example() {
+    let driver = await new Builder().forBrowser('firefox').build();
+    await driver.get('http://somedomain/url_that_delays_loading');
+    // Waiting 30 seconds for an element to be present on the page, checking
+    // for its presence once every 5 seconds.
+    let foo = await driver.wait(until.elementLocated(By.id('foo')), 30000, 'Timed out after 30 seconds', 5000);
+})();
+  
+
+F. Kotlin
+val wait = FluentWait<WebDriver>(driver)
+        .withTimeout(Duration.ofSeconds(30))
+        .pollingEvery(Duration.ofSeconds(3))
+        .ignoring(NoSuchElementException::class.java)
+
+val foo = wait.until {it.findElement(By.id("foo")) }
+

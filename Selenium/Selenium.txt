@@ -1,0 +1,702 @@
+///////////////////////////////////
+1. Driver Management Software
+///////////////////////////////////
+
+//Most machines automatically update the browser, but the driver does not. To make sure you get the correct driver for your browser,
+//there are many third party libraries to assist you.
+A. Java
+//Import WebDriver Manager
+
+Import io.github.bonigarcia.wdm.WebDriverManager;
+
+//Calling setup() automatically puts the correct browser driver where the code will see it:
+
+WebDriverManager.chromedriver().setup();
+
+//Just initialize the driver as you normally would:
+
+ChromeDriver driver = new ChromeDriver();
+
+B. Python
+
+//Import WebDriver Manager for Python
+
+from webdriver_manager.chrome import ChromeDriverManager
+
+//Use install() to get the location used by the manager and pass it into service class
+
+service = Service(executable_path=ChromeDriverManager().install())
+
+//Use Service instance when initializing the driver:
+
+driver = webdriver.Chrome(service=service)
+
+C. C#
+
+//Import WebDriver Manager Package
+
+using WebDriverManager;
+
+using WebDriverManager.DriverConfigs.Impl;
+
+//Use the SetUpDriver() which requires a config class:
+
+new DriverManager().SetUpDriver(new ChromeConfig());
+
+//Initialize your driver as you normally would:
+
+var driver = new ChromeDriver()
+
+D. Ruby
+
+//Add webdrivers gem to Gemfile:
+
+gem 'webdrivers', '~> 5.0'
+
+//Require webdrivers in your project:
+
+require 'webdrivers'
+
+// Initialize driver as you normally would:
+
+driver = Selenium::WebDriver.for :chrome
+
+//Kotlin
+
+//Import WebDriver Manager
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+//Call the setup method before initializing the driver as you normally would:
+
+fun chrome(): WebDriver {
+    WebDriverManager.chromedriver().setup()
+    return ChromeDriver()
+}
+
+////////////////////////////////////////////////
+2. The PATH Environment Variable
+////////////////////////////////////////////////
+
+A. Bash
+//To see what directories are already on PATH, open a Terminal and execute:
+
+echo $PATH
+
+//If the location to your driver is not already in a directory listed, you can add a new directory to PATH:
+
+echo 'export PATH=$PATH:/path/to/driver' >> ~/.bash_profile
+source ~/.bash_profile
+
+//You can test if it has been added correctly by starting the driver:
+
+chromedriver
+
+B. Zsh
+//To see what directories are already on PATH, open a Terminal and execute:
+
+echo $PATH
+//If the location to your driver is not already in a directory listed, you can add a new directory to PATH:
+
+echo 'export PATH=$PATH:/path/to/driver' >> ~/.zshenv
+source ~/.zshenv
+//You can test if it has been added correctly by starting the driver:
+
+chromedriver
+
+C. Windows
+
+//To see what directories are already on PATH, open a Command Prompt and execute:
+
+echo %PATH%
+//If the location to your driver is not already in a directory listed, you can add a new directory to PATH:
+
+setx PATH "%PATH%;C:\WebDriver\bin"
+//You can test if it has been added correctly by starting the driver:
+
+chromedriver.exe
+
+///////////////////////////////////
+3. Hard Coded Location
+//////////////////////////////////
+
+F. Java
+System.setProperty("webdriver.chrome.driver","/path/to/chromedriver");
+ChromeDriver driver = new ChromeDriver();
+
+A. Python
+service = Service(executable_path="/path/to/chromedriver")
+driver = webdriver.Chrome(service=service)
+
+B. C#
+var driver = new ChromeDriver(@"C:\WebDriver\bin");
+
+C. Ruby
+service = Selenium::WebDriver::Service.chrome(path: '/path/to/chromedriver')
+driver = Selenium::WebDriver.for :chrome, service: service
+
+D. JavaScrypt
+
+const {Builder} = require('selenium-webdriver');
+
+const service = new chrome.ServiceBuilder('/path/to/chromedriver').build();
+const driver = new Builder().forBrowser('chrome').setChromeService(service).build();
+
+//import org.openqa.selenium.chrome.ChromeDriver
+
+E. Kotlin
+
+fun main(args: Array<String>) {
+    System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver")
+    val driver = ChromeDriver()
+}
+
+///////////////////////////
+4. Selenium Code examples for starting and stopping a session with each browser.
+///////////////////////////
+
+//////////
+4.1. Chrome
+A. Java
+
+ChromeOptions options = new ChromeOptions();
+  driver = new ChromeDriver(options);
+  
+  driver.quit();
+
+B. Python
+
+options = ChromeOptions()
+  driver = webdriver.Chrome(options=options)
+
+  driver.quit()
+
+C. C# 
+
+var options = new ChromeOptions();
+var driver = new ChromeDriver(options);
+
+driver.Quit();
+
+D. Ruby
+
+options = Selenium::WebDriver::Options.chrome
+driver = Selenium::WebDriver.for :chrome, options: options
+
+driver.quit
+
+E. JavaScrypt
+
+let options = new chrome.Options();
+let driver = await new Builder()
+  .forBrowser('chrome')
+  .setChromeOptions(options)
+  .build();
+
+await driver.quit();
+
+F. Kotlin
+
+val options = ChromeOptions()
+val driver = ChromeDriver(options)
+
+driver.quit()
+
+////////
+4.2 Edge
+
+A. Java
+
+EdgeOptions options = new EdgeOptions();
+  driver = new EdgeDriver(options);
+
+  driver.quit();
+
+B. Python
+
+options = EdgeOptions()
+  driver = webdriver.Edge(options=options)
+
+  driver.quit()
+
+C. C#
+
+var options = new EdgeOptions();
+  var driver = new EdgeDriver(options);
+  
+  driver.Quit();
+
+D. Ruby
+
+options = Selenium::WebDriver::Options.edge
+driver = Selenium::WebDriver.for :edge, options: options
+
+driver.quit
+
+D. JavaScrypt
+
+let options = new edge.Options();
+let driver = await new Builder()
+  .forBrowser('MicrosoftEdge')
+  .setEdgeOptions(options)
+  .build();
+
+await driver.quit();
+
+E. Kotlin
+
+val options = EdgeOptions()
+  val driver = EdgeDriver(options)
+
+  driver.quit()
+
+//////////
+4.3 Firefox
+
+A. Java
+
+FirefoxOptions options = new FirefoxOptions();
+driver = new FirefoxDriver(options);
+
+driver.quit();
+
+B. Python
+
+options = FirefoxOptions()
+driver = webdriver.Firefox(options=options)
+
+driver.quit()
+
+C. C#
+
+var options = new FirefoxOptions();
+  var driver = new FirefoxDriver(options);
+  
+  driver.Quit();
+
+D. Ruby
+
+options = Selenium::WebDriver::Options.firefox
+  driver = Selenium::WebDriver.for :firefox, options: options
+
+  driver.quit
+
+E. JavaScrypt
+
+let options = new firefox.Options();
+let driver = await new Builder()
+  .forBrowser('firefox')
+  .setFirefoxOptions(options)
+  .build();
+
+await driver.quit();
+
+F. Kotlin
+
+val options = FirefoxOptions()
+val driver = FirefoxDriver(options)
+
+driver.quit()
+
+/////////////////////
+4.4 Internet Explorer Legacy
+
+A. Java
+
+InternetExplorerOptions options = new InternetExplorerOptions();
+driver = new InternetExplorerDriver(options);
+
+driver.quit();
+
+B. Python
+
+options = IEOptions()
+driver = webdriver.Ie(options=options)
+
+driver.quit()
+
+C. C#
+
+var options = new InternetExplorerOptions();
+var driver = new InternetExplorerDriver(options);
+
+driver.Quit();
+
+D. Ruby
+
+options = Selenium::WebDriver::Options.ie
+driver = Selenium::WebDriver.for :ie, options: options
+
+driver.quit
+
+E. JavaScrypt
+
+let options = new ie.Options();
+let driver = await new Builder()
+  .forBrowser('internetExplorer')
+  .setIeOptions(options)
+  .build();
+
+await driver.quit();
+
+F. Kotlin
+
+val options = InternetExplorerOptions()
+val driver = InternetExplorerDriver(options)
+
+driver.quit()
+
+//////////////
+4.5 Internet Explorer Legacy  Compatibility Mode
+
+A. Java
+
+InternetExplorerOptions options = new InternetExplorerOptions();
+options.attachToEdgeChrome();
+options.withEdgeExecutablePath("/path/to/edge/browser");
+
+driver = new InternetExplorerDriver(options);
+
+driver.quit();
+
+B. Python
+
+options = IEOptions()
+options.attach_to_edge_chrome = True
+options.edge_executable_path = "/path/to/edge/browser"
+driver = webdriver.Ie(options=options)
+
+driver.quit()
+
+C. C#
+
+var options = new InternetExplorerOptions
+{
+  AttachToEdgeChrome = true,
+  EdgeExecutablePath = "/path/to/edge/browser"
+};
+var driver = new InternetExplorerDriver(options);
+
+driver.Quit();
+
+D. Ruby
+
+options = Selenium::WebDriver::Options.ie
+options.attach_to_edge_chrome = true
+options.edge_executable_path = "/path/to/edge/browser"
+driver = Selenium::WebDriver.for :ie, options: options
+
+driver.quit
+
+E. JavaScrypt
+
+let options = new ie.Options();
+options.setEdgeChromium(true);
+options.setEdgePath("/path/to/edge/browser);
+
+let driver = await new Builder()
+  .forBrowser('internet explorer')
+  .setIEOptions(options)
+  .build();
+
+await driver.quit();
+
+D. Kotlin
+
+val options = ChromeOptions()
+options.setBinary("/path/to/opera/browser")
+val driver = ChromeDriver(options)
+
+driver.quit()
+
+////////////
+4.6 Safari
+
+A. Java
+
+ChromeOptions options = new ChromeOptions();
+options.setBinary("/path/to/opera/browser");
+
+driver = new ChromeDriver(options);
+
+driver.quit();
+
+B. Python
+
+options = ChromeOptions()
+options.binary_location = "path/to/opera/browser"
+driver = webdriver.Chrome(options=options)
+
+driver.quit()
+
+C. C#
+
+var options = new ChromeOptions
+{
+  BinaryLocation = "/path/to/opera/browser"
+};
+var driver = new ChromeDriver(options);
+
+driver.Quit();
+
+D. Ruby
+
+options = Selenium::WebDriver::Options.chrome
+options.binary = '/path/to/opera/browser'
+driver = Selenium::WebDriver.for :chrome, options: options
+
+driver.quit
+
+E. JavaScrypt
+
+let options = new chrome.Options();
+options.setChromeBinaryPath("/path/to/opera/browser");
+
+let driver = await new Builder()
+  .forBrowser('chrome')
+  .setChromeOptions(options)
+  .build();
+
+await driver.quit();
+
+F. Kotlin
+
+safaridriver --enable
+
+val options = SafariOptions()
+val driver = SafariDriver(options)
+
+driver.quit()
+
+///////////////////////////
+5.Upgrade from Selenium v3
+
+A. Java
+
+////OLD
+driver.findElementByClassName("className");
+driver.findElementByCssSelector(".className");
+driver.findElementById("elementId");
+driver.findElementByLinkText("linkText");
+driver.findElementByName("elementName");
+driver.findElementByPartialLinkText("partialText");
+driver.findElementByTagName("elementTagName");
+driver.findElementByXPath("xPath");
+
+//NEW
+driver.findElement(By.className("className"));
+driver.findElement(By.cssSelector(".className"));
+driver.findElement(By.id("elementId"));
+driver.findElement(By.linkText("linkText"));
+driver.findElement(By.name("elementName"));
+driver.findElement(By.partialLinkText("partialText"));
+driver.findElement(By.tagName("elementTagName"));
+driver.findElement(By.xpath("xPath"));
+
+//OLD
+
+driver.findElementsByClassName("className");
+driver.findElementsByCssSelector(".className");
+driver.findElementsById("elementId");
+driver.findElementsByLinkText("linkText");
+driver.findElementsByName("elementName");
+driver.findElementsByPartialLinkText("partialText");
+driver.findElementsByTagName("elementTagName");
+driver.findElementsByXPath("xPath");
+
+//NEW
+driver.findElements(By.className("className"));
+driver.findElements(By.cssSelector(".className"));
+driver.findElements(By.id("elementId"));
+driver.findElements(By.linkText("linkText"));
+driver.findElements(By.name("elementName"));
+driver.findElements(By.partialLinkText("partialText"));
+driver.findElements(By.tagName("elementTagName"));
+driver.findElements(By.xpath("xPath"));
+
+////////////////////////
+6.Upgrading dependencies
+
+A. Java Maven
+
+<dependencies>
+  <!-- more dependencies ... -->
+  <dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>3.141.59</version>
+  </dependency>
+  <!-- more dependencies ... -->
+</dependencies>
+
+<dependencies>
+    <!-- more dependencies ... -->
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.0.0</version>
+    </dependency>
+    <!-- more dependencies ... -->
+</dependencies>
+
+B. Gradle
+
+////OLD
+plugins {
+    id 'java'
+}
+group 'org.example'
+version '1.0-SNAPSHOT'
+repositories {
+    mavenCentral()
+}
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+}
+test {
+    useJUnitPlatform()
+}
+
+//NEW
+
+plugins {
+    id 'java'
+}
+group 'org.example'
+version '1.0-SNAPSHOT'
+repositories {
+    mavenCentral()
+}
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.0.0'
+}
+test {
+    useJUnitPlatform()
+}
+
+B. C#
+//The place to get updates for Selenium 4 in C# 
+//is NuGet. Under the Selenium.WebDriver package you can get the instructions to update to the latest version. Inside of Visual Studio, through the NuGet Package Manager you can execute:
+
+PM> Install-Package Selenium.WebDriver -Version 4.0.0
+
+//Python
+//The most important change to use Python is the minimum required version
+
+pip install selenium==4.0.0
+
+//Ruby
+
+gem install selenium-webdriver
+
+gem 'selenium-webdriver', '~> 4.0.0'
+
+C. JavaScript
+//The selenium-webdriver package can be found at the Node package manager, npmjs.
+//Selenium 4 can be found here. To install it, you could either execute:
+
+npm install selenium-webdriver
+
+//Or, update your package.json and run npm install:
+
+{
+    "name": "selenium-tests",
+    "version": "1.0.0",
+    "dependencies": {
+      "selenium-webdriver": "^4.0.0"
+    }
+  }
+
+  //Waits and Timeout
+  //OLD
+  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+  driver.manage().timeouts().setScriptTimeout(2, TimeUnit.MINUTES);
+  driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+
+  //NEW
+  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+  driver.manage().timeouts().scriptTimeout(Duration.ofMinutes(2));
+  driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+  
+
+  //OLD
+  new WebDriverWait(driver, 3)
+  .until(ExpectedConditions.elementToBeClickable(By.cssSelector("#id")));
+  
+  Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+    .withTimeout(30, TimeUnit.SECONDS)
+    .pollingEvery(5, TimeUnit.SECONDS)
+    .ignoring(NoSuchElementException.class);
+
+    //NEW
+    new WebDriverWait(driver, Duration.ofSeconds(3))
+  .until(ExpectedConditions.elementToBeClickable(By.cssSelector("#id")));
+
+  //Merging capabilities is no longer changing the calling object 
+  //OLD
+  Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+  .withTimeout(Duration.ofSeconds(30))
+  .pollingEvery(Duration.ofSeconds(5))
+  .ignoring(NoSuchElementException.class);
+
+  //NEW
+  MutableCapabilities capabilities = new MutableCapabilities();
+  capabilities.setCapability("platformVersion", "Windows 10");
+  FirefoxOptions options = new FirefoxOptions();
+  options.setHeadless(true);
+  options = options.merge(capabilities);
+  
+D. Firefox Legacy
+
+  FirefoxOptions options = new FirefoxOptions();
+  options.setLegacy(true);
+
+  //BrowserType
+  //old
+  MutableCapabilities capabilities = new MutableCapabilities();
+capabilities.setCapability("browserVersion", "92");
+capabilities.setCapability("browserName", BrowserType.FIREFOX);
+
+//new
+MutableCapabilities capabilities = new MutableCapabilities();
+capabilities.setCapability("browserVersion", "92");
+capabilities.setCapability("browserName", Browser.FIREFOX);
+
+E. C#
+
+//OLD
+var browserOptions = new ChromeOptions();
+browserOptions.PlatformName = "Windows 10";
+browserOptions.BrowserVersion = "latest";
+var cloudOptions = new Dictionary<string, object>();
+browserOptions.AddAdditionalCapability("cloud:options", cloudOptions, true);
+
+//NEW
+var browserOptions = new ChromeOptions();
+browserOptions.PlatformName = "Windows 10";
+browserOptions.BrowserVersion = "latest";
+var cloudOptions = new Dictionary<string, object>();
+browserOptions.AddAdditionalOption("cloud:options", cloudOptions);
+
+F. Python
+
+//OLD
+from selenium import webdriver
+options = webdriver.ChromeOptions()
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option("useAutomationExtension", False)
+driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=options
+
+//NEW
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+options = webdriver.ChromeOptions()
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option("useAutomationExtension", False)
+service = ChromeService(executable_path=CHROMEDRIVER_PATH)
+driver = webdriver.Chrome(service=service, options=options)
+

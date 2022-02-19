@@ -1,0 +1,156 @@
+1. Working With Colors
+
+A. Java
+import org.openqa.selenium.support.Color;
+
+private final Color HEX_COLOUR = Color.fromString("#2F7ED8");
+private final Color RGB_COLOUR = Color.fromString("rgb(255, 255, 255)");                      /"
+private final Color RGB_COLOUR = Color.fromString("rgb(40%, 20%, 40%)");                      /"
+private final Color RGBA_COLOUR = Color.fromString("rgba(255, 255, 255, 0.5)");               /"
+private final Color RGBA_COLOUR = Color.fromString("rgba(40%, 20%, 40%, 0.5)");               /"
+private final Color HSL_COLOUR = Color.fromString("hsl(100, 0%, 50%)");                       /"
+private final Color HSLA_COLOUR = Color.fromString("hsla(100, 0%, 50%, 0.5)");                 /"
+
+private final Color BLACK = Color.fromString("black");
+private final Color CHOCOLATE = Color.fromString("chocolate");
+private final Color HOTPINK = Color.fromString("hotpink");
+  
+private final Color TRANSPARENT = Color.fromString("transparent");
+
+//You can now safely query an element to get its colour/background colour knowing that any response will be correctly parsed and converted into a valid Color object:
+  
+Color loginButtonColour = Color.fromString(driver.findElement(By.id("login")).getCssValue("color"));
+
+Color loginButtonBackgroundColour = Color.fromString(driver.findElement(By.id("login")).getCssValue("background-color"));
+
+//You can then directly compare colour objects:
+
+assert loginButtonBackgroundColour.equals(HOTPINK);
+
+//Or you can convert the colour into one of the following formats and perform a static validation:
+
+assert loginButtonBackgroundColour.asHex().equals("#ff69b4");
+assert loginButtonBackgroundColour.asRgba().equals("rgba(255, 105, 180, 1)");                      /"
+assert loginButtonBackgroundColour.asRgb().equals("rgb(255, 105, 180)");                           /"
+
+B. Python
+
+from selenium.webdriver.support.color import Color
+
+HEX_COLOUR = Color.from_string('#2F7ED8')
+RGB_COLOUR = Color.from_string('rgb(255, 255, 255)')
+RGB_COLOUR = Color.from_string('rgb(40%, 20%, 40%)')
+RGBA_COLOUR = Color.from_string('rgba(255, 255, 255, 0.5)')
+RGBA_COLOUR = Color.from_string('rgba(40%, 20%, 40%, 0.5)')
+HSL_COLOUR = Color.from_string('hsl(100, 0%, 50%)')
+HSLA_COLOUR = Color.from_string('hsla(100, 0%, 50%, 0.5)')
+  
+BLACK = Color.from_string('black')
+CHOCOLATE = Color.from_string('chocolate')
+HOTPINK = Color.from_string('hotpink')
+
+TRANSPARENT = Color.from_string('transparent')
+
+login_button_colour = Color.from_string(driver.find_element(By.ID,'login').value_of_css_property('color'))
+
+login_button_background_colour = Color.from_string(driver.find_element(By.ID,'login').value_of_css_property('background-color'))
+
+assert login_button_background_colour == HOTPINK
+
+assert login_button_background_colour.hex == '#ff69b4'
+assert login_button_background_colour.rgba == 'rgba(255, 105, 180, 1)'
+assert login_button_background_colour.rgb == 'rgb(255, 105, 180)'
+
+C. C#
+// We don't have a C# code sample yet -  Help us out and raise a PR
+  
+
+D. Ruby
+
+include Selenium::WebDriver::Support
+
+HEX_COLOUR = Color.from_string('#2F7ED8')
+RGB_COLOUR = Color.from_string('rgb(255, 255, 255)')
+RGB_COLOUR = Color.from_string('rgb(40%, 20%, 40%)')
+RGBA_COLOUR = Color.from_string('rgba(255, 255, 255, 0.5)')
+RGBA_COLOUR = Color.from_string('rgba(40%, 20%, 40%, 0.5)')
+HSL_COLOUR = Color.from_string('hsl(100, 0%, 50%)')
+HSLA_COLOUR = Color.from_string('hsla(100, 0%, 50%, 0.5)')
+
+BLACK = Color.from_string('black')
+CHOCOLATE = Color.from_string('chocolate')
+HOTPINK = Color.from_string('hotpink')
+
+BLACK = Color.from_string('black')
+CHOCOLATE = Color.from_string('chocolate')
+HOTPINK = Color.from_string('hotpink')
+
+TRANSPARENT = Color.from_string('transparent')
+
+login_button_colour = Color.from_string(driver.find_element(id: 'login').css_value('color'))
+
+login_button_background_colour = Color.from_string(driver.find_element(id: 'login').css_value('background-color'))
+
+assert(login_button_background_colour == HOTPINK)
+
+assert(login_button_background_colour.hex == '#ff69b4')
+assert(login_button_background_colour.rgba == 'rgba(255, 105, 180, 1)')
+assert(login_button_background_colour.rgb == 'rgb(255, 105, 180)')
+  
+E. Javascrypt
+
+// This feature is not implemented - Help us by sending a pr to implement this feature
+  
+F. Kotlin
+
+import org.openqa.selenium.support.Color
+
+private val HEX_COLOUR = Color.fromString("#2F7ED8")
+private val RGB_COLOUR = Color.fromString("rgb(255, 255, 255)")                            /"
+private val RGB_COLOUR_PERCENT = Color.fromString("rgb(40%, 20%, 40%)")                    /"
+private val RGBA_COLOUR = Color.fromString("rgba(255, 255, 255, 0.5)")                     /"
+private val RGBA_COLOUR_PERCENT = Color.fromString("rgba(40%, 20%, 40%, 0.5)")             /"
+private val HSL_COLOUR = Color.fromString("hsl(100, 0%, 50%)")                             /"
+private val HSLA_COLOUR = Color.fromString("hsla(100, 0%, 50%, 0.5)")                      /"
+
+private val BLACK = Color.fromString("black")                                           
+private val CHOCOLATE = Color.fromString("chocolate")
+private val HOTPINK = Color.fromString("hotpink")
+
+private val TRANSPARENT = Color.fromString("transparent")
+
+val loginButtonColour = Color.fromString(driver.findElement(By.id("login")).getCssValue("color"))
+
+val loginButtonBackgroundColour = Color.fromString(driver.findElement(By.id("login")).getCssValue("background-color"))
+
+assert(loginButtonBackgroundColour.equals(HOTPINK))
+  
+assert(loginButtonBackgroundColour.asHex().equals("#ff69b4"))
+assert(loginButtonBackgroundColour.asRgba().equals("rgba(255, 105, 180, 1)"))                /"
+assert(loginButtonBackgroundColour.asRgb().equals("rgb(255, 105, 180)"))                    /"
+
+2. ThreadGuard
+
+A. Java
+
+public class DriverClash {
+    //thread main (id 1) created this driver
+    private WebDriver protectedDriver = ThreadGuard.protect(new ChromeDriver()); 
+  
+    static {
+      System.setProperty("webdriver.chrome.driver", "<Set path to your Chromedriver>");
+    }
+    
+    //Thread-1 (id 24) is calling the same driver causing the clash to happen
+    Runnable r1 = () -> {protectedDriver.get("https://selenium.dev");};
+    Thread thr1 = new Thread(r1);
+     
+    void runThreads(){
+      thr1.start();
+    }
+  
+    public static void main(String[] args) {
+      new DriverClash().runThreads();
+    }
+  }
+

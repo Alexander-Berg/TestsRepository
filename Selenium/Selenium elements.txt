@@ -1,0 +1,1174 @@
+1. Locator strategies
+//Ways to identify one or more specific elements in the DOM.
+
+1.1 Traditional Locators
+class name    	    Locates elements whose class name contains the search value (compound class names are not permitted)
+css selector	    Locates elements matching a CSS selector
+id	                Locates elements whose ID attribute matches the search value
+name	            Locates elements whose NAME attribute matches the search value
+link text	        Locates anchor elements whose visible text matches the search value
+partial link text	Locates anchor elements whose visible text contains the search value. If multiple elements are matching, only the first one will be selected.
+tag name	        Locates elements whose tag name matches the search value
+xpath	            Locates elements matching an XPath expression
+
+1.2 Relative Locators
+/Above  /Below  /Left of  /Right of Near /Chaining relative locators
+A. Java
+By emailLocator = RelativeLocator.with(By.tagName("input")).above(By.id("password"));
+By passwordLocator = RelativeLocator.with(By.tagName("input")).below(By.id("email"));
+By cancelLocator = RelativeLocator.with(By.tagName("button")).toLeftOf(By.id("submit"));
+By submitLocator = RelativeLocator.with(By.tagName("button")).toRightOf(By.id("cancel"));
+By emailLocator = RelativeLocator.with(By.tagName("input")).near(By.id("lbl-email"));
+By submitLocator = RelativeLocator.with(By.tagName("button")).below(By.id("email").toRightOf(By.id("cancel"));
+B. Python
+email_locator = locate_with(By.TAG_NAME, "input").above({By.ID: "password"})
+password_locator = locate_with(By.TAG_NAME, "input").below({By.ID: "email"})
+cancel_locator = locate_with(By.TAG_NAME, "button").to_left_of({By.ID: "submit"})
+submit_locator = locate_with(By.TAG_NAME, "button").to_right_of({By.ID: "cancel"})
+email_locator = locate_with(By.TAG_NAME, "input").near({By.ID: "lbl-email"})
+submit_locator = locate_with(By.TAG_NAME, "button").below({By.ID: "email"}.to_right_of({By.ID: "cancel"})
+C. C#
+var emailLocator = RelativeBy.WithLocator(By.TagName("input")).Above(By.Id("password"));
+var passwordLocator = RelativeBy.WithLocator(By.TagName("input")).Below(By.Id("email"));
+var cancelLocator = RelativeBy.WithLocator(By.tagName("button")).LeftOf(By.Id("submit"));
+var submitLocator = RelativeBy.WithLocator(By.tagName("button")).RightOf(By.Id("cancel"));
+var emailLocator = RelativeBy.WithLocator(By.tagName("input")).Near(By.Id("lbl-email"));
+var submitLocator = RelativeBy.WithLocator(By.tagName("button"))Below(By.Id("email").RightOf(By.Id("cancel"));
+D. Ruby
+email_locator = {relative: {tag_name: 'input', above: {id: 'password'}}}
+password_locator = {relative: {tag_name: 'input', below: {id: 'email'}}}
+cancel_locator = {relative: {tag_name: 'button', left: {id: 'submit'}}}
+submit_locator = {relative: {tag_name: 'button', right: {id: 'cancel'}}}
+email_locator = {relative: {tag_name: 'input', near: {id: 'lbl-email'}}}
+submit_locator = {relative: {tag_name: 'button', below: {id: 'email'}, right: {id: 'cancel'}}}
+E. Javascrypt
+let emailLocator = locateWith(By.tagName('input')).above(By.id('password')));
+let passwordLocator = locateWith(By.tagName('input')).below(By.id('email')));
+let cancelLocator = locateWith(By.tagName('button')).toLeftOf(By.id('submit')));
+let submitLocator = locateWith(By.tagName('button')).toRightOf(By.id('cancel')));
+let emailLocator = locateWith(By.tagName('input')).near(By.id('lbl-email')));
+let submitLocator = locateWith(By.tagName('button')).below(By.id('email').toRightOf(By.id('cancel')));
+F. Kotlin
+val emailLocator = RelativeLocator.with(By.tagName("input")).above(By.id("password")))
+val passwordLocator = RelativeLocator.with(By.tagName("input")).below(By.id("email")))
+val cancelLocator = RelativeLocator.with(By.tagName("button")).toLeftOf(By.id("submit")))
+val submitLocator = RelativeLocator.with(By.tagName("button")).toRightOf(By.id("cancel")))
+val emailLocator = RelativeLocator.with(By.tagName("input")).near(By.id("lbl-email")))
+val submitLocator = RelativeLocator.with(By.tagName("button")).below(By.id("email").toRightOf(By.id("cancel")))
+
+2. Finding web elements
+//Code snippet:
+<ol id="vegetables">
+ <li class="potatoes">…
+ <li class="onions">…
+ <li class="tomatoes"><span>Tomato is a Vegetable</span>…
+</ol>
+<ul id="fruits">
+  <li class="bananas">…
+  <li class="apples">…
+  <li class="tomatoes"><span>Tomato is a Fruit</span>…
+</ul>
+
+1.1 First matching element
+1.1.2 Evaluating entire DOM
+A. Java
+WebElement vegetable = driver.findElement(By.className("tomatoes"));
+B. Python
+vegetable = driver.find_element(By.CLASS_NAME, "tomatoes")
+C. C#
+var vegetable = driver.FindElement(By.ClassName("tomatoes"));
+D. Ruby
+vegetable = driver.find_element(class: 'tomatoes')
+E. Javascrypt
+const vegetable = driver.findElement(By.className('tomatoes'));
+F. Kotlin
+val vegetable: WebElement = driver.findElement(By.className("tomatoes"))
+
+1.1.3 Evaluating a subset of the DOM 
+A. Java
+WebElement fruits = driver.findElement(By.id("fruits"));
+WebElement fruit = fruits.findElement(By.id("tomatoes"));
+B. Python
+fruits = driver.find_element(By.ID, "fruits")
+fruit = fruits.find_elements_by_id("tomatoes")
+C. C#
+IWebElement fruits = driver.FindElement(By.Id("fruits"));
+IWebElement fruit = fruits.FindElement(By.Id("tomatoes"));
+D. Ruby
+fruits = driver.find_element(id: 'fruits')
+fruit = fruits.find_element(id: 'tomatoes')
+E. Javascrypt
+const fruits = driver.findElement(By.id('fruits'));
+const fruit = fruits.findElement(By.id('tomatoes'));
+F. Kotlin
+val fruits = driver.findElement(By.id("fruits"))
+val fruit = fruits.findElement(By.id("tomatoes"))
+
+1.3 Optimized locator
+//A nested lookup might not be the most effective location strategy since it requires two separate commands to be issued to the browser
+A. Java
+WebElement fruit = driver.findElement(By.cssSelector("#fruits .tomatoes"));
+B. Python
+fruit = driver.find_element_by_css_selector("#fruits .tomatoes")
+C. C#
+var fruit = driver.FindElement(By.CssSelector("#fruits .tomatoes"));
+D. Ruby
+fruit = driver.find_element(css: '#fruits .tomatoes')
+E. Javascrypt
+const fruit = driver.findElement(By.css('#fruits .tomatoes'));
+F. Kotlin
+val fruit = driver.findElement(By.cssSelector("#fruits .tomatoes"))
+
+1.4 All matching elements
+A. Java
+List<WebElement> plants = driver.findElements(By.tagName("li"));
+B. Python
+plants = driver.find_elements(By.TAG_NAME, "li")
+C. C#
+IReadOnlyList<IWebElement> plants = driver.FindElements(By.TagName("li"));
+D. Ruby
+plants = driver.find_elements(tag_name: 'li')
+E. Javascrypt
+const plants = driver.findElements(By.tagName('li'));
+F. Kotlin
+val plants: List<WebElement> = driver.findElements(By.tagName("li"))
+
+1.5 Get element
+A. Java
+List<WebElement> elements = driver.findElements(By.tagName("li"));
+
+for (WebElement element : elements) {
+    System.out.println("Paragraph text:" + element.getText());
+}
+B. Python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Firefox()
+
+    # Navigate to Url
+driver.get("https://www.example.com")
+
+    # Get all the elements available with tag name 'p'
+elements = driver.find_elements(By.TAG_NAME, 'p')
+
+for e in elements:
+    print(e.text)
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
+using System.Collections.Generic;
+
+namespace FindElementsExample {
+ class FindElementsExample {
+  public static void Main(string[] args) {
+   IWebDriver driver = new FirefoxDriver();
+   try {
+    // Navigate to Url
+    driver.Navigate().GoToUrl("https://example.com");
+
+    // Get all the elements available with tag name 'p'
+    IList < IWebElement > elements = driver.FindElements(By.TagName("p"));
+    foreach(IWebElement e in elements) {
+     System.Console.WriteLine(e.Text);
+    }
+
+   } finally {
+    driver.Quit();
+   }
+  }
+ }
+}
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :firefox
+begin
+     # Navigate to URL
+  driver.get 'https://www.example.com'
+
+     # Get all the elements available with tag name 'p'
+  elements = driver.find_elements(:tag_name,'p')
+
+  elements.each { |e|
+    puts e.text
+  }
+ensure
+  driver.quit
+end
+E. Javascrypt
+const {Builder, By} = require('selenium-webdriver');
+(async function example() {
+    let driver = await new Builder().forBrowser('firefox').build();
+    try {
+        // Navigate to Url
+        await driver.get('https://www.example.com');
+
+        // Get all the elements available with tag 'p'
+        let elements = await driver.findElements(By.css('p'));
+        for(let e of elements) {
+            console.log(await e.getText());
+        }
+    }
+    finally {
+        await driver.quit();
+    }
+})();
+F. Kotlin
+import org.openqa.selenium.By
+import org.openqa.selenium.firefox.FirefoxDriver
+
+fun main() {
+    val driver = FirefoxDriver()
+    try {
+        driver.get("https://example.com")
+        // Get all the elements available with tag name 'p'
+        val elements = driver.findElements(By.tagName("p"))
+        for (element in elements) {
+            println("Paragraph text:" + element.text)
+        }
+    } finally {
+        driver.quit()
+    }
+}
+1.6 Find Elements From Element
+A. Java
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import java.util.List;
+
+public class findElementsFromElement {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        try {
+            driver.get("https://example.com");
+
+            // Get element with tag name 'div'
+            WebElement element = driver.findElement(By.tagName("div"));
+
+            // Get all the elements available with tag name 'p'
+            List<WebElement> elements = element.findElements(By.tagName("p"));
+            for (WebElement e : elements) {
+                System.out.println(e.getText());
+            }
+        } finally {
+            driver.quit();
+        }
+    }
+}
+
+B. Python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get("https://www.example.com")
+
+    # Get element with tag name 'div'
+element = driver.find_element(By.TAG_NAME, 'div')
+
+    # Get all the elements available with tag name 'p'
+elements = element.find_elements(By.TAG_NAME, 'p')
+for e in elements:
+    print(e.text)
+  
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System.Collections.Generic;
+
+namespace FindElementsFromElement {
+ class FindElementsFromElement {
+  public static void Main(string[] args) {
+   IWebDriver driver = new ChromeDriver();
+   try {
+    driver.Navigate().GoToUrl("https://example.com");
+
+    // Get element with tag name 'div'
+    IWebElement element = driver.FindElement(By.TagName("div"));
+
+    // Get all the elements available with tag name 'p'
+    IList < IWebElement > elements = element.FindElements(By.TagName("p"));
+    foreach(IWebElement e in elements) {
+     System.Console.WriteLine(e.Text);
+    }
+   } finally {
+    driver.Quit();
+   }
+  }
+ }
+}
+  
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :chrome
+begin
+  # Navigate to URL
+  driver.get 'https://www.example.com'
+
+  # Get element with tag name 'div'
+  element = driver.find_element(:tag_name,'div')
+
+  # Get all the elements available with tag name 'p'
+  elements = element.find_elements(:tag_name,'p')
+
+  elements.each { |e|
+    puts e.text
+  }
+ensure
+  driver.quit
+end
+
+E. Javascrypt
+const {Builder, By} = require('selenium-webdriver');
+
+(async function example() {
+    let driver = new Builder()
+        .forBrowser('chrome')
+        .build();
+
+    await driver.get('https://www.example.com');
+
+    // Get element with tag name 'div'
+    let element = driver.findElement(By.css("div"));
+
+    // Get all the elements available with tag name 'p'
+    let elements = await element.findElements(By.css("p"));
+    for(let e of elements) {
+        console.log(await e.getText());
+    }
+})();
+
+
+F. Kotlin
+import org.openqa.selenium.By
+import org.openqa.selenium.chrome.ChromeDriver
+
+fun main() {
+    val driver = ChromeDriver()
+    try {
+        driver.get("https://example.com")
+
+        // Get element with tag name 'div'
+        val element = driver.findElement(By.tagName("div"))
+
+        // Get all the elements available with tag name 'p'
+        val elements = element.findElements(By.tagName("p"))
+        for (e in elements) {
+            println(e.text)
+        }
+    } finally {
+        driver.quit()
+    }
+}
+
+1.7 Get Active Element
+//It is used to track (or) find DOM element which has the focus in the current browsing context.
+A. Java
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class activeElementTest {
+  public static void main(String[] args) {
+    WebDriver driver = new ChromeDriver();
+    try {
+      driver.get("http://www.google.com");
+      driver.findElement(By.cssSelector("[name='q']")).sendKeys("webElement");
+
+      // Get attribute of current active element
+      String attr = driver.switchTo().activeElement().getAttribute("title");
+      System.out.println(attr);
+    } finally {
+      driver.quit();
+    }
+  }
+}
+B. Python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get("https://www.example.com")
+
+    # Get element with tag name 'div'
+element = driver.find_element(By.TAG_NAME, 'div')
+
+    # Get all the elements available with tag name 'p'
+elements = element.find_elements(By.TAG_NAME, 'p')
+for e in elements:
+    print(e.text)
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System.Collections.Generic;
+
+namespace FindElementsFromElement {
+ class FindElementsFromElement {
+  public static void Main(string[] args) {
+   IWebDriver driver = new ChromeDriver();
+   try {
+    driver.Navigate().GoToUrl("https://example.com");
+
+    // Get element with tag name 'div'
+    IWebElement element = driver.FindElement(By.TagName("div"));
+
+    // Get all the elements available with tag name 'p'
+    IList < IWebElement > elements = element.FindElements(By.TagName("p"));
+    foreach(IWebElement e in elements) {
+     System.Console.WriteLine(e.Text);
+    }
+   } finally {
+    driver.Quit();
+   }
+  }
+ }
+}
+  
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :chrome
+begin
+  driver.get 'https://www.google.com'
+  driver.find_element(css: '[name="q"]').send_keys('webElement')
+
+  # Get attribute of current active element
+  attr = driver.switch_to.active_element.attribute('title')
+  puts attr
+ensure
+  driver.quit
+end
+F. Kotlin
+import org.openqa.selenium.By
+import org.openqa.selenium.chrome.ChromeDriver
+
+fun main() {
+    val driver = ChromeDriver()
+    try {
+        driver.get("https://www.google.com")
+        driver.findElement(By.cssSelector("[name='q']")).sendKeys("webElement")
+
+        // Get attribute of current active element
+        val attr = driver.switchTo().activeElement().getAttribute("title")
+        print(attr)
+    } finally {
+        driver.quit()
+    }
+}
+
+2. Interacting with web elements
+// There are only 5 basic commands that can be executed on an element:
+
+click (applies to any element)
+send keys (only applies to text fields and content editable elements)
+clear (only applies to text fields and content editable elements)
+submit (only applies to form elements)
+select (see Select List Elements)
+
+2.1 Send keys
+
+A. Java
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class HelloSelenium {
+  public static void main(String[] args) {
+    WebDriver driver = new FirefoxDriver();
+    try {
+      // Navigate to Url
+      driver.get("https://google.com");
+
+      // Enter text "q" and perform keyboard action "Enter"
+      driver.findElement(By.name("q")).sendKeys("q" + Keys.ENTER);
+    } finally {
+      driver.quit();
+    }
+  }
+}
+B. Python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+driver = webdriver.Firefox()
+
+    # Navigate to url
+driver.get("http://www.google.com")
+
+    # Enter "webdriver" text and perform "ENTER" keyboard action
+driver.find_element(By.NAME, "q").send_keys("webdriver" + Keys.ENTER)
+C. C#
+using (var driver = new FirefoxDriver())
+{
+  // Navigate to Url
+  driver.Navigate().GoToUrl("https://google.com");
+
+  // Enter "webdriver" text and perform "ENTER" keyboard action
+  driver.FindElement(By.Name("q")).SendKeys("webdriver" + Keys.Enter);
+}
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :firefox
+begin
+    # Navigate to URL
+  driver.get 'https://google.com'
+
+    # Enter "webdriver" text and perform "ENTER" keyboard action
+  driver.find_element(name: 'q').send_keys 'webdriver', :return
+
+ensure
+  driver.quit
+end
+E. Javascrypt
+const {Builder, By, Key} = require('selenium-webdriver');
+
+(async function example() {
+  let driver = await new Builder().forBrowser('firefox').build();
+
+  try {
+    // Navigate to Url
+    await driver.get('https://www.google.com');
+
+    // Enter text "webdriver" and perform keyboard action "Enter"
+    await driver.findElement(By.name('q')).sendKeys('webdriver', Key.ENTER);
+  }
+  finally {
+    await driver.quit();
+  }
+})();
+F. Kotlin
+import org.openqa.selenium.By
+import org.openqa.selenium.Keys
+import org.openqa.selenium.firefox.FirefoxDriver
+
+fun main() {
+  val driver = FirefoxDriver()
+  try {
+    // Navigate to Url
+    driver.get("https://google.com")
+
+    // Enter text "q" and perform keyboard action "Enter"
+    driver.findElement(By.name("q")).sendKeys("q" + Keys.ENTER)
+  } finally {
+    driver.quit()
+  }
+}
+  
+2.2 Clear
+A. Java
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class clear {
+  public static void main(String[] args) {
+    WebDriver driver = new ChromeDriver();
+    try {
+      // Navigate to Url
+      driver.get("https://www.google.com");
+      // Store 'SearchInput' element
+      WebElement searchInput = driver.findElement(By.name("q"));
+      searchInput.sendKeys("selenium");
+      // Clears the entered text
+      searchInput.clear();
+    } finally {
+      driver.quit();
+    }
+  }
+}
+  
+B. Python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+driver = webdriver.Chrome()
+
+    # Navigate to url
+driver.get("http://www.google.com")
+    # Store 'SearchInput' element
+SearchInput = driver.find_element(By.NAME, "q")
+SearchInput.send_keys("selenium")
+    # Clears the entered text
+SearchInput.clear()
+  
+C. C#
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System;
+
+namespace SnipetProjectDelete
+{
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      IWebDriver driver = new ChromeDriver();
+      try
+      {
+        // Navigate to Url
+        driver.Navigate().GoToUrl(@"https://www.google.com");
+        // Store 'SearchInput' element
+        IWebElement searchInput = driver.FindElement(By.Name("q"));
+        searchInput.SendKeys("selenium");
+        // Clears the entered text
+        searchInput.Clear();
+      }
+      finally
+      {
+        driver.Quit();
+      }
+    }
+  }
+}
+  
+D. Ruby
+require 'selenium-webdriver'
+driver = Selenium::WebDriver.for :chrome
+begin
+    # Navigate to URL
+  driver.get 'https://google.com'
+    # store 'search_input' element
+  search_input = driver.find_element(name: 'q')
+  search_input.send_keys('selenium')
+    # Clears the entered text
+  search_input.clear
+ensure
+  driver.quit
+end
+  
+E. Javascrypt
+const {Builder, By} = require('selenium-webdriver');
+(async function example() {
+  let driver = await new Builder().forBrowser('chrome').build();
+  try {
+    // Navigate to Url
+    await driver.get('https://www.google.com');
+    // Store 'SearchInput' element
+    let searchInput = driver.findElement(By.name('q'));
+    await searchInput.sendKeys("selenium");
+    // Clears the entered text
+    await searchInput.clear();
+  }
+  finally {
+    await driver.quit();
+  }
+})();
+
+F. Kotlin
+import org.openqa.selenium.By
+import org.openqa.selenium.chrome.ChromeDriver
+fun main() {
+  val driver =  ChromeDriver()
+  try {
+    // Navigate to Url
+    driver.get("https://www.google.com")
+    // Store 'searchInput' element
+    val searchInput = driver.findElement(By.name("q"))
+    searchInput.sendKeys("selenium")
+    // Clears the entered text
+    searchInput.clear()
+  } finally {
+    driver.quit()
+  }
+}
+  
+2.3 Submit
+In Selenium 4 this is no longer implemented with a separate endpoint and functions by executing a script. 
+As such, it is recommended not to use this method and to click the applicable form submission button instead.
+
+3. Information about web elements
+//What you can learn about an element.
+
+3.1Is Displayed
+3.2 Is Enabled
+A. Java
+//navigates to url
+driver.get("https://www.google.com/");
+
+//returns true if element is enabled else returns false
+boolean value = driver.findElement(By.name("btnK")).isEnabled();
+
+B. Python
+    # Navigate to url
+    driver.get("http://www.google.com")
+
+    # Returns true if element is enabled else returns false
+value = driver.find_element(By.NAME, 'btnK').is_enabled()
+  
+C. C#
+// Navigate to Url
+driver.Navigate().GoToUrl("https://google.com");
+
+// Store the WebElement
+IWebElement element = driver.FindElement(By.Name("btnK"));
+
+// Prints true if element is enabled else returns false
+System.Console.WriteLine(element.Enabled);
+  
+D. Ruby
+    # Navigate to url
+    driver.get 'http://www.google.com/'
+
+    # Returns true if element is enabled else returns false
+ele = driver.find_element(name: 'btnK').enabled?
+  
+E. Javascrypt
+// Navigate to url
+await driver.get('https://www.google.com');
+
+// Resolves Promise and returns boolean value
+let element =  await driver.findElement(By.name("btnK")).isEnabled();
+  
+
+F. Kotlin
+//navigates to url
+driver.get("https://www.google.com/")
+
+//returns true if element is enabled else returns false
+val attr = driver.findElement(By.name("btnK")).isEnabled()
+
+3.3 Is Selected
+
+A. Java
+//navigates to url
+driver.get("https://the-internet.herokuapp.com/checkboxes");
+
+//returns true if element is checked else returns false
+boolean value = driver.findElement(By.cssSelector("input[type='checkbox']:first-of-type")).isSelected();
+ 
+B. Python
+    # Navigate to url
+    driver.get("https://the-internet.herokuapp.com/checkboxes")
+
+    # Returns true if element is checked else returns false
+value = driver.find_element(By.CSS_SELECTOR, "input[type='checkbox']:first-of-type").is_selected()
+  
+C. C#
+// Navigate to Url
+driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/checkboxes");
+
+// Returns true if element ins checked else returns false
+bool value = driver.FindElement(By.CssSelector("input[type='checkbox']:last-of-type")).Selected;
+  
+D. Ruby
+    # Navigate to url
+    driver.get 'https://the-internet.herokuapp.com/checkboxes'
+
+    # Returns true if element is checked else returns false
+ele = driver.find_element(css: "input[type='checkbox']:last-of-type").selected?
+  
+E. Javascrypt
+// Navigate to url
+await driver.get('https://the-internet.herokuapp.com/checkboxes');
+
+// Returns true if element ins checked else returns false
+let res = await driver.findElement(By.css("input[type='checkbox']:last-of-type")).isSelected();
+  
+F. Kotlin
+//navigates to url
+driver.get("https://the-internet.herokuapp.com/checkboxes")
+
+//returns true if element is checked else returns false
+val attr =  driver.findElement(By.cssSelector("input[type='checkbox']:first-of-type")).isSelected()
+
+3.4 Tag Name
+A. Java
+//navigates to url
+driver.get("https://www.example.com");
+
+//returns TagName of the element
+String value = driver.findElement(By.cssSelector("h1")).getTagName();
+ 
+B. Python
+    # Navigate to url
+    driver.get("https://www.example.com")
+
+    # Returns TagName of the element
+attr = driver.find_element(By.CSS_SELECTOR, "h1").tag_name
+  
+C. C#
+// Navigate to Url
+driver.Navigate().GoToUrl("https://www.example.com");
+
+// Returns TagName of the element
+string attr = driver.FindElement(By.CssSelector("h1")).TagName;
+  
+D. Ruby
+    # Navigate to url
+    driver.get 'https://www.example.com'
+
+    # Returns TagName of the element
+attr = driver.find_element(css: "h1").tag_name
+  
+E. Javascrypt
+// Navigate to URL
+await driver.get('https://www.example.com');
+
+// Returns TagName of the element
+let value = await driver.findElement(By.css('h1')).getTagName();
+  
+
+F. Kotlin
+//navigates to url
+driver.get("https://www.example.com")
+
+//returns TagName of the element
+val attr =  driver.findElement(By.cssSelector("h1")).getTagName()
+ 
+3.3 Size and Position
+//It is used to fetch the dimensions and coordinates of the referenced element.
+
+//The fetched data body contain the following details:
+
+//X-axis position from the top-left corner of the element
+//y-axis position from the top-left corner of the element
+//Height of the element
+//Width of the element
+
+A. Java
+// Navigate to url
+driver.get("https://www.example.com");
+
+// Returns height, width, x and y coordinates referenced element
+Rectangle res =  driver.findElement(By.cssSelector("h1")).getRect();
+
+// Rectangle class provides getX,getY, getWidth, getHeight methods
+System.out.println(res.getX());
+  
+B. Python
+    # Navigate to url
+    driver.get("https://www.example.com")
+
+    # Returns height, width, x and y coordinates referenced element
+res = driver.find_element(By.CSS_SELECTOR, "h1").rect
+  
+C. C#
+// Navigate to Url
+driver.Navigate().GoToUrl("https://example.com");
+
+var res = driver.FindElement(By.CssSelector("h1"));
+// Return x and y coordinates referenced element
+System.Console.WriteLine(res.Location);
+// Returns height, width
+System.Console.WriteLine(res.Size);
+  
+D. Ruby
+    # Navigate to url
+    driver.get 'https://www.example.com'
+
+    # Returns height, width, x and y coordinates referenced element
+res = driver.find_element(css: "h1").rect
+  
+E. Javascrypt
+// Navigate to url
+await driver.get('https://www.example.com');
+
+// Returns height, width, x and y coordinates referenced element
+let element =  await driver.findElement(By.css("h1")).getRect();
+  
+F. Kotlin
+// Navigate to url
+driver.get("https://www.example.com")
+
+// Returns height, width, x and y coordinates referenced element
+val res = driver.findElement(By.cssSelector("h1")).rect
+
+// Rectangle class provides getX,getY, getWidth, getHeight methods
+println(res.getX())
+
+3.4 Get CSS Value
+
+A. Java
+// Navigate to Url
+driver.get("https://www.example.com");
+
+// Retrieves the computed style property 'color' of linktext
+String cssValue = driver.findElement(By.linkText("More information...")).getCssValue("color");
+
+B. Python
+    # Navigate to Url
+    driver.get('https://www.example.com')
+
+    # Retrieves the computed style property 'color' of linktext
+cssValue = driver.findElement(By.LINK_TEXT, "More information...").value_of_css_property('color')
+
+C. C#
+// Navigate to Url
+driver.Navigate().GoToUrl("https://www.example.com");
+
+// Retrieves the computed style property 'color' of linktext
+String cssValue = driver.FindElement(By.LinkText("More information...")).GetCssValue("color");
+ 
+D. Ruby
+    # Navigate to Url
+    driver.get 'https://www.example.com'
+
+    # Retrieves the computed style property 'color' of linktext
+cssValue = driver.find_element(:link_text, 'More information...').css_value('color')
+
+E. Javascrypt
+// Navigate to Url
+await driver.get('https://www.example.com');
+
+// Retrieves the computed style property 'color' of linktext
+let cssValue = await driver.findElement(By.linkText("More information...")).getCssValue('color');
+
+F. Kotlin
+// Navigate to Url
+driver.get("https://www.example.com")
+
+// Retrieves the computed style property 'color' of linktext
+val cssValue = driver.findElement(By.linkText("More information...")).getCssValue("color")
+
+3.5 Text Content
+
+A. Java
+// Navigate to url
+driver.get("https://example.com");
+
+// Retrieves the text of the element
+String text = driver.findElement(By.cssSelector("h1")).getText();
+  
+B. Python
+    # Navigate to url
+    driver.get("https://www.example.com")
+
+    # Retrieves the text of the element
+text = driver.find_element(By.CSS_SELECTOR, "h1").text
+  
+C. C#
+// Navigate to url
+driver.Url="https://example.com";
+
+// Retrieves the text of the element
+String text = driver.FindElement(By.CssSelector("h1")).Text;
+  
+D. Ruby
+    # Navigate to url
+    driver.get 'https://www.example.com'
+
+    # Retrieves the text of the element
+text = driver.find_element(:css, 'h1').text
+  
+E. Javascrypt
+// Navigate to URL
+await driver.get('http://www.example.com');
+
+// retrieves the text of the element
+let text = await driver.findElement(By.css('h1')).getText();
+    
+
+F. Kotlin
+// Navigate to URL
+driver.get("https://www.example.com")
+
+// retrieves the text of the element
+val text = driver.findElement(By.cssSelector("h1")).getText()
+
+3.6 Attributes and Properties 
+//Attribute
+//DOM Attribute
+//DOM Property
+
+4. Working with select list elements
+//Select lists have special behaviors compared to other elements.
+
+<select>
+ <option value=value1>Bread</option>
+ <option value=value2 selected>Milk</option>
+ <option value=value3>Cheese</option>
+</select>
+
+A. Java
+import org.openqa.selenium.support.ui.Select;
+
+WebElement selectElement = driver.findElement(By.id("selectElementID"));
+Select selectObject = new Select(selectElement);
+ 
+// Select an <option> based upon the <select> element's internal index
+selectObject.selectByIndex(1);
+
+// Select an <option> based upon its value attribute
+selectObject.selectByValue("value1");
+
+// Select an <option> based upon its text
+selectObject.selectByVisibleText("Bread");
+  
+// Return a List<WebElement> of options that have been selected
+List<WebElement> allSelectedOptions = selectObject.getAllSelectedOptions();
+
+// Return a WebElement referencing the first selection option found by walking down the DOM
+WebElement firstSelectedOption = selectObject.getFirstSelectedOption();
+
+// Return a List<WebElement> of options that the <select> element contains
+List<WebElement> allAvailableOptions = selectObject.getOptions();
+
+// Deselect an <option> based upon the <select> element's internal index
+selectObject.deselectByIndex(1);
+
+// Deselect an <option> based upon its value attribute
+selectObject.deselectByValue("value1");
+
+// Deselect an <option> based upon its text
+selectObject.deselectByVisibleText("Bread");
+
+// Deselect all selected <option> elements
+selectObject.deselectAll();
+
+Boolean doesThisAllowMultipleSelections = selectObject.isMultiple();
+B. Python
+from selenium.webdriver.support.select import Select
+
+select_element = driver.find_element(By.ID,'selectElementID')
+select_object = Select(select_element)
+  
+# Select an <option> based upon the <select> element's internal index
+select_object.select_by_index(1)
+
+# Select an <option> based upon its value attribute
+select_object.select_by_value('value1')
+
+# Select an <option> based upon its text
+select_object.select_by_visible_text('Bread')
+
+# Return a list[WebElement] of options that have been selected
+all_selected_options = select_object.all_selected_options
+
+# Return a WebElement referencing the first selection option found by walking down the DOM
+first_selected_option = select_object.first_selected_option
+
+# Return a list[WebElement] of options that the <select> element contains
+all_available_options = select_object.options
+
+# Deselect an <option> based upon the <select> element's internal index
+select_object.deselect_by_index(1)
+
+# Deselect an <option> based upon its value attribute
+select_object.deselect_by_value('value1')
+
+# Deselect an <option> based upon its text
+select_object.deselect_by_visible_text('Bread')
+
+# Deselect all selected <option> elements
+select_object.deselect_all()
+
+does_this_allow_multiple_selections = select_object.is_multiple
+  
+C. C#
+using OpenQA.Selenium.Support.UI
+
+IWebElement selectElement = driver.FindElement(By.Id("selectElementID"));
+var selectObject = new SelectElement(selectElement);
+
+// Select an <option> based upon the <select> element's internal index
+selectObject.SelectByIndex(1);
+
+// Select an <option> based upon its value attribute
+selectObject.SelectByValue("value1");
+
+// Select an <option> based upon its text
+ selectObject.SelectByText("Bread");
+
+ // Return a List<WebElement> of options that have been selected
+var allSelectedOptions = selectObject.AllSelectedOptions;
+
+// Return a WebElement referencing the first selection option found by walking down the DOM
+var firstSelectedOption = selectObject.AllSelectedOptions.FirstOrDefault();
+
+// Return a IList<IWebElement> of options that the <select> element contains
+IList<IWebElement> allAvailableOptions = selectObject.Options;
+
+// Deselect an <option> based upon the <select> element's internal index
+selectObject.DeselectByIndex(1);
+
+// Deselect an <option> based upon its value attribute
+selectObject.DeselectByValue("value1");
+
+// Deselect an <option> based upon its text
+selectObject.DeselectByText("Bread");
+
+// Deselect all selected <option> elements
+selectObject.DeselectAll();
+
+bool doesThisAllowMultipleSelections = selectObject.IsMultiple;
+D. Ruby
+include Selenium::WebDriver::Support
+
+select_element = driver.find_element(id: 'selectElementID')
+select_object = Select(select_element)
+
+# Select an <option> based upon the <select> element's internal index
+select_object.select_by(:index, 1)
+
+# Select an <option> based upon its value attribute
+select_object.select_by(:value, 'value1')
+
+# Select an <option> based upon its text
+select_object.select_by(:text, 'Bread')
+
+# Return an Array[Element] of options that have been selected
+all_selected_options = select_object.selected_options
+
+# Return a WebElement referencing the first selection option found by walking down the DOM
+first_selected_option = select_object.first_selected_option
+  
+# Return an Array[Element] of options that the <select> element contains
+all_available_options = select_object.options
+
+# Deselect an <option> based upon the <select> element's internal index
+select_object.deselect_by(:index, 1)
+
+# Deselect an <option> based upon its value attribute
+select_object.deselect_by(:value, 'value1')
+
+# Deselect an <option> based upon its text
+select_object.deselect_by(:text, 'Bread')
+
+# Deselect all selected <option> elements
+select_object.deselect_all
+
+does_this_allow_multiple_selections = select_object.multiple?
+  
+E. Javascrypt
+// This feature is not implemented - Help us by sending a pr to implement this feature
+
+F. Kotlin
+import org.openqa.selenium.support.ui.Select
+
+val selectElement = driver.findElement(By.id("selectElementID"))
+val selectObject = new Select(selectElement)
+
+// Select an <option> based upon the <select> element's internal index
+selectObject.selectByIndex(1)
+
+// Select an <option> based upon its value attribute
+selectObject.selectByValue("value1")
+
+// Select an <option> based upon its text
+selectObject.selectByVisibleText("Bread")
+
+// Return a List<WebElement> of options that have been selected
+val allSelectedOptions = selectObject.allSelectedOptions
+
+// Return a WebElement referencing the first selection option found by walking down the DOM
+val firstSelectedOption = selectObject.firstSelectedOption
+
+// Return a List<WebElement> of options that the <select> element contains
+val allAvailableOptions = selectObject.options
+
+// Deselect an <option> based upon the <select> element's internal index
+selectObject.deselectByIndex(1)
+
+// Deselect an <option> based upon its value attribute
+selectObject.deselectByValue("value1")
+
+// Deselect an <option> based upon its text
+selectObject.deselectByVisibleText("Bread")
+
+// Deselect all selected <option> elements
+selectObject.deselectAll()
+
+val doesThisAllowMultipleSelections = selectObject.isMultiple
+  
+  
