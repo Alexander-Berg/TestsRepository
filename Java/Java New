@@ -1,0 +1,52 @@
+[Test]
+  public void ApplyBlackFridayDiscount_Should_ApplyBlackFridayDiscount_When_CalledOnNewProduct()
+  {
+      // given
+      var product = CreateProduct(basePrice: 100);
+
+      // when
+      product.ApplyBlackFridayDiscount();
+
+      // then
+      product.Discount.Should().NotBeNull();
+      product.Discount.Name.Should().Be("Black Friday");
+      product.Discount.PercentageValue.Should().Be(20);
+      product.BasePrice.Should().NotBe(product.SalesPrice);
+      product.SalesPrice.Should().Be(80);
+      product.IsAvailable.Should().Be(true);
+  }
+  
+  [Test]
+  public void ApplyBlackFridayDiscount_Should_ApplyBlackFridayDiscount_When_CalledOnNewProduct()
+  {
+      // given
+      var product = CreateProduct(basePrice: 100);
+
+      // when
+      product.ApplyBlackFridayDiscount();
+
+      // then
+      product.Discount.Should().NotBeNull();
+      product.Discount.Name.Should().Be("Black Friday");
+      product.Discount.PercentageValue.Should().Be(20);
+      product.BasePrice.Should().NotBe(product.SalesPrice);
+      product.SalesPrice.Should().Be(80);
+      product.IsAvailable.Should().Be(true);
+  }
+  
+   [Test]
+  public void ApplyBlackFridayDiscount_Should_ApplyBlackFridayDiscount_When_CalledOnNewProduct()
+  {
+      // given
+      var product = CreateProduct(basePrice: 100);
+
+      // when
+      product.ApplyBlackFridayDiscount();
+
+      // then
+      var productShould = new ProductAssert(product);
+      productShould
+          .BeAvailable()
+          .HaveDiscount("Black Friday", 20)
+          .Cost(80);
+  }
